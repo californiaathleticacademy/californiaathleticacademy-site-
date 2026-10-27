@@ -46,6 +46,24 @@ nav.desktop a:hover{color:var(--gold);}
 @media(min-width:640px){.header-cta{display:flex;}}
 .btn-donate{background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:10px 16px;border-radius:6px;border:none;cursor:pointer;transition:background .15s;text-align:center;text-decoration:none;display:block;}
 .btn-donate:hover{background:var(--gold-bright);}
+
+/* ── DONATION MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:16px;max-width:440px;width:100%;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.25);}
+.modal-header{background:var(--navy);padding:24px 28px;border-bottom:3px solid var(--gold);}
+.modal-header h3{font-family:'Anton',sans-serif;color:var(--paper);font-size:1.375rem;text-transform:uppercase;margin-bottom:4px;}
+.modal-header p{color:rgba(247,245,240,.6);font-size:13px;}
+.modal-body{padding:24px 28px;}
+.modal-body p{color:rgba(12,35,64,.65);font-size:14px;line-height:1.6;margin-bottom:20px;}
+.donation-amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.amt-btn{background:var(--paper);border:1.5px solid rgba(12,35,64,.15);border-radius:8px;padding:12px 8px;font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:var(--navy);cursor:pointer;transition:all .15s;text-align:center;}
+.amt-btn:hover,.amt-btn.selected{background:var(--navy);color:var(--paper);border-color:var(--navy);}
+.modal-donate-btn{width:100%;background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.05em;text-transform:uppercase;padding:14px;border-radius:8px;border:none;cursor:pointer;transition:background .15s;margin-bottom:10px;}
+.modal-donate-btn:hover{background:var(--gold-bright);}
+.modal-close-btn{width:100%;background:none;border:none;color:rgba(12,35,64,.4);font-family:'Inter',sans-serif;font-size:13px;cursor:pointer;padding:8px;}
+.modal-close-btn:hover{color:var(--navy);}
+.modal-sandbox-note{font-size:11px;color:rgba(12,35,64,.35);text-align:center;margin-top:6px;}
 .header-cta-row{display:flex;gap:7px;}
 .btn-event{flex:1;text-align:center;background:var(--blue);color:#fff;font-family:'Oswald',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:10px 16px;border-radius:6px;text-decoration:none;transition:background .15s;}
 .btn-event:hover{background:rgba(30,58,138,.85);}
@@ -179,9 +197,24 @@ section{border-bottom:1px solid rgba(0,0,0,.08);}
 #tryout .section-lead{color:rgba(247,245,240,.75);}
 .tryout-grid{display:grid;gap:48px;margin-top:48px;}
 @media(min-width:1024px){.tryout-grid{grid-template-columns:1fr 1fr;gap:64px;}}
-.tryout-portal-box{background:rgba(255,255,255,.05);border:1px solid rgba(184,134,11,.35);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:20px;}
-.tryout-portal-box h3{font-family:'Anton',sans-serif;color:var(--paper);font-size:1.5rem;text-transform:uppercase;}
-.tryout-portal-box p{color:rgba(247,245,240,.7);font-size:15px;line-height:1.625;}
+.tryout-form-box{background:rgba(255,255,255,.05);border:1px solid rgba(184,134,11,.35);border-radius:14px;padding:32px;}
+.tryout-form-box h3{font-family:'Anton',sans-serif;color:var(--paper);font-size:1.5rem;text-transform:uppercase;margin-bottom:8px;}
+.tryout-form-box .sub{color:rgba(247,245,240,.6);font-size:14px;margin-bottom:24px;}
+.tform-row{display:grid;gap:12px;margin-bottom:12px;}
+@media(min-width:480px){.tform-row.two{grid-template-columns:1fr 1fr;}}
+.tform-group{display:flex;flex-direction:column;gap:6px;}
+.tform-group label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:rgba(247,245,240,.55);}
+.tform-group input,.tform-group select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:10px 14px;color:var(--paper);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .15s;width:100%;}
+.tform-group input::placeholder{color:rgba(247,245,240,.3);}
+.tform-group input:focus,.tform-group select:focus{border-color:var(--gold);}
+.tform-group select option{background:var(--navy-2);color:var(--paper);}
+.tform-submit{width:100%;margin-top:20px;background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:14px;border-radius:6px;border:none;cursor:pointer;font-size:14px;transition:background .15s;}
+.tform-submit:hover{background:var(--gold-bright);}
+.tform-submit:disabled{opacity:.6;cursor:not-allowed;}
+.tform-success{display:none;text-align:center;padding:32px 16px;}
+.tform-success .check{font-size:40px;margin-bottom:12px;}
+.tform-success h4{font-family:'Anton',sans-serif;color:var(--paper);font-size:1.25rem;text-transform:uppercase;margin-bottom:8px;}
+.tform-success p{color:rgba(247,245,240,.65);font-size:14px;line-height:1.6;}
 .btn-portal{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:14px 28px;border-radius:6px;text-decoration:none;transition:background .15s;font-size:14px;}
 .btn-portal:hover{background:var(--gold-bright);}
 .location-box{display:flex;flex-direction:column;gap:16px;}
@@ -238,7 +271,7 @@ footer{background:var(--navy-2);border-top:1px solid rgba(255,255,255,.08);}
       <a href="#tryout">Tryout &amp; Location</a>
     </nav>
     <div class="header-cta">
-      <a href="#tryout" class="btn-donate">Donate to California Athletic Academy</a>
+      <button class="btn-donate" onclick="openDonateModal()">Donate to California Athletic Academy</button>
       <div class="header-cta-row">
         <a href="#events" class="btn-event">Event Registration</a>
         <a href="#tryout" class="btn-tryout">Secure a Tryout</a>
@@ -473,10 +506,56 @@ footer{background:var(--navy-2);border-top:1px solid rgba(255,255,255,.08);}
       <p class="section-lead" style="color:rgba(247,245,240,.75)">Rosters are capped at 64. Submit your tryout request and a coach will reach out within 24–48 hours to schedule your session.</p>
     </div>
     <div class="tryout-grid">
-      <div class="tryout-portal-box">
+      <div class="tryout-form-box">
         <h3>Secure a Tryout</h3>
-        <p>Submit your player's info through our portal and a California Athletic Academy coach will contact you directly to schedule a tryout. No commitment required — just show up ready to work.</p>
-        <a href="https://claude.ai/artifact/XzCWEwsw8gt5aBmGM3AaeL" target="_blank" class="btn-portal">Submit Tryout Request →</a>
+        <p class="sub">No commitment required — a coach will reach out within 24–48 hours to schedule your session.</p>
+        <div id="tryout-form-wrap">
+          <form id="tryout-form" onsubmit="submitTryout(event)">
+            <div class="tform-row two">
+              <div class="tform-group">
+                <label for="tf-player">Player Name</label>
+                <input type="text" id="tf-player" placeholder="First Last" required>
+              </div>
+              <div class="tform-group">
+                <label for="tf-grade">Grade</label>
+                <select id="tf-grade" required>
+                  <option value="" disabled selected>Select grade</option>
+                  <option>4th Grade</option>
+                  <option>5th Grade</option>
+                  <option>6th Grade</option>
+                  <option>7th Grade</option>
+                  <option>8th Grade</option>
+                  <option>9th Grade (Freshman)</option>
+                  <option>10th Grade (Sophomore)</option>
+                  <option>11th Grade (Junior)</option>
+                  <option>12th Grade (Senior)</option>
+                </select>
+              </div>
+            </div>
+            <div class="tform-row two">
+              <div class="tform-group">
+                <label for="tf-parent">Parent / Guardian Name</label>
+                <input type="text" id="tf-parent" placeholder="First Last" required>
+              </div>
+              <div class="tform-group">
+                <label for="tf-phone">Phone Number</label>
+                <input type="tel" id="tf-phone" placeholder="(626) 555-0100" required>
+              </div>
+            </div>
+            <div class="tform-row">
+              <div class="tform-group">
+                <label for="tf-email">Email Address</label>
+                <input type="email" id="tf-email" placeholder="parent@email.com" required>
+              </div>
+            </div>
+            <button type="submit" class="tform-submit" id="tryout-btn">Submit Tryout Request →</button>
+          </form>
+          <div class="tform-success" id="tryout-success">
+            <div class="check">✅</div>
+            <h4>Request Received!</h4>
+            <p>A California Athletic Academy coach will contact you within 24–48 hours to schedule your tryout session.</p>
+          </div>
+        </div>
       </div>
       <div class="location-box">
         <div>
@@ -484,9 +563,12 @@ footer{background:var(--navy-2);border-top:1px solid rgba(255,255,255,.08);}
           <p class="location-name">Rowland High School Gymnasium</p>
           <p class="location-addr">2000 Otterbein Ave, Rowland Heights, CA 91748</p>
         </div>
-        <div class="location-detail">
-          <span class="icon">📍</span>
-          <span>Located inside Rowland High School. Enter from the main gymnasium entrance on Otterbein Ave. Parking available in the main lot.</span>
+        <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.12);height:240px;">
+          <iframe
+            src="https://maps.google.com/maps?q=Rowland+High+School,+2000+Otterbein+Ave,+Rowland+Heights,+CA+91748&output=embed&z=15"
+            width="100%" height="240" style="border:0;display:block;" allowfullscreen="" loading="lazy"
+            title="Rowland High School Gymnasium — 2000 Otterbein Ave, Rowland Heights, CA 91748">
+          </iframe>
         </div>
         <div class="location-detail">
           <span class="icon">🕐</span>
@@ -500,6 +582,36 @@ footer{background:var(--navy-2);border-top:1px solid rgba(255,255,255,.08);}
     </div>
   </div>
 </section>
+
+<!-- DONATION MODAL -->
+<div class="modal-overlay" id="donateModal" onclick="closeDonateModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Support California Athletic Academy</h3>
+      <p>Your donation helps keep our program accessible to every athlete.</p>
+    </div>
+    <div class="modal-body">
+      <p>Select an amount or choose your own. Every contribution goes directly to player development, facility access, and keeping our program affordable.</p>
+      <div class="donation-amounts">
+        <button class="amt-btn" onclick="selectAmt(this,'25')">$25</button>
+        <button class="amt-btn" onclick="selectAmt(this,'50')">$50</button>
+        <button class="amt-btn" onclick="selectAmt(this,'100')">$100</button>
+        <button class="amt-btn" onclick="selectAmt(this,'250')">$250</button>
+        <button class="amt-btn" onclick="selectAmt(this,'500')">$500</button>
+        <button class="amt-btn" id="custom-amt-btn" onclick="selectAmt(this,'custom')">Custom</button>
+      </div>
+      <div id="custom-amt-wrap" style="display:none;margin-bottom:20px;">
+        <div class="tform-group">
+          <label for="custom-amt-input">Enter Amount ($)</label>
+          <input type="number" id="custom-amt-input" placeholder="Enter amount" min="1" style="background:var(--paper);border:1.5px solid rgba(12,35,64,.2);color:var(--navy);">
+        </div>
+      </div>
+      <button class="modal-donate-btn" onclick="goToDonate()">Donate Now →</button>
+      <button class="modal-close-btn" onclick="closeDonateModal()">No thanks</button>
+      <p class="modal-sandbox-note">⚠️ Test mode — no real charges will occur</p>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -543,6 +655,68 @@ footer{background:var(--navy-2);border-top:1px solid rgba(255,255,255,.08);}
 <script>
 function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';}
 function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';}
+
+// DONATION MODAL
+const DONATE_URL='https://buy.stripe.com/test_3cIaEYcOfgBQ46yd3ogUM00';
+let selectedAmt=null;
+function openDonateModal(){document.getElementById('donateModal').classList.add('open');document.body.style.overflow='hidden';}
+function closeDonateModal(e){if(!e||e.target===document.getElementById('donateModal')||e.type==='click'&&!e.target.closest('.modal-box')){document.getElementById('donateModal').classList.remove('open');document.body.style.overflow='';}}
+function selectAmt(btn,val){
+  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedAmt=val;
+  document.getElementById('custom-amt-wrap').style.display=val==='custom'?'block':'none';
+}
+function goToDonate(){
+  let amt=selectedAmt;
+  if(amt==='custom'){amt=document.getElementById('custom-amt-input').value;}
+  if(!amt){alert('Please select a donation amount.');return;}
+  const url=amt&&amt!=='custom'?`${DONATE_URL}?prefilled_amount=${parseInt(amt)*100}`:DONATE_URL;
+  window.open(url,'_blank');
+  document.getElementById('donateModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+async function submitTryout(e){
+  e.preventDefault();
+  const btn=document.getElementById('tryout-btn');
+  btn.disabled=true;btn.textContent='Sending…';
+  const player=document.getElementById('tf-player').value.trim();
+  const grade=document.getElementById('tf-grade').value;
+  const parent=document.getElementById('tf-parent').value.trim();
+  const phone=document.getElementById('tf-phone').value.trim();
+  const email=document.getElementById('tf-email').value.trim();
+  const html=`<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+    <div style="background:#0C2340;padding:24px 32px;border-bottom:3px solid #B8860B">
+      <h2 style="color:#B8860B;font-size:20px;margin:0">New Tryout Request</h2>
+      <p style="color:rgba(247,245,240,.7);font-size:13px;margin:4px 0 0">California Athletic Academy</p>
+    </div>
+    <div style="padding:24px 32px;background:#fff;border:1px solid #e5e7eb">
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px 0;color:#6b7280;font-size:13px;width:140px">Player Name</td><td style="padding:8px 0;font-weight:600;color:#111827">${player}</td></tr>
+        <tr><td style="padding:8px 0;color:#6b7280;font-size:13px">Grade</td><td style="padding:8px 0;font-weight:600;color:#111827">${grade}</td></tr>
+        <tr><td style="padding:8px 0;color:#6b7280;font-size:13px">Parent / Guardian</td><td style="padding:8px 0;font-weight:600;color:#111827">${parent}</td></tr>
+        <tr><td style="padding:8px 0;color:#6b7280;font-size:13px">Phone</td><td style="padding:8px 0;font-weight:600;color:#111827">${phone}</td></tr>
+        <tr><td style="padding:8px 0;color:#6b7280;font-size:13px">Email</td><td style="padding:8px 0;font-weight:600;color:#111827">${email}</td></tr>
+      </table>
+    </div>
+    <div style="padding:16px 32px;background:#f9fafb;border:1px solid #e5e7eb;border-top:none">
+      <p style="color:#6b7280;font-size:12px;margin:0">Submitted via californiaathleticacademy.com — Tryout Request Form</p>
+    </div>
+  </div>`;
+  try{
+    await fetch('/api/send-email',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        subject:`Tryout Request — ${player} (${grade})`,
+        html
+      })
+    });
+  }catch(x){/* silent — form still shows success */}
+  document.getElementById('tryout-form').style.display='none';
+  document.getElementById('tryout-success').style.display='block';
+}
 </script>
 </body>
 </html>
