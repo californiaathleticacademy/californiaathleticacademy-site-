@@ -201,10 +201,66 @@
     color: rgba(12,35,64,.7);
     margin-bottom: 4px;
   }
-  .session-spots {
-    font-size: 13px;
-    color: rgba(12,35,64,.45);
+  /* Spot meter */
+  .spot-meter-wrap {
+    margin-top: 10px;
   }
+  .spot-bar-bg {
+    height: 6px;
+    background: rgba(12,35,64,.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .spot-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .5s ease, background .5s ease;
+    background: var(--navy);
+  }
+  .spot-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(12,35,64,.5);
+    letter-spacing: .3px;
+  }
+  .spot-label.urgent {
+    color: #c0392b;
+    animation: pulse-text 1.4s ease-in-out infinite;
+  }
+  .spot-label.full {
+    color: #c0392b;
+  }
+  @keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .55; }
+  }
+  .session-card.session-full {
+    opacity: .65;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .session-card.session-full:hover {
+    border-color: rgba(12,35,64,.1);
+    box-shadow: none;
+  }
+  .full-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    background: rgba(192,57,43,.08);
+    border-radius: 11px;
+    padding: 5px 10px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #c0392b;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1.5px solid rgba(192,57,43,.2);
+  }
+  .session-full .full-overlay { display: block; }
 
   /* FORM */
   .form-section {
@@ -384,17 +440,25 @@
   <p style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:12px">// Step 1 — Choose Your Session</p>
 
   <div class="sessions-grid" id="sessions-grid">
-    <div class="session-card" onclick="selectSession('s1', this)">
+    <div class="session-card" id="card-s1" onclick="selectSession('s1', this)">
+      <div class="full-overlay">Session Full</div>
       <div class="session-num">Session 1</div>
       <div class="session-title">Grades 4th – 8th</div>
       <div class="session-time">10:00 AM – 12:00 PM</div>
-      <div class="session-spots">Limited to 64 athletes</div>
+      <div class="spot-meter-wrap" id="meter-s1">
+        <div class="spot-bar-bg"><div class="spot-bar-fill" id="bar-s1" style="width:100%"></div></div>
+        <div class="spot-label" id="label-s1">Limited to 64 athletes</div>
+      </div>
     </div>
-    <div class="session-card" onclick="selectSession('s2', this)">
+    <div class="session-card" id="card-s2" onclick="selectSession('s2', this)">
+      <div class="full-overlay">Session Full</div>
       <div class="session-num">Session 2</div>
       <div class="session-title">High School Division</div>
       <div class="session-time">12:00 PM – 1:30 PM</div>
-      <div class="session-spots">Limited to 64 athletes</div>
+      <div class="spot-meter-wrap" id="meter-s2">
+        <div class="spot-bar-bg"><div class="spot-bar-fill" id="bar-s2" style="width:100%"></div></div>
+        <div class="spot-label" id="label-s2">Limited to 64 athletes</div>
+      </div>
     </div>
   </div>
 
@@ -460,6 +524,45 @@
 
 <script>
   let selectedSession = null;
+
+  // ── Live spot meter ────────────────────────────────────────────────────────
+  (async function loadSpots() {
+    try {
+      const res = await fetch('/api/spots', { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      ['s1', 's2'].forEach(s => {
+        const d = data[s];
+        if (!d) return;
+        const card   = document.getElementById('card-' + s);
+        const bar    = document.getElementById('bar-' + s);
+        const label  = document.getElementById('label-' + s);
+        const isFull = !d.open || d.available <= 0;
+        const isUrge = !isFull && d.available <= d.threshold;
+        const pct    = isFull ? 0 : Math.max(4, Math.round((d.available / d.max) * 100));
+
+        // Bar color
+        bar.style.width = pct + '%';
+        bar.style.background = isFull ? '#c0392b' : isUrge ? '#e67e22' : '#0C2340';
+
+        // Label
+        if (isFull) {
+          label.textContent = 'Registration closed';
+          label.className = 'spot-label full';
+          card.classList.add('session-full');
+        } else if (isUrge) {
+          label.textContent = `⚡ Only ${d.available} of ${d.max} spots left!`;
+          label.className = 'spot-label urgent';
+        } else {
+          label.textContent = `${d.available} of ${d.max} spots remaining`;
+          label.className = 'spot-label';
+        }
+      });
+    } catch (e) {
+      // silently fall back to default static text
+    }
+  })();
+  // ──────────────────────────────────────────────────────────────────────────
 
   function selectSession(id, el) {
     selectedSession = id;
