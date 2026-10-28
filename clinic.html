@@ -599,21 +599,16 @@
     btn.textContent = 'Registering…';
 
     try {
-      const res = await fetch('/api/send-email', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          subject: `New Clinic Registration — ${firstName} ${lastName}`,
-          to: 'Quentincarr@gmail.com',
-          html: `
-            <h2 style="color:#0C2340;font-family:Arial,sans-serif">New Registration</h2>
-            <p style="font-family:Arial,sans-serif"><strong>Event:</strong> Girls Basketball Skills Clinic — November 1, 2026</p>
-            <p style="font-family:Arial,sans-serif"><strong>Athlete:</strong> ${firstName} ${lastName}</p>
-            <p style="font-family:Arial,sans-serif"><strong>Session:</strong> ${sessionLabel}</p>
-            <p style="font-family:Arial,sans-serif"><strong>Grade:</strong> ${grade || 'Not specified'}</p>
-            <p style="font-family:Arial,sans-serif"><strong>Parent Email:</strong> ${email}</p>
-            <p style="font-family:Arial,sans-serif"><strong>Parent Phone:</strong> ${phone || 'Not provided'}</p>
-          `
+          firstName,
+          lastName,
+          email,
+          phone,
+          grade,
+          session: selectedSession,
         })
       });
 

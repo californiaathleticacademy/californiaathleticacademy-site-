@@ -94,6 +94,15 @@ input:checked + .slider:before { transform:translateX(20px); }
 <!-- DASHBOARD -->
 <div id="dashboard">
 
+  <!-- TAB NAV -->
+  <div id="tab-nav" style="display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid rgba(184,134,11,0.25);">
+    <button class="tab-btn active" id="tab-spots" onclick="switchTab('spots')" style="background:none;border:none;border-bottom:2px solid var(--gold);margin-bottom:-2px;color:var(--gold);font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:10px 20px;cursor:pointer;">Spots</button>
+    <button class="tab-btn" id="tab-roster" onclick="switchTab('roster')" style="background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;color:rgba(255,255,255,0.4);font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:10px 20px;cursor:pointer;">Roster</button>
+  </div>
+
+  <!-- SPOTS PANE -->
+  <div id="pane-spots">
+
   <!-- SESSION 1 -->
   <div class="session-panel" id="panel-s1">
     <div class="panel-header">
@@ -165,6 +174,40 @@ input:checked + .slider:before { transform:translateX(20px); }
 
     <button class="save-btn" onclick="save('s2')">Save Session 2</button>
   </div>
+
+  </div><!-- /pane-spots -->
+
+  <!-- ROSTER PANE -->
+  <div id="pane-roster" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;gap:8px;">
+        <button class="save-btn" id="filter-all"  onclick="loadRoster('all')" style="width:auto;padding:8px 16px;background:rgba(184,134,11,0.15);">All</button>
+        <button class="save-btn" id="filter-s1"   onclick="loadRoster('s1')"  style="width:auto;padding:8px 16px;">Session 1</button>
+        <button class="save-btn" id="filter-s2"   onclick="loadRoster('s2')"  style="width:auto;padding:8px 16px;">Session 2</button>
+      </div>
+      <div id="roster-count" style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;color:var(--gold);text-transform:uppercase;"></div>
+    </div>
+
+    <div id="roster-loading" style="display:none;text-align:center;padding:40px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,0.35);text-transform:uppercase;">Loading…</div>
+    <div id="roster-empty"   style="display:none;text-align:center;padding:40px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;">No registrations yet.</div>
+
+    <div style="overflow-x:auto;">
+      <table id="roster-table" style="width:100%;border-collapse:collapse;display:none;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(184,134,11,0.3);">
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">#</th>
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">Athlete</th>
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">Session</th>
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">Grade</th>
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">Parent Email</th>
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">Phone</th>
+            <th style="text-align:left;padding:8px 10px;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);">Registered</th>
+          </tr>
+        </thead>
+        <tbody id="roster-body"></tbody>
+      </table>
+    </div>
+  </div><!-- /pane-roster -->
 
 </div>
 
@@ -303,6 +346,84 @@ function showToast(msg, isError = false) {
   t.className = 'toast' + (isError ? ' error' : '');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── Tab switching ────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.getElementById('pane-spots').style.display  = name === 'spots'  ? 'block' : 'none';
+  document.getElementById('pane-roster').style.display = name === 'roster' ? 'block' : 'none';
+
+  document.getElementById('tab-spots').style.borderBottomColor  = name === 'spots'  ? 'var(--gold)' : 'transparent';
+  document.getElementById('tab-spots').style.color              = name === 'spots'  ? 'var(--gold)' : 'rgba(255,255,255,0.4)';
+  document.getElementById('tab-roster').style.borderBottomColor = name === 'roster' ? 'var(--gold)' : 'transparent';
+  document.getElementById('tab-roster').style.color             = name === 'roster' ? 'var(--gold)' : 'rgba(255,255,255,0.4)';
+
+  if (name === 'roster') loadRoster('all');
+}
+
+// ── Roster ───────────────────────────────────────────────────────────────────
+let currentRosterFilter = 'all';
+
+async function loadRoster(filter) {
+  currentRosterFilter = filter || 'all';
+
+  // Highlight active filter button
+  ['all','s1','s2'].forEach(f => {
+    const btn = document.getElementById(`filter-${f}`);
+    if (btn) btn.style.background = f === currentRosterFilter
+      ? 'rgba(184,134,11,0.3)'
+      : 'transparent';
+  });
+
+  document.getElementById('roster-loading').style.display = 'block';
+  document.getElementById('roster-empty').style.display   = 'none';
+  document.getElementById('roster-table').style.display   = 'none';
+  document.getElementById('roster-count').textContent     = '';
+
+  try {
+    const url = `/api/registrations?password=${encodeURIComponent(savedPassword)}&session=${currentRosterFilter}`;
+    const r = await fetch(url);
+    const data = await r.json();
+
+    document.getElementById('roster-loading').style.display = 'none';
+
+    if (!data.registrations || data.registrations.length === 0) {
+      document.getElementById('roster-empty').style.display = 'block';
+      document.getElementById('roster-count').textContent   = '0 athletes';
+      return;
+    }
+
+    document.getElementById('roster-count').textContent = `${data.total} athlete${data.total !== 1 ? 's' : ''}`;
+
+    const tbody = document.getElementById('roster-body');
+    tbody.innerHTML = '';
+
+    data.registrations.forEach((reg, i) => {
+      const sessionTag = reg.session === 's1' ? 'S1 · Gr 4–8' : 'S2 · HS';
+      const date = reg.registeredAt
+        ? new Date(reg.registeredAt).toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+        : '—';
+
+      const row = document.createElement('tr');
+      row.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+      row.innerHTML = `
+        <td style="padding:10px 10px;font-family:'Oswald',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);">${data.total - i}</td>
+        <td style="padding:10px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#fff;">${reg.firstName} ${reg.lastName}</td>
+        <td style="padding:10px 10px;font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--gold);">${sessionTag}</td>
+        <td style="padding:10px 10px;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);">${reg.grade || '—'}</td>
+        <td style="padding:10px 10px;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);">${reg.email}</td>
+        <td style="padding:10px 10px;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);">${reg.phone || '—'}</td>
+        <td style="padding:10px 10px;font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);">${date}</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    document.getElementById('roster-table').style.display = 'table';
+
+  } catch (err) {
+    document.getElementById('roster-loading').style.display = 'none';
+    showToast('Could not load roster', true);
+  }
 }
 </script>
 </body>
