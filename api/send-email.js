@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'California Athletic Academy <noreply@californiaathleticacademy.com>',
+        from: 'California Athletic Academy <onboarding@resend.dev>',
         to: to || 'Quentincarr@gmail.com',
         subject,
         html
