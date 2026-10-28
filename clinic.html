@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Girls Basketball Clinic Registration — California Athletic Academy</title>
+<meta name="description" content="Register for the free Girls Basketball Clinic on November 1 at Rowland High School. Two sessions available: Grades 4–8 and High School Division.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0C2340;
+    --gold: #B8860B;
+    --gold-bright: #D4A017;
+    --paper: #F7F5F0;
+    --text: #1a1a2e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--navy);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo svg {
+    height: 40px;
+    width: auto;
+  }
+
+  .nav-back {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-back:hover { color: var(--gold); }
+
+  /* HERO BAND */
+  .hero {
+    background: var(--navy);
+    padding: 52px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(32px, 6vw, 54px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold-bright); }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .hero-meta-item {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-meta-item strong {
+    color: #fff;
+    font-weight: 600;
+  }
+  .dot { color: var(--gold); }
+
+  .free-pill {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 30px;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* SESSION CARDS */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 540px) {
+    .sessions-grid { grid-template-columns: 1fr; }
+  }
+
+  .session-card {
+    background: #fff;
+    border: 1.5px solid rgba(12,35,64,.1);
+    border-radius: 12px;
+    padding: 22px 20px;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+    position: relative;
+  }
+  .session-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 4px 20px rgba(184,134,11,.12);
+  }
+  .session-card.selected {
+    border-color: var(--navy);
+    box-shadow: 0 4px 24px rgba(12,35,64,.15);
+  }
+  .session-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 14px; right: 16px;
+    width: 22px; height: 22px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .session-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .session-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .session-time {
+    font-size: 14px;
+    color: rgba(12,35,64,.7);
+    margin-bottom: 4px;
+  }
+  .session-spots {
+    font-size: 13px;
+    color: rgba(12,35,64,.45);
+  }
+
+  /* FORM */
+  .form-section {
+    background: #fff;
+    border: 1.5px solid rgba(12,35,64,.1);
+    border-radius: 14px;
+    padding: 32px 28px;
+  }
+
+  .form-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 540px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+
+  input, select {
+    height: 44px;
+    padding: 0 14px;
+    border: 1.5px solid rgba(12,35,64,.15);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--navy);
+    background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(12,35,64,.08);
+  }
+
+  .session-hidden-input { display: none; }
+
+  .session-error {
+    display: none;
+    font-size: 13px;
+    color: #c0392b;
+    margin-bottom: 16px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    height: 52px;
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: #0f2d52; }
+  .submit-btn:active { transform: scale(.99); }
+  .submit-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+  }
+
+  /* SUCCESS */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .success-state h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .success-state p {
+    font-size: 15px;
+    color: rgba(12,35,64,.6);
+    line-height: 1.6;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 24px;
+    text-align: center;
+  }
+  footer p {
+    font-size: 13px;
+    color: rgba(255,255,255,.4);
+  }
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="California Athletic Academy">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="California Athletic Academy">
+      <defs><clipPath id="pillLeftClip"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#pillLeftClip)"/>
+      <path d="M118 95 L118 200 M118 145 L148 145" stroke="#F7F5F0" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+      <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+      <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+      <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+      <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND</text>
+    </svg>
+  </a>
+  <a href="/#events" class="nav-back">← Back to Events</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">// Free Event · November 1, 2025</p>
+  <h1>Girls Basketball<br><span>Skills Clinic</span></h1>
+  <div class="hero-meta">
+    <span class="hero-meta-item"><strong>Saturday, Nov 1</strong></span>
+    <span class="dot">·</span>
+    <span class="hero-meta-item">Rowland High School Gymnasium</span>
+    <span class="dot">·</span>
+    <span class="hero-meta-item">Two Sessions Available</span>
+  </div>
+  <span class="free-pill">100% Free — No Cost to Attend</span>
+</div>
+
+<div class="main">
+
+  <!-- Session Selection -->
+  <p style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:12px">// Step 1 — Choose Your Session</p>
+
+  <div class="sessions-grid" id="sessions-grid">
+    <div class="session-card" onclick="selectSession('s1', this)">
+      <div class="session-num">Session 1</div>
+      <div class="session-title">Grades 4th – 8th</div>
+      <div class="session-time">10:00 AM – 12:00 PM</div>
+      <div class="session-spots">Limited to 64 athletes</div>
+    </div>
+    <div class="session-card" onclick="selectSession('s2', this)">
+      <div class="session-num">Session 2</div>
+      <div class="session-title">High School Division</div>
+      <div class="session-time">12:00 PM – 1:30 PM</div>
+      <div class="session-spots">Limited to 64 athletes</div>
+    </div>
+  </div>
+
+  <p class="session-error" id="session-error">Please select a session above.</p>
+
+  <!-- Registration Form -->
+  <p style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:12px">// Step 2 — Athlete Information</p>
+
+  <div class="form-section">
+    <div id="form-wrap">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="First name" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Last name" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Parent / Guardian Email</label>
+        <input type="email" id="email" placeholder="email@example.com" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Parent / Guardian Phone</label>
+          <input type="tel" id="phone" placeholder="(555) 000-0000">
+        </div>
+        <div class="form-group">
+          <label for="grade">Grade / Year</label>
+          <select id="grade">
+            <option value="" disabled selected>Select grade</option>
+            <option>4th Grade</option>
+            <option>5th Grade</option>
+            <option>6th Grade</option>
+            <option>7th Grade</option>
+            <option>8th Grade</option>
+            <option>9th Grade (Freshman)</option>
+            <option>10th Grade (Sophomore)</option>
+            <option>11th Grade (Junior)</option>
+            <option>12th Grade (Senior)</option>
+          </select>
+        </div>
+      </div>
+      <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">
+        Secure My Spot →
+      </button>
+    </div>
+
+    <div class="success-state" id="success-state">
+      <div class="success-icon">🏀</div>
+      <h2>You're Registered!</h2>
+      <p id="success-msg">A confirmation has been sent to your email. We'll see you on November 1st at Rowland High School Gymnasium.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>California Athletic Academy · Rowland Chapter · <a href="/">californiaathleticacademy.com</a></p>
+</footer>
+
+<script>
+  let selectedSession = null;
+
+  function selectSession(id, el) {
+    selectedSession = id;
+    document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('session-error').style.display = 'none';
+  }
+
+  async function submitRegistration() {
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName  = document.getElementById('last-name').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const phone     = document.getElementById('phone').value.trim();
+    const grade     = document.getElementById('grade').value;
+
+    if (!selectedSession) {
+      document.getElementById('session-error').style.display = 'block';
+      document.getElementById('sessions-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    if (!firstName || !lastName || !email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+
+    const sessionLabel = selectedSession === 's1'
+      ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
+      : 'Session 2: High School Division (12:00 PM – 1:30 PM)';
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Registering…';
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: `New Clinic Registration — ${firstName} ${lastName}`,
+          to: 'Quentincarr@gmail.com',
+          html: `
+            <h2 style="color:#0C2340;font-family:Arial,sans-serif">New Registration</h2>
+            <p style="font-family:Arial,sans-serif"><strong>Event:</strong> Girls Basketball Skills Clinic — November 1, 2025</p>
+            <p style="font-family:Arial,sans-serif"><strong>Athlete:</strong> ${firstName} ${lastName}</p>
+            <p style="font-family:Arial,sans-serif"><strong>Session:</strong> ${sessionLabel}</p>
+            <p style="font-family:Arial,sans-serif"><strong>Grade:</strong> ${grade || 'Not specified'}</p>
+            <p style="font-family:Arial,sans-serif"><strong>Parent Email:</strong> ${email}</p>
+            <p style="font-family:Arial,sans-serif"><strong>Parent Phone:</strong> ${phone || 'Not provided'}</p>
+          `
+        })
+      });
+
+      if (res.ok) {
+        document.getElementById('form-wrap').style.display = 'none';
+        document.getElementById('success-state').style.display = 'block';
+        document.getElementById('success-msg').textContent =
+          `${firstName}, your spot in ${sessionLabel} is confirmed. See you November 1st at Rowland High School Gymnasium!`;
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Secure My Spot →';
+      alert('Something went wrong. Please try again or contact us directly.');
+    }
+  }
+</script>
+</body>
+</html>
