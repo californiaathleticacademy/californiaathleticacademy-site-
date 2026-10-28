@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'California Athletic Academy <onboarding@resend.dev>',
-        to: 'Quentincarr@gmail.com',
+        to: 'qcarr@rowlandschools.org',
         subject: `New Clinic Registration — ${firstName} ${lastName}`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;">
