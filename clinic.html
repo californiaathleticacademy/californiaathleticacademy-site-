@@ -555,7 +555,8 @@
           label.textContent = `⚡ Only ${d.available} of ${d.max} spots left!`;
           label.className = 'spot-label urgent';
         } else {
-          label.textContent = `${d.available} of ${d.max} spots remaining`;
+          // Plenty of spots — just show the max, no countdown
+          label.textContent = `Limited to ${d.max} athletes`;
           label.className = 'spot-label';
         }
       });
