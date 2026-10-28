@@ -52,9 +52,9 @@ export const events = [
     fundraising: {
       goal:        500,
       amounts:     [25, 50, 100],
-      // Set stripeLink to your Stripe Payment Link URL to activate.
-      // Leave null to show "coming soon" state on the support card.
-      stripeLink:  null,
+      // Stripe Payment Link — custom amount, min $1, preset $25
+      // Currently sandbox/test mode. Replace with live link when ready.
+      stripeLink:  "https://buy.stripe.com/test_7sY4gA6pR85kauWaVggUM04",
       heading:     "Support California Athletic Academy",
       description: "Help cover training costs, gear, and clinic fees for our athletes. Every contribution makes a difference.",
     },
