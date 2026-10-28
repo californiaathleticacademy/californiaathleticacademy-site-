@@ -1,11 +1,8 @@
 // POST /api/register
-// Saves registration to Vercel KV and attempts to send a confirmation email.
-// Email is best-effort — form succeeds even if RESEND_API_KEY is not set.
+// Sends registration details to Coach via Resend email.
+// Requires RESEND_API_KEY environment variable in Vercel.
 //
 // Body: { firstName, lastName, email, phone, grade, session }
-// session: 's1' | 's2'
-
-import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,7 +14,6 @@ export default async function handler(req, res) {
 
   const { firstName, lastName, email, phone, grade, session } = req.body || {};
 
-  // Validate required fields
   if (!firstName || !lastName || !email) {
     return res.status(400).json({ error: 'firstName, lastName, and email are required.' });
   }
@@ -25,75 +21,58 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'session must be s1 or s2.' });
   }
 
-  const timestamp = Date.now();
-  const key = `registrations:${session}:${timestamp}`;
+  const sessionLabel = session === 's1'
+    ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
+    : 'Session 2: High School Division (12:00 PM – 1:30 PM)';
 
-  const record = {
-    firstName: firstName.trim(),
-    lastName:  lastName.trim(),
-    email:     email.trim(),
-    phone:     (phone || '').trim(),
-    grade:     grade || '',
-    session,
-    registeredAt: new Date(timestamp).toISOString(),
-  };
+  const timestamp = new Date().toLocaleString('en-US', {
+    timeZone: 'America/Los_Angeles',
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', hour12: true
+  });
 
   try {
-    // 1. Save registration to KV
-    await kv.set(key, record);
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'California Athletic Academy <onboarding@resend.dev>',
+        to: 'Quentincarr@gmail.com',
+        subject: `New Clinic Registration — ${firstName} ${lastName}`,
+        html: `
+          <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;">
+            <div style="background:#0C2340;padding:24px 28px;">
+              <h1 style="color:#D4A017;font-size:20px;margin:0;letter-spacing:2px;text-transform:uppercase;">New Registration</h1>
+              <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:6px 0 0;">Girls Basketball Skills Clinic · November 1, 2026</p>
+            </div>
+            <div style="padding:28px;">
+              <table style="width:100%;border-collapse:collapse;">
+                <tr><td style="padding:8px 0;color:#666;font-size:13px;width:140px;">Athlete</td><td style="padding:8px 0;font-weight:600;color:#111;font-size:14px;">${firstName} ${lastName}</td></tr>
+                <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Session</td><td style="padding:8px 0;font-weight:600;color:#0C2340;font-size:14px;">${sessionLabel}</td></tr>
+                <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Grade</td><td style="padding:8px 0;color:#333;font-size:14px;">${grade || 'Not specified'}</td></tr>
+                <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Parent Email</td><td style="padding:8px 0;color:#333;font-size:14px;">${email}</td></tr>
+                <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Parent Phone</td><td style="padding:8px 0;color:#333;font-size:14px;">${phone || 'Not provided'}</td></tr>
+                <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Submitted</td><td style="padding:8px 0;color:#999;font-size:13px;">${timestamp} PT</td></tr>
+              </table>
+            </div>
+          </div>
+        `,
+      }),
+    });
 
-    // 2. Decrement available spots in KV (best-effort — don't fail the request if this errors)
-    try {
-      const spotData = await kv.hgetall(`spots:${session}`);
-      if (spotData && spotData.available !== undefined) {
-        const current = parseInt(spotData.available);
-        if (!isNaN(current) && current > 0) {
-          await kv.hset(`spots:${session}`, { available: current - 1 });
-        }
-      }
-    } catch (_) {
-      // Spot decrement failed — not fatal
-    }
-
-    // 3. Send email notification (best-effort — no RESEND_API_KEY = silent skip)
-    if (process.env.RESEND_API_KEY) {
-      const sessionLabel = session === 's1'
-        ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
-        : 'Session 2: High School Division (12:00 PM – 1:30 PM)';
-
-      try {
-        await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: 'California Athletic Academy <onboarding@resend.dev>',
-            to: 'Quentincarr@gmail.com',
-            subject: `New Clinic Registration — ${record.firstName} ${record.lastName}`,
-            html: `
-              <h2 style="color:#0C2340;font-family:Arial,sans-serif">New Registration</h2>
-              <p style="font-family:Arial,sans-serif"><strong>Event:</strong> Girls Basketball Skills Clinic — November 1, 2026</p>
-              <p style="font-family:Arial,sans-serif"><strong>Athlete:</strong> ${record.firstName} ${record.lastName}</p>
-              <p style="font-family:Arial,sans-serif"><strong>Session:</strong> ${sessionLabel}</p>
-              <p style="font-family:Arial,sans-serif"><strong>Grade:</strong> ${record.grade || 'Not specified'}</p>
-              <p style="font-family:Arial,sans-serif"><strong>Parent Email:</strong> ${record.email}</p>
-              <p style="font-family:Arial,sans-serif"><strong>Parent Phone:</strong> ${record.phone || 'Not provided'}</p>
-              <hr style="border:1px solid #eee;margin:16px 0">
-              <p style="font-family:Arial,sans-serif;font-size:12px;color:#666">Registered at ${record.registeredAt}</p>
-            `,
-          }),
-        });
-      } catch (_) {
-        // Email failed — not fatal; registration is already saved to KV
-      }
+    if (!response.ok) {
+      const err = await response.text();
+      console.error('Resend error:', err);
+      return res.status(500).json({ error: 'Email delivery failed. Please try again.' });
     }
 
     return res.status(200).json({ success: true });
 
   } catch (err) {
-    console.error('Registration error:', err);
-    return res.status(500).json({ error: err.message || 'Registration failed. Please try again.' });
+    console.error('Register error:', err);
+    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
 }
