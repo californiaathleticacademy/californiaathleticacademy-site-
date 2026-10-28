@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="page-title">Event Registration — California Athletic Academy</title>
+<meta name="description" id="page-desc" content="Register for a California Athletic Academy event.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:       #0C2340;
+  --gold:       #B8860B;
+  --gold-bright:#D4A017;
+  --paper:      #F7F5F0;
+  --text:       #1a1a2e;
+  --red:        #c0392b;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family:'Inter',sans-serif; background:var(--paper); color:var(--text); min-height:100vh; }
+
+/* ── NAV ── */
+nav {
+  background:#fff;
+  border-bottom:2px solid rgba(184,134,11,0.3);
+  padding:0 24px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.nav-logo { display:flex; align-items:center; text-decoration:none; }
+.nav-logo svg { height:44px; width:auto; }
+.nav-back {
+  font-family:'Oswald',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  color:rgba(12,35,64,0.45);
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-back:hover { color:var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  background:var(--navy);
+  padding:52px 24px 48px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 50% 0%, rgba(184,134,11,.18) 0%, transparent 65%);
+  pointer-events:none;
+}
+.eyebrow {
+  font-family:'Oswald',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.hero h1 {
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(32px,7vw,56px);
+  font-weight:700;
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:20px;
+  letter-spacing:.5px;
+}
+.hero h1 span { color:var(--gold); }
+.hero-meta {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:14px;
+  color:rgba(255,255,255,.7);
+  margin-bottom:20px;
+}
+.dot { color:var(--gold); opacity:.6; }
+.free-pill {
+  display:inline-block;
+  background:rgba(184,134,11,.15);
+  border:1px solid rgba(184,134,11,.35);
+  color:var(--gold);
+  font-family:'Oswald',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:6px 16px;
+  border-radius:20px;
+}
+
+/* ── TABS ── */
+.tabs-bar {
+  display:none;
+  background:#fff;
+  border-bottom:1px solid rgba(12,35,64,.08);
+  padding:0 24px;
+}
+.tabs-bar.visible { display:flex; }
+.tab-btn {
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:rgba(12,35,64,.4);
+  background:none;
+  border:none;
+  border-bottom:3px solid transparent;
+  padding:16px 0;
+  margin-right:28px;
+  cursor:pointer;
+  transition:color .2s, border-color .2s;
+}
+.tab-btn.active { color:var(--navy); border-bottom-color:var(--gold); }
+
+/* ── MAIN ── */
+.main {
+  max-width:680px;
+  margin:0 auto;
+  padding:36px 24px 60px;
+}
+.section-label {
+  font-family:'Oswald',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+/* ── SESSION CARDS ── */
+.sessions-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:20px;
+}
+@media(max-width:480px){ .sessions-grid { grid-template-columns:1fr; } }
+
+.session-card {
+  background:#fff;
+  border:1.5px solid rgba(12,35,64,.1);
+  border-radius:12px;
+  padding:22px 20px;
+  cursor:pointer;
+  transition:border-color .2s, box-shadow .2s;
+  position:relative;
+}
+.session-card:hover { border-color:var(--gold); box-shadow:0 4px 20px rgba(184,134,11,.12); }
+.session-card.selected { border-color:var(--navy); box-shadow:0 4px 24px rgba(12,35,64,.15); }
+.session-card.selected::after {
+  content:'✓';
+  position:absolute;
+  top:14px; right:16px;
+  width:22px; height:22px;
+  background:var(--navy);
+  color:#fff;
+  border-radius:50%;
+  font-size:12px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.session-card.session-full { opacity:.65; cursor:not-allowed; pointer-events:none; }
+.session-num {
+  font-family:'Oswald',sans-serif;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.session-title { font-family:'Oswald',sans-serif; font-size:20px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.session-time { font-size:14px; color:rgba(12,35,64,.7); margin-bottom:6px; }
+
+/* Spot meter */
+.spot-bar-bg { height:6px; background:rgba(12,35,64,.1); border-radius:3px; overflow:hidden; margin-bottom:5px; margin-top:8px; }
+.spot-bar-fill { height:100%; border-radius:3px; transition:width .5s,background .5s; background:var(--navy); }
+.spot-label { font-size:12px; font-weight:600; color:rgba(12,35,64,.5); }
+.spot-label.urgent { color:var(--red); animation:pulse-text 1.4s ease-in-out infinite; }
+.spot-label.full   { color:var(--red); }
+@keyframes pulse-text { 0%,100%{opacity:1} 50%{opacity:.55} }
+
+/* ── FORM ── */
+.form-section {
+  background:#fff;
+  border:1.5px solid rgba(12,35,64,.1);
+  border-radius:14px;
+  padding:32px 28px;
+}
+.form-title { font-family:'Oswald',sans-serif; font-size:20px; font-weight:700; color:var(--navy); margin-bottom:24px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+@media(max-width:540px){ .form-row { grid-template-columns:1fr; } }
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+label { font-size:12px; font-weight:600; color:var(--navy); letter-spacing:.5px; text-transform:uppercase; }
+input, select {
+  height:44px;
+  padding:0 14px;
+  border:1.5px solid rgba(12,35,64,.15);
+  border-radius:8px;
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  color:var(--navy);
+  background:#fff;
+  transition:border-color .2s,box-shadow .2s;
+  outline:none;
+  -webkit-appearance:none;
+}
+input:focus, select:focus { border-color:var(--navy); box-shadow:0 0 0 3px rgba(12,35,64,.08); }
+.session-error { display:none; font-size:13px; color:var(--red); margin-bottom:16px; }
+
+.submit-btn {
+  width:100%;
+  height:52px;
+  background:var(--navy);
+  color:#fff;
+  font-family:'Oswald',sans-serif;
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .2s,transform .1s;
+  margin-top:8px;
+}
+.submit-btn:hover { background:#0f2d52; }
+.submit-btn:active { transform:scale(.99); }
+.submit-btn:disabled { opacity:.6; cursor:not-allowed; }
+
+/* ── SUCCESS ── */
+.success-state { display:none; text-align:center; padding:40px 20px; }
+.success-icon {
+  width:64px; height:64px;
+  background:var(--navy);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 20px;
+  font-size:28px;
+}
+.success-state h2 { font-family:'Oswald',sans-serif; font-size:26px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+.success-state p { font-size:15px; color:rgba(12,35,64,.6); line-height:1.6; max-width:380px; margin:0 auto; }
+
+/* ── SUPPORT CARD (post-RSVP) ── */
+.support-card {
+  display:none;
+  background:#fff;
+  border:1.5px solid rgba(184,134,11,.3);
+  border-top:3px solid var(--gold);
+  border-radius:14px;
+  padding:28px 28px 24px;
+  margin-top:20px;
+  animation:slideUp .4s ease;
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.support-card h3 {
+  font-family:'Oswald',sans-serif;
+  font-size:20px;
+  font-weight:700;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.support-card p { font-size:14px; color:rgba(12,35,64,.6); line-height:1.6; margin-bottom:20px; }
+.amount-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+.amount-btn {
+  background:var(--paper);
+  border:1.5px solid rgba(12,35,64,.12);
+  border-radius:8px;
+  padding:12px;
+  font-family:'Oswald',sans-serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--navy);
+  cursor:pointer;
+  transition:border-color .2s,background .2s;
+  text-align:center;
+}
+.amount-btn:hover, .amount-btn.selected { border-color:var(--gold); background:rgba(184,134,11,.07); }
+.support-cta {
+  width:100%;
+  height:50px;
+  background:var(--gold);
+  color:var(--navy);
+  font-family:'Oswald',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .2s;
+  margin-bottom:12px;
+}
+.support-cta:hover { background:var(--gold-bright); }
+.support-cta:disabled { opacity:.5; cursor:not-allowed; }
+.no-thanks {
+  display:block;
+  text-align:center;
+  font-size:13px;
+  color:rgba(12,35,64,.4);
+  cursor:pointer;
+  text-decoration:underline;
+  background:none;
+  border:none;
+  width:100%;
+  padding:4px;
+}
+.no-thanks:hover { color:rgba(12,35,64,.7); }
+
+/* ── SUPPORT TAB PAGE ── */
+.support-page { display:none; padding-top:8px; }
+.support-page.active { display:block; }
+.progress-wrap { background:#fff; border:1.5px solid rgba(12,35,64,.1); border-radius:14px; padding:28px; margin-bottom:20px; }
+.progress-goal { font-family:'Oswald',sans-serif; font-size:28px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.progress-sub { font-size:14px; color:rgba(12,35,64,.5); margin-bottom:16px; }
+.progress-bar-bg { height:10px; background:rgba(12,35,64,.08); border-radius:5px; overflow:hidden; margin-bottom:8px; }
+.progress-bar-fill { height:100%; background:var(--gold); border-radius:5px; transition:width .6s ease; }
+.progress-meta { font-size:13px; color:rgba(12,35,64,.5); display:flex; justify-content:space-between; }
+
+.donate-box { background:#fff; border:1.5px solid rgba(12,35,64,.1); border-radius:14px; padding:28px; }
+.donate-box h3 { font-family:'Oswald',sans-serif; font-size:20px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+.donate-box p { font-size:14px; color:rgba(12,35,64,.6); line-height:1.6; margin-bottom:20px; }
+.donate-cta {
+  width:100%;
+  height:50px;
+  background:var(--gold);
+  color:var(--navy);
+  font-family:'Oswald',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .2s;
+}
+.donate-cta:hover { background:var(--gold-bright); }
+.coming-soon {
+  text-align:center;
+  padding:40px 20px;
+  color:rgba(12,35,64,.4);
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ── FOOTER ── */
+footer { background:var(--navy); padding:24px; text-align:center; }
+footer p { font-size:13px; color:rgba(255,255,255,.4); }
+footer a { color:var(--gold); text-decoration:none; }
+
+/* ── LOADING STATE ── */
+.skeleton { background:rgba(12,35,64,.06); border-radius:8px; animation:shimmer 1.4s infinite; }
+@keyframes shimmer { 0%,100%{opacity:.6} 50%{opacity:1} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo" aria-label="California Athletic Academy">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="California Athletic Academy">
+      <defs><clipPath id="evtPillClip"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#evtPillClip)"/>
+      <g transform="translate(-182.14,-306.44) scale(3.914)">
+        <path fill="#FFFFFF" d="M 70.765625 107.925781 C 70.691406 107.660156 70.621094 107.390625 70.550781 107.125 C 70.664062 106.757812 70.796875 106.394531 70.894531 106.019531 C 70.96875 105.722656 71 105.410156 71.054688 105.105469 C 71.066406 105.03125 71.0625 104.925781 71.105469 104.890625 C 71.316406 104.703125 71.242188 104.441406 71.246094 104.1875 C 71.25 103.9375 71.261719 103.679688 71.328125 103.449219 C 71.460938 103.007812 71.484375 102.574219 71.355469 102.097656 C 71.1875 101.484375 71.101562 100.859375 71.214844 100.238281 L 71.355469 100.203125 C 71.386719 100.214844 71.421875 100.238281 71.457031 100.242188 C 74.445312 100.371094 77.4375 100.496094 80.429688 100.628906 C 80.828125 100.644531 81.230469 100.714844 81.628906 100.757812 C 81.894531 104.609375 82.160156 108.414062 82.410156 112.21875 C 82.429688 112.519531 82.53125 112.714844 82.730469 112.914062 C 87.363281 117.460938 91.984375 122.023438 96.625 126.554688 C 97.3125 127.230469 97.867188 127.921875 98.019531 128.953125 C 98.101562 129.492188 98.40625 129.875 98.890625 130.042969 C 98.949219 130.257812 99.003906 130.472656 99.0625 130.6875 C 99.03125 130.867188 99.035156 131.074219 98.960938 131.222656 C 98.554688 132.027344 98.480469 132.96875 98.246094 133.84375 C 98.226562 133.921875 98.25 134.019531 98.257812 134.105469 C 98.273438 134.304688 98.28125 134.507812 98.304688 134.703125 C 98.320312 134.820312 98.339844 134.953125 98.398438 135.042969 C 98.46875 135.152344 98.589844 135.21875 98.6875 135.308594 C 99.167969 135.75 99.15625 136.214844 98.640625 136.492188 C 98.421875 136.613281 98.28125 136.765625 98.335938 137.074219 C 98.21875 137.101562 98.105469 137.132812 97.992188 137.164062 C 97.335938 137.253906 96.675781 137.332031 96.023438 137.433594 C 94.847656 137.617188 93.675781 137.816406 92.5 138.003906 C 92.191406 138.054688 91.878906 138.089844 91.535156 138.140625 C 91.640625 137.644531 91.363281 137.425781 91.125 137.171875 C 90.746094 136.769531 90.679688 136.492188 90.855469 136.089844 C 91.035156 135.679688 90.863281 135.152344 90.496094 134.894531 C 90.183594 134.671875 89.886719 134.421875 89.585938 134.175781 C 89.332031 133.964844 89.074219 133.722656 88.761719 133.890625 C 88.578125 133.984375 88.394531 134.082031 88.261719 133.851562 C 88.160156 133.675781 88.078125 133.410156 88.117188 133.230469 C 88.191406 132.898438 88.070312 132.773438 87.828125 132.761719 C 87.289062 132.734375 86.742188 132.832031 86.234375 132.414062 C 86.003906 132.226562 85.726562 132.109375 85.496094 131.917969 C 85.1875 131.664062 84.902344 131.363281 84.601562 131.089844 C 84.546875 131.042969 84.464844 131.03125 84.394531 131.019531 C 83.8125 130.914062 83.230469 130.824219 82.648438 130.710938 C 81.671875 130.519531 81.34375 130.136719 81.1875 129.039062 C 81.175781 128.96875 81.179688 128.898438 81.167969 128.832031 C 81.058594 128.285156 80.957031 127.738281 80.445312 127.4375 C 80.390625 127.40625 80.324219 127.320312 80.320312 127.261719 C 80.277344 126.558594 79.835938 126.164062 79.394531 125.757812 C 78.984375 125.378906 78.609375 124.972656 78.492188 124.351562 C 78.464844 124.226562 78.339844 124.101562 78.242188 124.007812 C 77.753906 123.53125 77.324219 123.007812 77.140625 122.292969 C 77 121.75 77.144531 121.523438 77.636719 121.496094 C 77.519531 120.910156 77.484375 120.9375 77 120.761719 C 76.710938 120.65625 76.371094 120.417969 76.222656 120.132812 C 75.917969 119.5625 75.6875 118.929688 75.503906 118.300781 C 75.398438 117.945312 75.363281 117.484375 75.683594 117.261719 C 75.839844 117.15625 76.113281 117.25 76.359375 117.257812 C 76.355469 117.214844 76.355469 117.089844 76.347656 116.898438 C 76.179688 116.917969 76.015625 116.890625 75.910156 116.964844 C 75.523438 117.238281 75.25 117.226562 74.855469 116.902344 C 74.722656 116.792969 74.566406 116.710938 74.410156 116.660156 C 74.019531 116.527344 73.839844 116.125 74.105469 115.820312 C 74.398438 115.476562 74.199219 115.28125 73.988281 115.050781 C 73.855469 114.902344 73.707031 114.769531 73.570312 114.621094 C 73.257812 114.289062 72.992188 113.925781 72.964844 113.414062 C 72.960938 113.332031 72.871094 113.226562 72.800781 113.164062 C 72.398438 112.8125 72.207031 112.363281 72.144531 111.808594 C 72.070312 111.09375 72.15625 110.351562 71.765625 109.679688 C 71.734375 109.625 71.734375 109.507812 71.765625 109.453125 C 71.964844 109.113281 71.773438 108.90625 71.546875 108.695312 C 71.28125 108.445312 71.023438 108.183594 70.765625 107.925781 Z"/>
+      </g>
+      <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+      <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+      <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+      <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+      <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND</text>
+    </svg>
+  </a>
+  <a href="/#events" class="nav-back">← Back to Events</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow" id="hero-eyebrow">// Loading…</p>
+  <h1 id="hero-title">Event Registration</h1>
+  <div class="hero-meta">
+    <span id="hero-date"></span>
+    <span class="dot" id="hero-dot1" style="display:none">·</span>
+    <span id="hero-location"></span>
+    <span class="dot" id="hero-dot2" style="display:none">·</span>
+    <span id="hero-sessions"></span>
+  </div>
+  <span class="free-pill" id="hero-badge" style="display:none"></span>
+</section>
+
+<!-- TABS (shown only when fundraising is enabled) -->
+<div class="tabs-bar" id="tabs-bar">
+  <button class="tab-btn active" id="tab-register" onclick="switchTab('register')">Registration</button>
+  <button class="tab-btn" id="tab-support" onclick="switchTab('support')">Support This Event</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ── REGISTRATION TAB ── -->
+  <div id="panel-register">
+
+    <!-- Session Selection -->
+    <p class="section-label">// Step 1 — Choose Your Session</p>
+    <div class="sessions-grid" id="sessions-grid"></div>
+    <p class="session-error" id="session-error">Please select a session above.</p>
+
+    <!-- Registration Form -->
+    <p class="section-label" style="margin-top:24px">// Step 2 — Athlete Information</p>
+    <div class="form-section" id="form-section" style="display:none">
+      <div id="form-wrap">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name *</label>
+            <input type="text" id="first-name" placeholder="Athlete's first name" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name *</label>
+            <input type="text" id="last-name" placeholder="Athlete's last name" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Parent / Guardian Email *</label>
+          <input type="email" id="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Parent / Guardian Phone</label>
+          <input type="tel" id="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label for="grade">Athlete's Grade</label>
+          <select id="grade">
+            <option value="">Select grade…</option>
+            <option>4th Grade</option>
+            <option>5th Grade</option>
+            <option>6th Grade</option>
+            <option>7th Grade</option>
+            <option>8th Grade</option>
+            <option>9th Grade (Freshman)</option>
+            <option>10th Grade (Sophomore)</option>
+            <option>11th Grade (Junior)</option>
+            <option>12th Grade (Senior)</option>
+          </select>
+        </div>
+        <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">Secure My Spot →</button>
+      </div>
+
+      <!-- Success -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">🏀</div>
+        <h2>You're Registered!</h2>
+        <p id="success-msg">Your spot is confirmed. We'll see you there!</p>
+      </div>
+    </div>
+
+    <!-- Post-RSVP Support Card -->
+    <div class="support-card" id="support-card">
+      <h3 id="sc-heading">Support California Athletic Academy</h3>
+      <p id="sc-desc">Help cover training costs and gear for our athletes. Every contribution makes a difference.</p>
+      <div class="amount-grid" id="sc-amounts"></div>
+      <button class="support-cta" id="sc-cta" onclick="supportRedirect()">Support the Program →</button>
+      <button class="no-thanks" onclick="dismissSupportCard()">No thanks, I'm all set</button>
+    </div>
+
+  </div>
+
+  <!-- ── SUPPORT TAB ── -->
+  <div class="support-page" id="panel-support">
+    <div class="progress-wrap">
+      <div class="progress-goal" id="sp-raised">$0 raised</div>
+      <div class="progress-sub" id="sp-goal-sub">of $500 goal · 0 contributors</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="sp-bar" style="width:0%"></div></div>
+      <div class="progress-meta">
+        <span id="sp-pct">0%</span>
+        <span id="sp-goal-label">Goal: $500</span>
+      </div>
+    </div>
+    <div class="donate-box">
+      <h3 id="sp-heading">Support This Event</h3>
+      <p id="sp-desc"></p>
+      <div class="amount-grid" id="sp-amounts"></div>
+      <button class="donate-cta" id="sp-cta" onclick="supportRedirect()" style="margin-top:16px">Donate Now →</button>
+      <div class="coming-soon" id="sp-coming" style="display:none">
+        <p>Fundraising for this event opens soon.<br>Check back closer to the event date.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>California Athletic Academy · Rowland Chapter · <a href="/">californiaathleticacademy.com</a></p>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// State
+// ─────────────────────────────────────────────────────────────────────────────
+let EVENT       = null;
+let selectedSession  = null;
+let selectedAmount   = null;
+let currentTab  = 'register';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Boot — determine event from URL path, load config
+// ─────────────────────────────────────────────────────────────────────────────
+(async function boot() {
+  const slug = window.location.pathname.replace(/^\/+/, '').split('/')[0];
+  if (!slug) return showError('No event specified.');
+
+  try {
+    const res = await fetch(`/api/events?slug=${slug}`);
+    if (!res.ok) return showError('Event not found.');
+    EVENT = await res.json();
+    renderPage();
+    if (EVENT.allowFundraising) loadFundraisingTotals();
+  } catch {
+    showError('Could not load event details. Please try again.');
+  }
+})();
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Render
+// ─────────────────────────────────────────────────────────────────────────────
+function renderPage() {
+  // Meta
+  document.getElementById('page-title').textContent =
+    `${EVENT.name} — California Athletic Academy`;
+  document.getElementById('page-desc').setAttribute('content',
+    `Register for ${EVENT.name} on ${EVENT.displayDate} at ${EVENT.location}.`);
+
+  // Hero
+  document.getElementById('hero-eyebrow').textContent =
+    `// ${EVENT.subtitle || 'Event Registration'}`;
+  document.getElementById('hero-title').innerHTML =
+    EVENT.name.replace(/(Skills Clinic|Training Camp|Skills Camp|Basketball)/gi,
+      m => `<span>${m}</span>`);
+  document.getElementById('hero-date').textContent = EVENT.displayDate;
+  if (EVENT.displayDate) document.getElementById('hero-dot1').style.display = '';
+  document.getElementById('hero-location').textContent = EVENT.location;
+  if (EVENT.location) document.getElementById('hero-dot2').style.display = '';
+  document.getElementById('hero-sessions').textContent =
+    EVENT.sessions.length > 1 ? `${EVENT.sessions.length} Sessions Available` : '1 Session';
+  if (EVENT.badge) {
+    const b = document.getElementById('hero-badge');
+    b.textContent = EVENT.badge;
+    b.style.display = '';
+  }
+
+  // Tabs
+  if (EVENT.allowFundraising) {
+    document.getElementById('tabs-bar').classList.add('visible');
+  }
+
+  // Sessions
+  renderSessions();
+
+  // Form section
+  if (EVENT.allowRSVP) {
+    document.getElementById('form-section').style.display = '';
+  }
+
+  // Support tab amounts
+  renderAmountButtons('sp-amounts', EVENT.fundraising?.amounts || [25,50,100], 'support-tab');
+  if (EVENT.allowFundraising) {
+    document.getElementById('sp-heading').textContent =
+      EVENT.fundraising.heading || 'Support This Event';
+    document.getElementById('sp-desc').textContent =
+      EVENT.fundraising.description || '';
+    document.getElementById('sp-goal-label').textContent =
+      `Goal: $${(EVENT.fundraising.goal || 0).toLocaleString()}`;
+    if (!EVENT.fundraising.stripeLink) {
+      document.getElementById('sp-cta').style.display = 'none';
+      document.getElementById('sp-amounts').style.display = 'none';
+      document.getElementById('sp-coming').style.display = 'block';
+    }
+  }
+
+  // Support card
+  if (EVENT.allowFundraising && EVENT.fundraising) {
+    document.getElementById('sc-heading').textContent =
+      EVENT.fundraising.heading || 'Support California Athletic Academy';
+    document.getElementById('sc-desc').textContent =
+      EVENT.fundraising.description || '';
+    renderAmountButtons('sc-amounts', EVENT.fundraising.amounts || [25,50,100], 'card');
+    if (!EVENT.fundraising.stripeLink) {
+      document.getElementById('sc-cta').style.display = 'none';
+    }
+  }
+
+  // Load spot counts
+  loadSpotCounts();
+}
+
+function renderSessions() {
+  const grid = document.getElementById('sessions-grid');
+  grid.innerHTML = EVENT.sessions.map(s => `
+    <div class="session-card" id="card-${s.id}" onclick="selectSession('${s.id}', this)">
+      <div class="session-num">${s.label}</div>
+      <div class="session-title">${s.grade}</div>
+      <div class="session-time">${s.time}</div>
+      <div class="spot-bar-bg"><div class="spot-bar-fill" id="bar-${s.id}" style="width:100%"></div></div>
+      <div class="spot-label" id="label-${s.id}">Loading spots…</div>
+    </div>
+  `).join('');
+}
+
+function renderAmountButtons(containerId, amounts, prefix) {
+  const wrap = document.getElementById(containerId);
+  if (!wrap) return;
+  wrap.innerHTML = amounts.map(a => `
+    <button class="amount-btn" data-amount="${a}" onclick="selectAmount(${a},'${prefix}')">$${a}</button>
+  `).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Spot counts
+// ─────────────────────────────────────────────────────────────────────────────
+async function loadSpotCounts() {
+  try {
+    const res = await fetch('/api/spots', { cache: 'no-store' });
+    if (!res.ok) return setDefaultSpotLabels();
+    const data = await res.json();
+    (EVENT.sessions || []).forEach(s => {
+      const d = data[s.id];
+      if (!d) { setDefaultLabel(s.id); return; }
+      const isFull = !d.open || d.available <= 0;
+      const isUrge = !isFull && d.available <= d.threshold;
+      const pct    = isFull ? 0 : Math.max(4, Math.round((d.available / d.max) * 100));
+      const bar    = document.getElementById('bar-' + s.id);
+      const label  = document.getElementById('label-' + s.id);
+      const card   = document.getElementById('card-' + s.id);
+      if (!bar || !label) return;
+      bar.style.width      = pct + '%';
+      bar.style.background = isFull ? '#c0392b' : isUrge ? '#e67e22' : '#0C2340';
+      if (isFull) {
+        label.textContent = 'Registration closed';
+        label.className = 'spot-label full';
+        card.classList.add('session-full');
+        card.style.pointerEvents = 'none';
+      } else if (isUrge) {
+        label.textContent = `⚡ Only ${d.available} of ${d.max} spots left!`;
+        label.className = 'spot-label urgent';
+      } else {
+        // Plenty of spots — just show the max, no countdown
+        label.textContent = `Limited to ${d.max} athletes`;
+        label.className = 'spot-label';
+      }
+    });
+  } catch { setDefaultSpotLabels(); }
+}
+
+function setDefaultSpotLabels() {
+  (EVENT.sessions || []).forEach(s => setDefaultLabel(s.id));
+}
+function setDefaultLabel(sid) {
+  const label = document.getElementById('label-' + sid);
+  const bar   = document.getElementById('bar-' + sid);
+  if (label) { label.textContent = 'Limited to 64 athletes'; label.className = 'spot-label'; }
+  if (bar)   { bar.style.width = '100%'; bar.style.background = '#0C2340'; }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Fundraising totals (support tab)
+// ─────────────────────────────────────────────────────────────────────────────
+async function loadFundraisingTotals() {
+  const slug = window.location.pathname.replace(/^\/+/, '').split('/')[0];
+  try {
+    const res = await fetch(`/api/fundraise?slug=${slug}`, { cache: 'no-store' });
+    if (!res.ok) return;
+    const d = await res.json();
+    document.getElementById('sp-raised').textContent = `$${d.total.toLocaleString()} raised`;
+    document.getElementById('sp-goal-sub').textContent =
+      `of $${d.goal.toLocaleString()} goal · ${d.count} contributor${d.count !== 1 ? 's' : ''}`;
+    document.getElementById('sp-bar').style.width = d.pct + '%';
+    document.getElementById('sp-pct').textContent = d.pct + '%';
+  } catch { /* silent */ }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Interactions
+// ─────────────────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('panel-register').style.display = tab === 'register' ? '' : 'none';
+  document.getElementById('panel-support').style.display  = tab === 'support'  ? '' : 'none';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'support') loadFundraisingTotals();
+}
+
+function selectSession(id, el) {
+  selectedSession = id;
+  document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('session-error').style.display = 'none';
+}
+
+function selectAmount(amt, prefix) {
+  selectedAmount = amt;
+  // Highlight in whichever grid triggered the click
+  const containers = prefix === 'card'
+    ? [document.getElementById('sc-amounts')]
+    : [document.getElementById('sp-amounts')];
+  containers.forEach(c => {
+    if (!c) return;
+    c.querySelectorAll('.amount-btn').forEach(b => {
+      b.classList.toggle('selected', parseInt(b.dataset.amount) === amt);
+    });
+  });
+}
+
+async function supportRedirect() {
+  if (!EVENT?.fundraising?.stripeLink) return;
+  const slug = window.location.pathname.replace(/^\/+/, '').split('/')[0];
+  // Record intent
+  if (selectedAmount) {
+    fetch(`/api/fundraise?slug=${slug}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: selectedAmount }),
+    }).catch(() => {});
+  }
+  window.open(EVENT.fundraising.stripeLink, '_blank');
+}
+
+function dismissSupportCard() {
+  document.getElementById('support-card').style.display = 'none';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Registration submit
+// ─────────────────────────────────────────────────────────────────────────────
+async function submitRegistration() {
+  const firstName = document.getElementById('first-name').value.trim();
+  const lastName  = document.getElementById('last-name').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const grade     = document.getElementById('grade').value;
+
+  if (!selectedSession) {
+    document.getElementById('session-error').style.display = 'block';
+    document.getElementById('sessions-grid').scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  if (!firstName || !lastName || !email) {
+    alert('Please fill in your name and email.');
+    return;
+  }
+
+  const session = EVENT.sessions.find(s => s.id === selectedSession);
+  const sessionLabel = session
+    ? `${session.label}: ${session.grade} (${session.time})`
+    : selectedSession;
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Registering…';
+
+  try {
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        subject: `New ${EVENT.name} Registration — ${firstName} ${lastName}`,
+        to: 'Quentincarr@gmail.com',
+        html: `
+          <h2 style="color:#0C2340;font-family:Arial,sans-serif">New Registration</h2>
+          <p style="font-family:Arial,sans-serif"><strong>Event:</strong> ${EVENT.name} — ${EVENT.displayDate}</p>
+          <p style="font-family:Arial,sans-serif"><strong>Athlete:</strong> ${firstName} ${lastName}</p>
+          <p style="font-family:Arial,sans-serif"><strong>Session:</strong> ${sessionLabel}</p>
+          <p style="font-family:Arial,sans-serif"><strong>Grade:</strong> ${grade || 'Not specified'}</p>
+          <p style="font-family:Arial,sans-serif"><strong>Parent Email:</strong> ${email}</p>
+          <p style="font-family:Arial,sans-serif"><strong>Parent Phone:</strong> ${phone || 'Not provided'}</p>
+        `
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+      document.getElementById('success-msg').textContent =
+        `${firstName}, your spot in ${sessionLabel} is confirmed. See you ${EVENT.displayDate} at ${EVENT.location}!`;
+
+      // Show support card after delay — only if fundraising is enabled
+      if (EVENT.allowFundraising) {
+        setTimeout(() => {
+          const card = document.getElementById('support-card');
+          card.style.display = 'block';
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 1600);
+      }
+    } else {
+      throw new Error('Server error');
+    }
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Secure My Spot →';
+    alert('Something went wrong. Please try again or contact us directly.');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('hero-title').textContent = msg;
+  document.getElementById('hero-eyebrow').textContent = '// California Athletic Academy';
+}
+</script>
+</body>
+</html>
