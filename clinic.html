@@ -385,71 +385,45 @@
     margin: 0 auto;
   }
 
-  /* ── SUPPORT CARD (post-RSVP) ── */
-  .support-card {
+  /* ── COMMITTED CARD (post-RSVP) ── */
+  @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .committed-card-wrap {
     display: none;
-    background: #fff;
-    border: 1.5px solid rgba(184,134,11,.3);
-    border-top: 3px solid var(--gold);
+    width: 100%;
+    max-width: 360px;
+    border: 2px solid var(--gold);
     border-radius: 14px;
-    padding: 28px 28px 24px;
-    margin-top: 20px;
+    overflow: hidden;
+    margin: 20px auto 0;
     animation: slideUp .4s ease;
   }
-  @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-  .support-card h3 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 8px;
+  .cc-body {
+    background: #132d4a;
+    padding: 20px;
+    position: relative;
   }
-  .support-card p { font-size: 14px; color: rgba(12,35,64,.6); line-height: 1.6; margin-bottom: 20px; }
-  .amount-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
-  .amount-btn {
-    background: var(--paper);
-    border: 1.5px solid rgba(12,35,64,.12);
-    border-radius: 8px;
-    padding: 12px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--navy);
-    cursor: pointer;
-    transition: border-color .2s, background .2s;
-    text-align: center;
+  .cc-court-bg {
+    position: absolute; top: 0; right: 0;
+    width: 180px; height: 180px;
+    opacity: 0.08; pointer-events: none;
   }
-  .amount-btn:hover, .amount-btn.selected { border-color: var(--gold); background: rgba(184,134,11,.07); }
-  .support-cta {
-    width: 100%;
-    height: 50px;
-    background: var(--gold);
-    color: var(--navy);
-    font-family: 'Oswald', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background .2s;
-    margin-bottom: 12px;
-  }
-  .support-cta:hover { background: var(--gold-bright); }
-  .no-thanks {
-    display: block;
-    text-align: center;
-    font-size: 13px;
-    color: rgba(12,35,64,.4);
-    cursor: pointer;
-    text-decoration: underline;
-    background: none;
-    border: none;
-    width: 100%;
-    padding: 4px;
-  }
-  .no-thanks:hover { color: rgba(12,35,64,.7); }
+  .cc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .cc-org { font-family:'Oswald',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--paper); }
+  .cc-loc { font-size:10px; color:rgba(247,245,240,.5); margin-top:2px; }
+  .cc-official { background:var(--gold); color:var(--navy); font-family:'Oswald',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; padding:3px 8px; border-radius:4px; }
+  .cc-stars { display:flex; justify-content:space-between; padding:0 8px; margin-bottom:16px; }
+  .cc-star { color:var(--gold); font-size:36px; line-height:1; }
+  .cc-player-name { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--paper); text-align:center; margin-bottom:4px; }
+  .cc-sport { font-family:'Oswald',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.18em; color:rgba(247,245,240,.5); text-align:center; margin-bottom:12px; }
+  .cc-level-wrap { display:flex; justify-content:center; margin-bottom:16px; }
+  .cc-level { background:rgba(184,134,11,.14); color:var(--gold); font-family:'Oswald',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; padding:6px 16px; border-radius:99px; }
+  .cc-committed-wrap { display:flex; flex-direction:column; align-items:center; margin-bottom:12px; }
+  .cc-committed { font-family:'Oswald',sans-serif; font-size:2.4rem; font-weight:700; color:var(--gold); line-height:1; transform:translateX(.06em); }
+  .cc-season { font-size:9px; color:rgba(247,245,240,.25); margin-top:4px; transform:translateX(.075em); }
+  .cc-tagline { font-size:12px; font-style:italic; color:rgba(247,245,240,.5); text-align:center; margin-bottom:12px; }
+  .cc-url { font-size:10px; color:rgba(247,245,240,.4); text-align:center; }
+  .cc-footer { background:var(--gold); display:flex; justify-content:space-between; align-items:center; padding:9px 22px; }
+  .cc-footer span { font-family:'Oswald',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; color:var(--navy); }
 
   /* FOOTER */
   footer {
@@ -581,13 +555,39 @@
       <h2>You're Registered!</h2>
       <p id="success-msg">A confirmation has been sent to your email. We'll see you on November 1st at Rowland High School Gymnasium.</p>
 
-      <!-- Post-RSVP Support Card -->
-      <div class="support-card" id="support-card">
-        <h3>Support California Athletic Academy</h3>
-        <p>Help cover training costs, gear, and clinic fees for our athletes. Every contribution makes a difference.</p>
-        <div class="amount-grid" id="sc-amounts"></div>
-        <button class="support-cta" id="sc-cta" onclick="supportRedirect()">Support the Program →</button>
-        <button class="no-thanks" onclick="dismissSupportCard()">No thanks, I'm all set</button>
+      <!-- Committed Card -->
+      <div class="committed-card-wrap" id="committed-card">
+        <div class="cc-body">
+          <svg class="cc-court-bg" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+            <rect x="20" y="110" width="150" height="80" stroke="white" stroke-width="2"/>
+            <circle cx="170" cy="150" r="45" stroke="white" stroke-width="2"/>
+            <path d="M20,55 L72,55 A165,165 0 0 1 72,245 L20,245" stroke="white" stroke-width="2"/>
+            <line x1="20" y1="20" x2="20" y2="280" stroke="white" stroke-width="2"/>
+          </svg>
+          <div class="cc-header">
+            <div>
+              <p class="cc-org">California Athletic Academy</p>
+              <p class="cc-loc">Rowland Heights, CA</p>
+            </div>
+            <span class="cc-official">Official</span>
+          </div>
+          <div class="cc-stars">
+            <span class="cc-star">★</span><span class="cc-star">★</span><span class="cc-star">★</span><span class="cc-star">★</span><span class="cc-star">★</span>
+          </div>
+          <p class="cc-player-name" id="cc-name">PLAYER NAME</p>
+          <p class="cc-sport">Girls Basketball</p>
+          <div class="cc-level-wrap"><span class="cc-level" id="cc-level">Clinic</span></div>
+          <div class="cc-committed-wrap">
+            <p class="cc-committed">COMMITTED</p>
+            <p class="cc-season">2026 – 2027 Season</p>
+          </div>
+          <p class="cc-tagline">Committed to growth, development, and the pursuit of excellence.</p>
+          <p class="cc-url">californiaathleticacademy.com · @californiaathleticacademy</p>
+        </div>
+        <div class="cc-footer">
+          <span>California Athletic Academy</span>
+          <span>Pure Development.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -692,8 +692,8 @@
         document.getElementById('success-state').style.display = 'block';
         document.getElementById('success-msg').textContent =
           `${firstName}, your spot in ${sessionLabel} is confirmed. See you November 1st at Rowland High School Gymnasium!`;
-        // Slide in support card after a beat
-        setTimeout(showSupportCard, 1600);
+        // Slide in committed card after a beat
+        setTimeout(() => showCommittedCard(firstName, lastName, selectedSession), 1600);
       } else {
         throw new Error('Server error');
       }
@@ -704,32 +704,14 @@
     }
   }
 
-  const STRIPE_FUNDRAISE = 'https://buy.stripe.com/test_7sY4gA6pR85kauWaVggUM04';
-  const AMOUNTS = [25, 50, 100];
-  let selectedAmount = null;
-
-  function showSupportCard() {
-    // Render amount buttons
-    const grid = document.getElementById('sc-amounts');
-    grid.innerHTML = AMOUNTS.map(a =>
-      `<button class="amount-btn" data-amount="${a}" onclick="selectAmount(${a})">\$${a}</button>`
-    ).join('');
-    document.getElementById('support-card').style.display = 'block';
-  }
-
-  function selectAmount(amt) {
-    selectedAmount = amt;
-    document.querySelectorAll('#sc-amounts .amount-btn').forEach(b => {
-      b.classList.toggle('selected', parseInt(b.dataset.amount) === amt);
-    });
-  }
-
-  function supportRedirect() {
-    window.open(STRIPE_FUNDRAISE, '_blank');
-  }
-
-  function dismissSupportCard() {
-    document.getElementById('support-card').style.display = 'none';
+  function showCommittedCard(first, last, session) {
+    const name = (first + ' ' + last).toUpperCase();
+    const level = session === 's1' ? 'Grades 4–8' : 'High School';
+    document.getElementById('cc-name').textContent = name;
+    document.getElementById('cc-level').textContent = level;
+    const card = document.getElementById('committed-card');
+    card.style.display = 'block';
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 </script>
 </body>
