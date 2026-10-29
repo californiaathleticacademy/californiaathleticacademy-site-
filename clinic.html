@@ -361,12 +361,8 @@
     padding: 40px 20px;
   }
   .success-icon {
-    width: 64px; height: 64px;
-    background: var(--navy);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100px; height: auto;
+    display: block;
     margin: 0 auto 20px;
     font-size: 28px;
   }
@@ -577,7 +573,16 @@
     </div>
 
     <div class="success-state" id="success-state">
-      <div class="success-icon">🏀</div>
+      <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+        <defs><clipPath id="sic"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+        <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+        <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#sic)"/>
+        <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+        <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+        <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+        <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+        <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND HEIGHTS</text>
+      </svg>
       <h2>You're Registered!</h2>
       <p id="success-msg">A confirmation has been sent to your email. We'll see you on November 1st at Rowland High School Gymnasium.</p>
 
