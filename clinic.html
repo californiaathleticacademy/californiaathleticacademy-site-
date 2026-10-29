@@ -357,7 +357,8 @@
   /* SUCCESS */
   .success-state {
     display: none;
-    padding: 32px 20px 40px;
+    text-align: center;
+    padding: 40px 20px;
   }
   .success-icon {
     width: 64px; height: 64px;
@@ -375,111 +376,80 @@
     font-weight: 700;
     color: var(--navy);
     margin-bottom: 8px;
-    text-align: center;
   }
   .success-state p {
     font-size: 15px;
     color: rgba(12,35,64,.6);
     line-height: 1.6;
     max-width: 380px;
-    margin: 0 auto 28px;
-    text-align: center;
-  }
-  /* COMMITTED CARD */
-  .committed-card {
-    background: var(--navy);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(12,35,64,.35);
-    position: relative;
-    max-width: 400px;
     margin: 0 auto;
   }
-  .cc-header {
-    background: var(--gold);
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+
+  /* ── SUPPORT CARD (post-RSVP) ── */
+  .support-card {
+    display: none;
+    background: #fff;
+    border: 1.5px solid rgba(184,134,11,.3);
+    border-top: 3px solid var(--gold);
+    border-radius: 14px;
+    padding: 28px 28px 24px;
+    margin-top: 20px;
+    animation: slideUp .4s ease;
   }
-  .cc-badge {
-    width: 32px; height: 32px;
-    background: var(--navy);
-    border-radius: 5px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px;
-    color: var(--gold); flex-shrink: 0;
-  }
-  .cc-org {
-    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 12px;
-    color: var(--navy); line-height: 1.2;
-  }
-  .cc-body { padding: 16px; }
-  .cc-committed {
-    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2px;
-    color: var(--gold); opacity: .7; text-transform: uppercase; margin-bottom: 6px;
-  }
-  .cc-player {
-    font-family: 'Oswald', sans-serif; font-size: 24px; font-weight: 700;
-    color: #fff; line-height: 1.1; margin-bottom: 4px;
-  }
-  .cc-grade { font-size: 12px; color: rgba(255,255,255,.55); margin-bottom: 14px; }
-  .cc-divider { height: 1px; background: rgba(255,255,255,.1); margin: 10px 0; }
-  .cc-event {
-    font-family: 'Oswald', sans-serif; font-size: 14px; color: #fff; font-weight: 600;
-  }
-  .cc-session { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 2px; }
-  .cc-date { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
-  .cc-status {
-    margin-top: 12px; display: inline-flex; align-items: center; gap: 6px;
-    padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .support-card h3 {
     font-family: 'Oswald', sans-serif;
-    background: rgba(184,134,11,.25); color: var(--gold-bright);
-    border: 1px solid rgba(184,134,11,.3);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
   }
-  .cc-corner {
-    position: absolute; bottom: 12px; right: 14px;
-    font-family: 'Oswald', sans-serif; font-size: 28px; font-weight: 700;
-    color: rgba(255,255,255,.04); letter-spacing: -1px;
+  .support-card p { font-size: 14px; color: rgba(12,35,64,.6); line-height: 1.6; margin-bottom: 20px; }
+  .amount-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+  .amount-btn {
+    background: var(--paper);
+    border: 1.5px solid rgba(12,35,64,.12);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    text-align: center;
   }
-  .cc-site {
-    font-size: 11px; color: rgba(184,134,11,.5);
-    text-align: right; padding: 0 14px 12px; margin-top: -4px;
-  }
-  .card-dl-bar {
-    background: #1a3a5c;
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .card-dl-label {
-    color: rgba(255,255,255,.65);
-    font-size: 13px;
-  }
-  .card-dl-btn {
+  .amount-btn:hover, .amount-btn.selected { border-color: var(--gold); background: rgba(184,134,11,.07); }
+  .support-cta {
+    width: 100%;
+    height: 50px;
     background: var(--gold);
     color: var(--navy);
     font-family: 'Oswald', sans-serif;
+    font-size: 15px;
     font-weight: 700;
-    font-size: 13px;
-    letter-spacing: .06em;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 9px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background .15s;
+    transition: background .2s;
+    margin-bottom: 12px;
   }
-  .card-dl-btn:hover { background: var(--gold-bright); }
-  .card-share-hint {
+  .support-cta:hover { background: var(--gold-bright); }
+  .no-thanks {
+    display: block;
     text-align: center;
-    font-size: 12px;
-    color: rgba(12,35,64,.45);
-    margin-top: 14px;
+    font-size: 13px;
+    color: rgba(12,35,64,.4);
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    width: 100%;
+    padding: 4px;
   }
+  .no-thanks:hover { color: rgba(12,35,64,.7); }
 
   /* FOOTER */
   footer {
@@ -610,31 +580,15 @@
       <div class="success-icon">🏀</div>
       <h2>You're Registered!</h2>
       <p id="success-msg">A confirmation has been sent to your email. We'll see you on November 1st at Rowland High School Gymnasium.</p>
-      <div id="committed-card-wrap">
-        <div class="committed-card" id="cc-display">
-          <div class="cc-header">
-            <div class="cc-badge">CAA</div>
-            <div class="cc-org">California<br>Athletic Academy</div>
-          </div>
-          <div class="cc-body">
-            <div class="cc-committed">Committed Player</div>
-            <div class="cc-player" id="cc-player"></div>
-            <div class="cc-grade" id="cc-grade"></div>
-            <div class="cc-divider"></div>
-            <div class="cc-event" id="cc-event"></div>
-            <div class="cc-session" id="cc-session"></div>
-            <div class="cc-date" id="cc-date"></div>
-            <div class="cc-status">✓ Committed</div>
-          </div>
-          <div class="cc-corner">CAA</div>
-          <div class="cc-site">californiaathleticacademy.com</div>
-        </div>
-        <div class="card-dl-bar">
-          <span class="card-dl-label">📲 Save &amp; share your Committed Card</span>
-          <button class="card-dl-btn" id="dl-btn">⬇ Download Card</button>
-        </div>
+
+      <!-- Post-RSVP Support Card -->
+      <div class="support-card" id="support-card">
+        <h3>Support California Athletic Academy</h3>
+        <p>Help cover training costs, gear, and clinic fees for our athletes. Every contribution makes a difference.</p>
+        <div class="amount-grid" id="sc-amounts"></div>
+        <button class="support-cta" id="sc-cta" onclick="supportRedirect()">Support the Program →</button>
+        <button class="no-thanks" onclick="dismissSupportCard()">No thanks, I'm all set</button>
       </div>
-      <p class="card-share-hint">Show your coaches, teammates, and followers — you're committed.</p>
     </div>
   </div>
 
@@ -738,15 +692,8 @@
         document.getElementById('success-state').style.display = 'block';
         document.getElementById('success-msg').textContent =
           `${firstName}, your spot in ${sessionLabel} is confirmed. See you November 1st at Rowland High School Gymnasium!`;
-        drawCommittedCard(
-          `${firstName} ${lastName}`,
-          grade,
-          'Girls Basketball Clinic',
-          'November 1, 2026 · Rowland High School',
-          selectedSession === 's1'
-            ? 'Session 1: Grades 4–8 · 10 AM – 12 PM'
-            : 'Session 2: High School · 12 PM – 1:30 PM'
-        );
+        // Slide in support card after a beat
+        setTimeout(showSupportCard, 1600);
       } else {
         throw new Error('Server error');
       }
@@ -757,106 +704,32 @@
     }
   }
 
-  function drawCommittedCard(player, grade, eventName, dateLocation, sessionLine) {
-    // ── Populate the HTML display card ──
-    document.getElementById('cc-player').textContent = player;
-    document.getElementById('cc-grade').textContent = grade ? 'Grade ' + grade : '';
-    document.getElementById('cc-event').textContent = eventName;
-    document.getElementById('cc-session').textContent = sessionLine;
-    document.getElementById('cc-date').textContent = '📅 ' + dateLocation;
+  const STRIPE_FUNDRAISE = 'https://buy.stripe.com/test_7sY4gA6pR85kauWaVggUM04';
+  const AMOUNTS = [25, 50, 100];
+  let selectedAmount = null;
 
-    // ── Build canvas for download (matches original event-portal design) ──
-    const W = 560, H = 320, scale = 2;
-    const cvs = document.createElement('canvas');
-    cvs.width = W * scale; cvs.height = H * scale;
-    const ctx = cvs.getContext('2d');
-    ctx.scale(scale, scale);
+  function showSupportCard() {
+    // Render amount buttons
+    const grid = document.getElementById('sc-amounts');
+    grid.innerHTML = AMOUNTS.map(a =>
+      `<button class="amount-btn" data-amount="${a}" onclick="selectAmount(${a})">\$${a}</button>`
+    ).join('');
+    document.getElementById('support-card').style.display = 'block';
+  }
 
-    function roundRect(x, y, w, h, r) {
-      ctx.beginPath();
-      ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
-      ctx.quadraticCurveTo(x+w, y, x+w, y+r); ctx.lineTo(x+w, y+h-r);
-      ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h); ctx.lineTo(x+r, y+h);
-      ctx.quadraticCurveTo(x, y+h, x, y+h-r); ctx.lineTo(x, y+r);
-      ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
-    }
-    function trunc(s, n) { return s && s.length > n ? s.slice(0, n-1) + '…' : (s || ''); }
+  function selectAmount(amt) {
+    selectedAmount = amt;
+    document.querySelectorAll('#sc-amounts .amount-btn').forEach(b => {
+      b.classList.toggle('selected', parseInt(b.dataset.amount) === amt);
+    });
+  }
 
-    // Navy background
-    ctx.fillStyle = '#0C2340'; ctx.fillRect(0, 0, W, H);
+  function supportRedirect() {
+    window.open(STRIPE_FUNDRAISE, '_blank');
+  }
 
-    // Gold header band
-    ctx.fillStyle = '#B8860B'; ctx.fillRect(0, 0, W, 54);
-
-    // CAA badge
-    ctx.fillStyle = '#0C2340'; roundRect(16, 10, 38, 34, 6); ctx.fill();
-    ctx.fillStyle = '#B8860B'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
-    ctx.fillText('CAA', 35, 33);
-
-    // Org name in header
-    ctx.fillStyle = '#0C2340'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'left';
-    ctx.fillText('California', 62, 26);
-    ctx.fillText('Athletic Academy', 62, 42);
-
-    // Subtle corner watermark
-    ctx.fillStyle = 'rgba(255,255,255,0.04)'; ctx.font = 'bold 72px Arial';
-    ctx.textAlign = 'right'; ctx.fillText('CAA', W - 12, H - 8);
-
-    // "COMMITTED PLAYER" label
-    ctx.fillStyle = 'rgba(184,134,11,0.65)'; ctx.font = '11px Arial';
-    ctx.textAlign = 'left'; ctx.letterSpacing = '2px';
-    ctx.fillText('COMMITTED PLAYER', 20, 84);
-    ctx.letterSpacing = '0px';
-
-    // Player name
-    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 32px Arial';
-    ctx.fillText(trunc(player, 22), 20, 116);
-
-    // Grade line
-    ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.font = '13px Arial';
-    const gradeStr = grade ? 'Grade ' + grade : '';
-    ctx.fillText(trunc(gradeStr, 42), 20, 136);
-
-    // Divider
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(20, 150); ctx.lineTo(W - 20, 150); ctx.stroke();
-
-    // Event name
-    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 16px Arial';
-    ctx.fillText(trunc(eventName, 36), 20, 172);
-
-    // Session
-    ctx.fillStyle = 'rgba(255,255,255,0.55)'; ctx.font = '13px Arial';
-    ctx.fillText(trunc(sessionLine, 46), 20, 190);
-
-    // Date + location
-    ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.font = '12px Arial';
-    ctx.fillText('📅 ' + trunc(dateLocation, 50), 20, 208);
-
-    // Status badge — gold COMMITTED
-    const label = '✓ COMMITTED';
-    const sw = ctx.measureText(label).width + 24;
-    ctx.fillStyle = 'rgba(184,134,11,0.3)';
-    roundRect(20, 222, sw, 26, 13); ctx.fill();
-    ctx.strokeStyle = 'rgba(184,134,11,0.5)'; ctx.lineWidth = 1;
-    roundRect(20, 222, sw, 26, 13); ctx.stroke();
-    ctx.fillStyle = '#D4A017'; ctx.font = 'bold 11px Arial';
-    ctx.fillText(label, 32, 239);
-
-    // CAA branding bottom-right
-    ctx.fillStyle = 'rgba(184,134,11,0.4)'; ctx.font = '11px Arial'; ctx.textAlign = 'right';
-    ctx.fillText('californiaathleticacademy.com', W - 16, H - 12);
-
-    // Wire download button
-    document.getElementById('dl-btn').onclick = () => {
-      const fname = 'CAA-Committed-' + player.replace(/\s+/g, '-') + '.png';
-      cvs.toBlob(blob => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = fname; a.click();
-        setTimeout(() => URL.revokeObjectURL(url), 2000);
-      }, 'image/png');
-    };
+  function dismissSupportCard() {
+    document.getElementById('support-card').style.display = 'none';
   }
 </script>
 </body>
