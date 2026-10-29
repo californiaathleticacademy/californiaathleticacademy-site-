@@ -271,8 +271,7 @@
   /* SUCCESS */
   .success-state {
     display: none;
-    text-align: center;
-    padding: 40px 20px;
+    padding: 32px 20px 40px;
   }
   .success-icon {
     width: 64px; height: 64px;
@@ -290,13 +289,58 @@
     font-weight: 700;
     color: var(--navy);
     margin-bottom: 8px;
+    text-align: center;
   }
   .success-state p {
     font-size: 15px;
     color: rgba(12,35,64,.6);
     line-height: 1.6;
     max-width: 380px;
+    margin: 0 auto 28px;
+    text-align: center;
+  }
+  .card-wrap {
+    max-width: 560px;
     margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(12,35,64,.2);
+  }
+  .card-wrap canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .card-dl-bar {
+    background: #1a3a5c;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .card-dl-label { color: rgba(255,255,255,.65); font-size: 13px; }
+  .card-dl-btn {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .card-dl-btn:hover { background: var(--gold-bright); }
+  .card-share-hint {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(12,35,64,.45);
+    margin-top: 14px;
   }
 
   /* INFO BAND */
@@ -434,6 +478,14 @@
       <div class="success-icon">🏀</div>
       <h2>You're Registered!</h2>
       <p id="success-msg">A confirmation has been sent to your email. A coach will be in touch to confirm your session details.</p>
+      <div class="card-wrap" id="committed-card-wrap">
+        <canvas id="committed-canvas"></canvas>
+        <div class="card-dl-bar">
+          <span class="card-dl-label">📲 Save &amp; share your Committed Card</span>
+          <button class="card-dl-btn" id="dl-btn">⬇ Download Card</button>
+        </div>
+      </div>
+      <p class="card-share-hint">Show your coaches, teammates, and followers — you're committed.</p>
     </div>
   </div>
 
@@ -498,6 +550,15 @@
         document.getElementById('success-state').style.display = 'block';
         document.getElementById('success-msg').textContent =
           `${firstName}, you're registered for the ${sessionLabel}. A coach from California Athletic Academy will be in touch with your session details. See you Sunday!`;
+        drawCommittedCard(
+          `${firstName} ${lastName}`,
+          grade,
+          'Girls Basketball Development',
+          'Every Sunday · Rowland High School',
+          selectedSession === 's1'
+            ? 'Session 1: Grades 4–8 · 10 AM – 12 PM'
+            : 'Session 2: High School · 12 PM – 1:30 PM'
+        );
       } else {
         throw new Error('Server error');
       }
@@ -506,6 +567,100 @@
       btn.textContent = 'Register for Monthly Program →';
       alert('Something went wrong. Please try again or contact us directly.');
     }
+  }
+
+  function drawCommittedCard(player, grade, eventName, dateLocation, sessionLine) {
+    const W = 560, H = 320, S = 2;
+    const cvs = document.getElementById('committed-canvas');
+    cvs.width  = W * S;
+    cvs.height = H * S;
+    const ctx  = cvs.getContext('2d');
+    ctx.scale(S, S);
+
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
+      ctx.quadraticCurveTo(x+w, y, x+w, y+r); ctx.lineTo(x+w, y+h-r);
+      ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h); ctx.lineTo(x+r, y+h);
+      ctx.quadraticCurveTo(x, y+h, x, y+h-r); ctx.lineTo(x, y+r);
+      ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
+    }
+    function trunc(s, n) { return s && s.length > n ? s.slice(0, n-1) + '…' : (s || ''); }
+
+    // Navy background
+    ctx.fillStyle = '#0C2340'; ctx.fillRect(0, 0, W, H);
+
+    // Gold header band
+    ctx.fillStyle = '#B8860B'; ctx.fillRect(0, 0, W, 54);
+
+    // CAA badge
+    ctx.fillStyle = '#0C2340'; roundRect(16, 10, 38, 34, 6); ctx.fill();
+    ctx.fillStyle = '#B8860B'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+    ctx.fillText('CAA', 35, 33);
+
+    // Org name in header
+    ctx.fillStyle = '#0C2340'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'left';
+    ctx.fillText('California', 62, 26);
+    ctx.fillText('Athletic Academy', 62, 42);
+
+    // Watermark
+    ctx.fillStyle = 'rgba(255,255,255,0.04)';
+    ctx.font = 'bold 72px Arial'; ctx.textAlign = 'right';
+    ctx.fillText('CAA', W - 12, H - 8);
+
+    // COMMITTED PLAYER label
+    ctx.fillStyle = 'rgba(184,134,11,0.7)';
+    ctx.font = '600 11px Arial'; ctx.textAlign = 'left';
+    ctx.fillText('COMMITTED PLAYER', 20, 84);
+
+    // Player name
+    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 32px Arial';
+    ctx.fillText(trunc(player, 22), 20, 118);
+
+    // Grade line
+    ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.font = '13px Arial';
+    ctx.fillText(trunc('Grade: ' + (grade || '—'), 40), 20, 138);
+
+    // Divider
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(20, 152); ctx.lineTo(W - 20, 152); ctx.stroke();
+
+    // Event name
+    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 16px Arial';
+    ctx.fillText(trunc(eventName, 36), 20, 174);
+
+    // Session
+    ctx.fillStyle = 'rgba(255,255,255,0.55)'; ctx.font = '13px Arial';
+    ctx.fillText(trunc(sessionLine, 50), 20, 192);
+
+    // Date + location
+    ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.font = '12px Arial';
+    ctx.fillText('📅 ' + trunc(dateLocation, 50), 20, 210);
+
+    // Status badge
+    const label = '✓ COMMITTED';
+    const sw = ctx.measureText(label).width + 24;
+    ctx.fillStyle = 'rgba(184,134,11,0.3)';
+    roundRect(20, 224, sw, 26, 13); ctx.fill();
+    ctx.strokeStyle = 'rgba(184,134,11,0.5)'; ctx.lineWidth = 1;
+    roundRect(20, 224, sw, 26, 13); ctx.stroke();
+    ctx.fillStyle = '#D4A017'; ctx.font = 'bold 11px Arial';
+    ctx.fillText(label, 32, 241);
+
+    // Site URL bottom-right
+    ctx.fillStyle = 'rgba(184,134,11,0.4)'; ctx.font = '11px Arial'; ctx.textAlign = 'right';
+    ctx.fillText('californiaathleticacademy.com', W - 16, H - 12);
+
+    // Wire download button
+    document.getElementById('dl-btn').onclick = () => {
+      const fname = 'CAA-Committed-' + player.replace(/\s+/g, '-') + '.png';
+      cvs.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = fname; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+      }, 'image/png');
+    };
   }
 </script>
 </body>
