@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/monthly-program", "destination": "/monthly-program.html" },
     { "source": "/clinic", "destination": "/clinic.html" },
     { "source": "/admin",  "destination": "/admin.html"  },
     { "source": "/camp",   "destination": "/event.html"  },
