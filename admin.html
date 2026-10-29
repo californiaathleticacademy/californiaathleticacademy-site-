@@ -64,6 +64,30 @@ input:checked + .slider:before { transform:translateX(20px); }
 .toast.show { transform:translateX(-50%) translateY(0); }
 .toast.error { background:var(--red); }
 
+/* TABS */
+.tab-nav { display:flex; gap:6px; margin-bottom:20px; }
+.tab-btn { flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:10px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.4); cursor:pointer; transition:all .15s; }
+.tab-btn.active { background:rgba(184,134,11,0.15); border-color:var(--gold); color:var(--gold); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
+
+/* CONTRIBUTIONS PANE */
+.contrib-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.contrib-title { font-family:'Oswald',sans-serif; font-size:18px; font-weight:700; letter-spacing:1px; color:#fff; }
+.refresh-btn { background:transparent; border:1px solid rgba(255,255,255,0.2); border-radius:4px; padding:6px 14px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.4); cursor:pointer; transition:border-color .15s, color .15s; }
+.refresh-btn:hover { border-color:var(--gold); color:var(--gold); }
+.contrib-loading { text-align:center; padding:40px 0; color:rgba(255,255,255,0.3); font-size:13px; }
+.contrib-empty { text-align:center; padding:40px 0; color:rgba(255,255,255,0.3); font-size:13px; font-style:italic; }
+.contrib-error { text-align:center; padding:30px 0; color:#e74c3c; font-size:13px; }
+.player-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.07); }
+.player-row:last-child { border-bottom:none; }
+.player-rank { font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; color:rgba(255,255,255,0.2); width:20px; text-align:right; flex-shrink:0; }
+.player-info { flex:1; min-width:0; }
+.player-name { font-family:'Oswald',sans-serif; font-size:14px; font-weight:700; letter-spacing:.5px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.player-meta { font-size:11px; color:rgba(255,255,255,0.35); margin-top:2px; }
+.player-total { font-family:'Oswald',sans-serif; font-size:16px; font-weight:700; color:var(--gold); flex-shrink:0; }
+.contrib-fetched { font-size:10px; color:rgba(255,255,255,0.2); text-align:right; margin-top:14px; font-style:italic; }
+
 /* Live meter preview */
 .preview-label { font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:6px; }
 .meter-wrap { background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; height:8px; margin-bottom:4px; }
@@ -94,7 +118,12 @@ input:checked + .slider:before { transform:translateX(20px); }
 <!-- DASHBOARD -->
 <div id="dashboard">
 
-  <div id="pane-spots">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('spots')">Spot Control</button>
+    <button class="tab-btn" onclick="showTab('contributions')">Contributions</button>
+  </div>
+
+  <div id="pane-spots" class="tab-pane active">
 
   <!-- SESSION 1 -->
   <div class="session-panel" id="panel-s1">
@@ -169,6 +198,18 @@ input:checked + .slider:before { transform:translateX(20px); }
   </div>
 
   </div><!-- /pane-spots -->
+
+  <div id="pane-contributions" class="tab-pane">
+    <div class="session-panel">
+      <div class="contrib-header">
+        <div class="contrib-title">Player Contributions</div>
+        <button class="refresh-btn" onclick="loadContributions()">↻ Refresh</button>
+      </div>
+      <div id="contrib-body">
+        <div class="contrib-loading">Loading contributions…</div>
+      </div>
+    </div>
+  </div><!-- /pane-contributions -->
 
 </div>
 
@@ -299,6 +340,68 @@ function save(s) {
     btn.textContent = `Save Session ${s === 's1' ? '1' : '2'}`;
     showToast('Network error', true);
   });
+}
+
+// ── Tab switching ──────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`pane-${name}`).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.textContent.toLowerCase().includes(name === 'spots' ? 'spot' : name)) {
+      b.classList.add('active');
+    }
+  });
+  if (name === 'contributions') loadContributions();
+}
+
+// ── Contributions ──────────────────────────────────────────────────────────
+let _contribLoaded = false;
+
+function loadContributions() {
+  const body = document.getElementById('contrib-body');
+  body.innerHTML = '<div class="contrib-loading">Loading…</div>';
+  _contribLoaded = false;
+
+  fetch(`/api/get-contributions?password=${encodeURIComponent(savedPassword)}`)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.players || data.players.length === 0) {
+        body.innerHTML = '<div class="contrib-empty">No contributions yet.</div>';
+        return;
+      }
+      let html = '';
+      data.players.forEach((p, i) => {
+        const dollars = (p.total / 100).toFixed(2);
+        const meta = [];
+        if (p.count) meta.push(`${p.count} contribution${p.count !== 1 ? 's' : ''}`);
+        if (p.recurring) meta.push(`${p.recurring} recurring`);
+        if (p.last) meta.push(`last: ${p.last}`);
+        const events = Object.keys(p.events || {}).join(', ');
+        if (events) meta.push(events);
+        html += `
+          <div class="player-row">
+            <div class="player-rank">${i + 1}</div>
+            <div class="player-info">
+              <div class="player-name">${p.player}</div>
+              <div class="player-meta">${meta.join(' · ')}</div>
+            </div>
+            <div class="player-total">$${dollars}</div>
+          </div>`;
+      });
+      if (data.fetched) {
+        const fetched = new Date(data.fetched).toLocaleString('en-US', {
+          timeZone: 'America/Los_Angeles', month:'short', day:'numeric',
+          hour:'numeric', minute:'2-digit',
+        });
+        html += `<div class="contrib-fetched">Fetched from Stripe ${fetched} PT · ${data.fetched ? data.players.length + ' players' : ''}</div>`;
+      }
+      body.innerHTML = html;
+      _contribLoaded = true;
+    })
+    .catch(err => {
+      body.innerHTML = `<div class="contrib-error">Failed to load contributions. Check your connection.</div>`;
+    });
 }
 
 function showToast(msg, isError = false) {

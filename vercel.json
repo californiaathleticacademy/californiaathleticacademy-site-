@@ -5,6 +5,7 @@
     { "source": "/admin",  "destination": "/admin.html"  },
     { "source": "/camp",   "destination": "/event.html"  },
     { "source": "/tryout", "destination": "/event.html"  },
-    { "source": "/event",  "destination": "/event.html"  }
+    { "source": "/event",   "destination": "/event.html"   },
+    { "source": "/support", "destination": "/support.html" }
   ]
 }

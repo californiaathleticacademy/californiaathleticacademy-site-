@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Support a Player · California Athletic Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0C2340;
+  --navy-2: #132d4a;
+  --gold: #B8860B;
+  --gold-bright: #D4A017;
+  --paper: #F7F5F0;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Nav ── */
+nav {
+  background: #fff;
+  border-bottom: 2px solid rgba(184,134,11,0.3);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-wordmark {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+/* ── Hero band ── */
+.hero {
+  background: var(--navy);
+  padding: 36px 20px 28px;
+  text-align: center;
+}
+.hero-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.hero-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.hero-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+}
+
+/* ── Main card ── */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px 48px;
+}
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border: 1.5px solid rgba(12,35,64,0.1);
+  border-radius: 12px;
+  padding: 28px 24px;
+  box-shadow: 0 2px 20px rgba(12,35,64,0.07);
+}
+
+/* ── Amount ── */
+.section-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: rgba(12,35,64,0.45);
+  margin-bottom: 10px;
+}
+.amount-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.chip {
+  background: var(--paper);
+  border: 1.5px solid rgba(12,35,64,0.15);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.chip.selected {
+  border-color: var(--gold);
+  background: rgba(184,134,11,0.07);
+  color: var(--gold);
+}
+.custom-amount-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+.dollar-sign {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  pointer-events: none;
+}
+#custom-amount {
+  width: 100%;
+  border: 1.5px solid rgba(12,35,64,0.15);
+  border-radius: 8px;
+  padding: 12px 14px 12px 30px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  outline: none;
+  background: #fff;
+}
+#custom-amount:focus {
+  border-color: var(--gold);
+}
+.amount-note {
+  font-size: 11px;
+  color: rgba(12,35,64,0.4);
+  margin-top: -14px;
+  margin-bottom: 20px;
+}
+
+/* ── Frequency toggle ── */
+.freq-wrap {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid rgba(12,35,64,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.freq-btn {
+  flex: 1;
+  padding: 11px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  border: none;
+  background: #fff;
+  color: rgba(12,35,64,0.45);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.freq-btn.active {
+  background: var(--navy);
+  color: #fff;
+}
+.freq-note {
+  font-size: 11px;
+  color: rgba(12,35,64,0.4);
+  text-align: center;
+  margin-top: -18px;
+  margin-bottom: 22px;
+  font-style: italic;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: rgba(12,35,64,0.08);
+  margin: 4px 0 22px;
+}
+
+/* ── Submit ── */
+.contribute-btn {
+  display: block;
+  width: 100%;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  margin-bottom: 14px;
+}
+.contribute-btn:hover { background: var(--gold); color: var(--navy); }
+.contribute-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.secure-note {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(12,35,64,0.4);
+}
+.error-msg {
+  color: #c0392b;
+  font-size: 13px;
+  margin-bottom: 14px;
+  display: none;
+}
+
+/* ── Success state ── */
+#success-state {
+  display: none;
+  text-align: center;
+  padding: 20px 0;
+}
+.success-icon { font-size: 40px; margin-bottom: 14px; }
+.success-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.success-sub {
+  font-size: 14px;
+  color: rgba(12,35,64,0.6);
+  line-height: 1.5;
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 20px 16px 32px;
+  font-size: 11px;
+  color: rgba(12,35,64,0.35);
+}
+footer a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-wordmark" href="/">California Athletic Academy</a>
+</nav>
+
+<div class="hero">
+  <p class="hero-label">California Athletic Academy</p>
+  <p class="hero-name" id="hero-name">Loading…</p>
+  <p class="hero-sub" id="hero-sub">Help cover their spot at California Athletic Academy</p>
+</div>
+
+<main>
+  <div class="card">
+
+    <!-- Success (shown after Stripe redirect with ?success=1) -->
+    <div id="success-state">
+      <div class="success-icon">🏀</div>
+      <p class="success-title">Contribution Received!</p>
+      <p class="success-sub" id="success-sub">Thank you — your support goes directly toward <span id="success-player"></span>'s spot at California Athletic Academy.</p>
+    </div>
+
+    <!-- Contribution form -->
+    <div id="form-state">
+      <p class="section-label">Choose an amount</p>
+
+      <div class="amount-chips" id="chips">
+        <button class="chip" onclick="selectChip(this, 2500)">$25</button>
+        <button class="chip" onclick="selectChip(this, 5000)">$50</button>
+        <button class="chip" onclick="selectChip(this, 10000)">$100</button>
+        <button class="chip" onclick="selectChip(this, 0)">Custom</button>
+      </div>
+
+      <div class="custom-amount-wrap" id="custom-wrap" style="display:none">
+        <span class="dollar-sign">$</span>
+        <input type="number" id="custom-amount" min="10" placeholder="10" oninput="onCustomInput(this)">
+      </div>
+      <p class="amount-note" id="amount-note">$10 minimum</p>
+
+      <p class="section-label">Frequency</p>
+      <div class="freq-wrap">
+        <button class="freq-btn active" id="btn-once" onclick="setFreq('once')">One-Time</button>
+        <button class="freq-btn" id="btn-monthly" onclick="setFreq('monthly')">Monthly</button>
+      </div>
+      <p class="freq-note" id="freq-note">A single contribution toward their spot</p>
+
+      <div class="divider"></div>
+
+      <p class="error-msg" id="error-msg"></p>
+
+      <button class="contribute-btn" id="contribute-btn" onclick="startCheckout()">
+        Contribute Now →
+      </button>
+      <p class="secure-note">🔒 Secure checkout powered by Stripe. Your card info never touches this site.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>California Athletic Academy · Rowland Heights, CA · <a href="/">californiaathleticacademy.com</a></p>
+  <p style="margin-top:6px">Contributions are not tax-deductible. Voluntary and not required for program participation.</p>
+</footer>
+
+<script>
+  // ── Parse URL params ──────────────────────────────────────────────────────
+  const params     = new URLSearchParams(window.location.search);
+  const playerName = (params.get('player') || '').trim();
+  const eventSlug  = (params.get('event')  || 'program').trim();
+  const isSuccess  = params.get('success') === '1';
+
+  // ── Populate hero ──────────────────────────────────────────────────────────
+  if (playerName) {
+    document.getElementById('hero-name').textContent = playerName;
+    document.getElementById('hero-sub').textContent  =
+      `Help cover ${playerName.split(' ')[0]}'s spot at California Athletic Academy`;
+  } else {
+    document.getElementById('hero-name').textContent = 'Support a Player';
+  }
+
+  // ── Success state ─────────────────────────────────────────────────────────
+  if (isSuccess) {
+    document.getElementById('form-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+    document.getElementById('success-player').textContent =
+      playerName ? playerName.split(' ')[0] + "'s" : 'the player’s';
+  }
+
+  // ── Amount state ──────────────────────────────────────────────────────────
+  let selectedCents = 0;   // 0 = custom
+  let isRecurring   = false;
+
+  function selectChip(el, cents) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCents = cents;
+    const showCustom = cents === 0;
+    document.getElementById('custom-wrap').style.display = showCustom ? 'block' : 'none';
+    document.getElementById('amount-note').style.display = showCustom ? 'none' : 'block';
+    if (!showCustom) document.getElementById('custom-amount').value = '';
+  }
+
+  function onCustomInput(input) {
+    const val = parseFloat(input.value);
+    selectedCents = (val && val >= 10) ? Math.round(val * 100) : 0;
+    document.getElementById('amount-note').style.display = 'block';
+    document.getElementById('amount-note').textContent =
+      (val && val < 10) ? 'Minimum contribution is $10' : '$10 minimum';
+  }
+
+  function setFreq(mode) {
+    isRecurring = mode === 'monthly';
+    document.getElementById('btn-once').classList.toggle('active', !isRecurring);
+    document.getElementById('btn-monthly').classList.toggle('active', isRecurring);
+    document.getElementById('freq-note').textContent = isRecurring
+      ? 'Billed monthly — cancel anytime'
+      : 'A single contribution toward their spot';
+  }
+
+  // ── Checkout ──────────────────────────────────────────────────────────────
+  async function startCheckout() {
+    const errorEl = document.getElementById('error-msg');
+    errorEl.style.display = 'none';
+
+    let cents = selectedCents;
+    if (cents === 0) {
+      const raw = parseFloat(document.getElementById('custom-amount').value);
+      cents = (raw && raw >= 10) ? Math.round(raw * 100) : 0;
+    }
+
+    if (!cents || cents < 1000) {
+      errorEl.textContent = 'Please enter an amount of at least $10.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (!playerName) {
+      errorEl.textContent = 'Player name is missing from this link. Please ask for a new link.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    const btn = document.getElementById('contribute-btn');
+    btn.disabled = true;
+    btn.textContent = 'Redirecting to checkout…';
+
+    const base = window.location.origin + window.location.pathname;
+    const successUrl = `${base}?player=${encodeURIComponent(playerName)}&event=${encodeURIComponent(eventSlug)}&success=1`;
+    const cancelUrl  = `${base}?player=${encodeURIComponent(playerName)}&event=${encodeURIComponent(eventSlug)}`;
+
+    try {
+      const res = await fetch('/api/create-contribution-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          playerName,
+          amountCents: cents,
+          recurring: isRecurring,
+          event: eventSlug,
+          successUrl,
+          cancelUrl,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout.');
+      window.location.href = data.url;
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Contribute Now →';
+      errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
