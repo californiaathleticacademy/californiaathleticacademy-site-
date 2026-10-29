@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { firstName, lastName, email, phone, grade, session } = req.body || {};
+  const { firstName, lastName, email, phone, grade, session, event } = req.body || {};
 
   if (!firstName || !lastName || !email) {
     return res.status(400).json({ error: 'firstName, lastName, and email are required.' });
@@ -20,6 +20,11 @@ export default async function handler(req, res) {
   if (!['s1', 's2'].includes(session)) {
     return res.status(400).json({ error: 'session must be s1 or s2.' });
   }
+
+  const isMonthly = event && event.toLowerCase().includes('monthly');
+  const eventLabel = isMonthly
+    ? 'Monthly Program — Every Sunday · Starting November 8th'
+    : 'Girls Basketball Skills Clinic';
 
   const sessionLabel = session === 's1'
     ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
@@ -41,12 +46,12 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: 'California Athletic Academy <onboarding@resend.dev>',
         to: 'qcarr@rowlandschools.org',
-        subject: `New Clinic Registration — ${firstName} ${lastName}`,
+        subject: `New Registration — ${firstName} ${lastName} · ${eventLabel}`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;">
             <div style="background:#0C2340;padding:24px 28px;">
               <h1 style="color:#D4A017;font-size:20px;margin:0;letter-spacing:2px;text-transform:uppercase;">New Registration</h1>
-              <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:6px 0 0;">Girls Basketball Skills Clinic · November 1, 2026</p>
+              <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:6px 0 0;">${eventLabel}</p>
             </div>
             <div style="padding:28px;">
               <table style="width:100%;border-collapse:collapse;">
