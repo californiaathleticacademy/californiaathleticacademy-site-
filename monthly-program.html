@@ -489,10 +489,19 @@
           </select>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+      <!-- Promo code -->
+      <div style="margin-top:16px;">
+        <div style="display:flex;gap:8px;align-items:stretch;">
+          <input type="text" id="promo-input" placeholder="Promo code (optional)" style="flex:1;text-transform:uppercase;letter-spacing:1px;" oninput="this.value=this.value.toUpperCase()">
+          <button type="button" onclick="applyPromo()" style="background:var(--navy);color:var(--gold);font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:10px;padding:0 18px;cursor:pointer;white-space:nowrap;">Apply</button>
+        </div>
+        <p id="promo-msg" style="font-size:12px;margin:6px 0 0;display:none;"></p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
         <button class="submit-btn" id="submit-btn-full" onclick="submitRegistration('full')">Pay in Full · $199/month →</button>
         <button class="submit-btn" id="submit-btn-rsvp" onclick="submitRegistration('rsvp')" style="background:#fff;color:#0C2340;border:2px solid #0C2340;">RSVP — Hold My Spot · $39.80 deposit</button>
-        <p style="font-size:11px;color:#888;text-align:center;margin:4px 0 0;line-height:1.5;">By submitting an RSVP, you agree that your spot and any contributions raised on your behalf will be forfeited if the remaining balance of $159.20 is not paid in full 24 hours before your first session.</p>
+        <p style="font-size:11px;color:#888;text-align:center;margin:4px 0 0;line-height:1.5;">By submitting an RSVP, you agree that your spot and any contributions raised on your behalf will be forfeited if the remaining balance is not paid in full 24 hours before your first session.</p>
       </div>
     </div>
 
@@ -587,6 +596,43 @@
 
 <script>
   let selectedSession = null;
+  let appliedPromo = null; // { code, discount } when a valid promo is applied
+
+  function applyPromo() {
+    const PROMOS = { 'RUSD': 0.25 }; // code → fraction off
+    const code = document.getElementById('promo-input').value.trim().toUpperCase();
+    const msg  = document.getElementById('promo-msg');
+    const btnFull = document.getElementById('submit-btn-full');
+    const btnRsvp = document.getElementById('submit-btn-rsvp');
+
+    if (!code) {
+      appliedPromo = null;
+      msg.style.display = 'none';
+      btnFull.textContent = 'Pay in Full · $199/month →';
+      btnRsvp.textContent = 'RSVP — Hold My Spot · $39.80 deposit';
+      return;
+    }
+
+    const discount = PROMOS[code];
+    if (!discount) {
+      appliedPromo = null;
+      msg.style.display = 'block';
+      msg.style.color = '#c0392b';
+      msg.textContent = 'Invalid promo code.';
+      btnFull.textContent = 'Pay in Full · $199/month →';
+      btnRsvp.textContent = 'RSVP — Hold My Spot · $39.80 deposit';
+      return;
+    }
+
+    appliedPromo = { code, discount };
+    const fullPrice  = (199 * (1 - discount)).toFixed(2);
+    const rsvpPrice  = (39.80 * (1 - discount)).toFixed(2);
+    msg.style.display = 'block';
+    msg.style.color = '#1a7a3f';
+    msg.textContent = `✓ ${Math.round(discount * 100)}% discount applied!`;
+    btnFull.textContent = `Pay in Full · $${fullPrice}/month →`;
+    btnRsvp.textContent = `RSVP — Hold My Spot · $${rsvpPrice} deposit`;
+  }
 
   function selectSession(id, el) {
     selectedSession = id;
@@ -642,7 +688,7 @@
       const checkoutRes = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, session: selectedSession, grade, skillLevel })
+        body: JSON.stringify({ firstName, lastName, email, session: selectedSession, grade, skillLevel, promoCode: appliedPromo?.code || '' })
       });
 
       const checkoutData = await checkoutRes.json();

@@ -11,7 +11,12 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { firstName, lastName, email, session, grade, skillLevel } = req.body || {};
+  const { firstName, lastName, email, session, grade, skillLevel, promoCode } = req.body || {};
+
+  // Promo codes — add new codes here as the program grows
+  const PROMOS = { 'RUSD': 0.25 };
+  const discount = PROMOS[(promoCode || '').toUpperCase()] || 0;
+  const fullAmount = Math.round(19900 * (1 - discount)); // cents after discount
 
   if (!firstName || !lastName || !email) {
     return res.status(400).json({ error: 'firstName, lastName, and email are required.' });
@@ -36,7 +41,7 @@ export default async function handler(req, res) {
           name: 'Monthly Program — California Athletic Academy',
           description: `Every Sunday · Starting November 8th · ${sessionLabel}`,
         },
-        unit_amount: 19900, // $199.00
+        unit_amount: fullAmount, // $199.00 base, reduced by promo
         recurring: { interval: 'month' },
       },
       quantity: 1,

@@ -11,7 +11,14 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { firstName, lastName, email, session, grade, skillLevel } = req.body || {};
+  const { firstName, lastName, email, session, grade, skillLevel, promoCode } = req.body || {};
+
+  // Promo codes — keep in sync with monthly-checkout.js
+  const PROMOS = { 'RUSD': 0.25 };
+  const discount   = PROMOS[(promoCode || '').toUpperCase()] || 0;
+  const totalCents = Math.round(19900 * (1 - discount));      // e.g. 14925
+  const depositCents  = Math.round(totalCents * 0.20);        // 20% deposit
+  const balanceCents  = totalCents - depositCents;            // remainder
 
   if (!firstName || !lastName || !email) {
     return res.status(400).json({ error: 'firstName, lastName, and email are required.' });
@@ -32,9 +39,9 @@ export default async function handler(req, res) {
         currency: 'usd',
         product_data: {
           name: 'Monthly Program RSVP — California Athletic Academy',
-          description: `20% deposit · ${sessionLabel} · Balance of $159.20 due at first session`,
+          description: `20% deposit · ${sessionLabel} · Balance of $${(balanceCents/100).toFixed(2)} due at first session`,
         },
-        unit_amount: 3980, // $39.80
+        unit_amount: depositCents, // 20% of discounted total
       },
       quantity: 1,
     }],
@@ -46,9 +53,10 @@ export default async function handler(req, res) {
         skill_level: skillLevel || '',
         session: sessionLabel,
         event: 'monthly-program-nov-2026',
-        event_date: '2026-11-08',  // YYYY-MM-DD — reminder fires 48 hrs before this date
+        event_date: '2026-11-08',
         type: 'rsvp_deposit',
-        balance_due: '15920',
+        balance_due: String(balanceCents),
+        promo_code: promoCode || '',
       },
     },
     success_url: `https://californiaathleticacademy.com/monthly-program?rsvp=1&first=${encodeURIComponent(firstName)}&last=${encodeURIComponent(lastName)}&session=${encodeURIComponent(session || 's1')}`,
