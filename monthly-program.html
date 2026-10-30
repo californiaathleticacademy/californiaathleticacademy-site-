@@ -476,6 +476,15 @@
             <option>12th Grade (Senior)</option>
           </select>
         </div>
+        <div class="form-group">
+          <label for="skill-level">Skill Level</label>
+          <select id="skill-level">
+            <option value="" disabled selected>Select skill level</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </div>
       </div>
       <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">
         Register for Monthly Program →
@@ -585,7 +594,8 @@
     const lastName  = document.getElementById('last-name').value.trim();
     const email     = document.getElementById('email').value.trim();
     const phone     = document.getElementById('phone').value.trim();
-    const grade     = document.getElementById('grade').value;
+    const grade      = document.getElementById('grade').value;
+    const skillLevel = document.getElementById('skill-level').value;
 
     if (!selectedSession) {
       document.getElementById('session-error').style.display = 'block';
@@ -615,6 +625,7 @@
           email,
           phone,
           grade,
+          skillLevel,
           session: selectedSession,
           event: 'Monthly Program — Every Sunday',
         })

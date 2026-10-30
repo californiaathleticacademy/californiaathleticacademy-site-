@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { firstName, lastName, email, phone, grade, session, event } = req.body || {};
+  const { firstName, lastName, email, phone, grade, skillLevel, session, event } = req.body || {};
 
   if (!firstName || !lastName || !email) {
     return res.status(400).json({ error: 'firstName, lastName, and email are required.' });
@@ -59,6 +59,7 @@ export default async function handler(req, res) {
                 <tr><td style="padding:8px 0;color:#666;font-size:13px;width:140px;">Athlete</td><td style="padding:8px 0;font-weight:600;color:#111;font-size:14px;">${firstName} ${lastName}</td></tr>
                 <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Session</td><td style="padding:8px 0;font-weight:600;color:#0C2340;font-size:14px;">${sessionLabel}</td></tr>
                 <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Grade</td><td style="padding:8px 0;color:#333;font-size:14px;">${grade || 'Not specified'}</td></tr>
+                <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Skill Level</td><td style="padding:8px 0;color:#333;font-size:14px;">${skillLevel || 'Not specified'}</td></tr>
                 <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Parent Email</td><td style="padding:8px 0;color:#333;font-size:14px;">${email}</td></tr>
                 <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Parent Phone</td><td style="padding:8px 0;color:#333;font-size:14px;">${phone || 'Not provided'}</td></tr>
                 <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Submitted</td><td style="padding:8px 0;color:#999;font-size:13px;">${timestamp} PT</td></tr>
