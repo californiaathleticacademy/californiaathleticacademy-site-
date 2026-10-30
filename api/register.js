@@ -96,11 +96,19 @@ export default async function handler(req, res) {
             <div style="padding:28px;">
               <p style="font-size:15px;color:#222;margin:0 0 20px;">Hi ${firstName}, welcome to California Athletic Academy. Your spot is confirmed for <strong>${sessionLabel}</strong>.</p>
 
+              ${isMonthly ? `
+              <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:16px 20px;margin-bottom:24px;">
+                <p style="font-size:13px;color:#856404;margin:0;font-weight:700;">⚠️ RSVP Balance Due — Action Required</p>
+                <p style="font-size:13px;color:#856404;margin:8px 0 0;">Your remaining balance of <strong>$159.20</strong> must be paid in full <strong>24 hours before your first session (November 8th)</strong>. If payment is not received by then, your RSVP and any contributions raised on your behalf will be forfeited.</p>
+                <a href="https://californiaathleticacademy.com/monthly-program" style="display:inline-block;margin-top:14px;background:#B8860B;color:#fff;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:10px 20px;border-radius:3px;">Complete Payment →</a>
+              </div>
+              ` : `
               <div style="background:#f7f5f0;border-radius:6px;padding:20px 24px;margin-bottom:24px;">
                 <p style="font-size:13px;color:#666;margin:0 0 12px;text-transform:uppercase;letter-spacing:2px;font-weight:700;">Get Your Participant Card</p>
                 <p style="font-size:14px;color:#333;margin:0 0 16px;">Save your official card and share it on social media to let everyone know you're competing.</p>
                 <a href="https://californiaathleticacademy.com/my-card" style="display:inline-block;background:#B8860B;color:#fff;font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:3px;">Get My Card →</a>
               </div>
+              `}
 
               <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
                 <tr><td style="padding:8px 0;color:#666;font-size:13px;width:140px;">Athlete</td><td style="padding:8px 0;font-weight:600;color:#111;font-size:14px;">${firstName} ${lastName}</td></tr>
