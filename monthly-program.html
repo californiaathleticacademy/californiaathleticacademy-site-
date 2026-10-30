@@ -249,6 +249,7 @@
   }
 
   .submit-btn {
+    display: block;
     width: 100%;
     height: 52px;
     background: var(--navy);
@@ -258,11 +259,13 @@
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
+    text-align: center;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background .2s, transform .1s;
     margin-top: 8px;
+    box-sizing: border-box;
   }
   .submit-btn:hover { background: #0f2d52; }
   .submit-btn:active { transform: scale(.99); }
