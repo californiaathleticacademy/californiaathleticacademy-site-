@@ -7,5 +7,6 @@
     { "source": "/tryout", "destination": "/event.html"  },
     { "source": "/event",   "destination": "/event.html"   },
     { "source": "/support", "destination": "/support.html" },
-    { "source": "/my-card", "destination": "/my-card.html" }
+    { "source": "/my-card", "destination": "/my-card.html" },
+    { "source": "/free-workout", "destination": "/free-workout.html" }
   ]}
