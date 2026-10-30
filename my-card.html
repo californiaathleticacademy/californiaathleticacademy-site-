@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Participant Card — California Athletic Academy</title>
+<meta name="description" content="Get your official California Athletic Academy Participant Card. Enter your name, choose your skill level, and save your card to share on social media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0C2340;
+  --gold: #B8860B;
+  --gold-bright: #D4A017;
+  --paper: #F7F5F0;
+  --white: #FFFFFF;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* NAV */
+nav {
+  background: var(--white);
+  border-bottom: 2px solid rgba(184,134,11,0.3);
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo svg { height: 44px; width: auto; }
+.nav-back {
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: rgba(12,35,64,0.45);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-back:hover { color: var(--gold); }
+
+/* MAIN */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px 64px;
+  gap: 32px;
+}
+
+/* HERO TEXT */
+.hero {
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.hero-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.45);
+  max-width: 380px;
+}
+
+/* FORM CONTROLS */
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 560px;
+}
+.controls label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 160px;
+}
+.controls input, .controls select {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(184,134,11,0.35);
+  color: var(--white);
+  padding: 11px 14px;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.controls input:focus, .controls select:focus {
+  border-color: var(--gold);
+}
+.controls input::placeholder { color: rgba(255,255,255,0.2); }
+.controls select option { background: var(--navy); color: var(--white); }
+
+/* CARD — square for Instagram */
+.card {
+  width: 480px;
+  height: 480px;
+  max-width: min(92vw, 480px);
+  background: var(--navy);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(184,134,11,0.25);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* CA WATERMARK */
+.ca-watermark {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 260px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* CARD HEADER */
+.card-header {
+  background: var(--white);
+  border-bottom: 2px solid rgba(184,134,11,0.3);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+.header-logo svg { height: 48px; width: auto; }
+.free-badge {
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 5px 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* CARD BODY */
+.card-body {
+  padding: 18px 28px 16px;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* PARTICIPANT LABEL */
+.card-type-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.card-type-line { width: 28px; height: 2px; background: var(--gold); flex-shrink: 0; }
+.card-type-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* PLAYER NAME */
+.player-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+/* EVENT NAME */
+.event-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(247,245,240,0.5);
+  margin-bottom: 24px;
+}
+
+/* DIVIDER */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(184,134,11,0.1) 100%);
+  margin-bottom: 20px;
+}
+
+/* DETAILS GRID */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.detail-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(247,245,240,0.3);
+  margin-bottom: 4px;
+}
+.detail-value {
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--paper);
+  text-transform: uppercase;
+}
+
+/* SKILL BADGE */
+.skill-badge-row { display: flex; align-items: center; }
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 2px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.skill-badge.beginner    { background: rgba(184,134,11,0.15); border: 1.5px solid rgba(184,134,11,0.4); color: var(--gold); }
+.skill-badge.intermediate { background: rgba(184,134,11,0.25); border: 1.5px solid rgba(184,134,11,0.6); color: var(--gold-bright); }
+.skill-badge.advanced    { background: var(--gold); border: 1.5px solid var(--gold); color: var(--navy); }
+.skill-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: 0.8; }
+
+/* CARD FOOTER */
+.card-footer {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+.footer-left, .footer-right {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  color: var(--white);
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+.footer-left:hover, .footer-right:hover { color: var(--gold); }
+
+/* SAVE BUTTON */
+.btn-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+.btn-save {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  border: none;
+  padding: 16px 48px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-save:hover { background: var(--gold-bright); }
+.btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#saveMsg {
+  display: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+}
+
+.hint {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.18);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+footer a {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(184,134,11,0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+footer a:hover { color: var(--gold); }
+
+@media (max-width: 520px) {
+  .hero-title { font-size: 28px; }
+  .controls label { min-width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://californiaathleticacademy.com">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="75 35 470 255" role="img" aria-label="California Athletic Academy">
+      <defs><clipPath id="navClip"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#navClip)"/>
+      <g transform="translate(-182.14,-306.44) scale(3.914)">
+        <path fill="#FFFFFF" d="M 70.765625 107.925781 C 70.691406 107.660156 70.621094 107.390625 70.550781 107.125 C 70.664062 106.757812 70.796875 106.394531 70.894531 106.019531 C 70.96875 105.722656 71 105.410156 71.054688 105.105469 C 71.066406 105.03125 71.0625 104.925781 71.105469 104.890625 C 71.316406 104.703125 71.242188 104.441406 71.246094 104.1875 C 71.25 103.9375 71.261719 103.679688 71.328125 103.449219 C 71.460938 103.007812 71.484375 102.574219 71.355469 102.097656 C 71.1875 101.484375 71.101562 100.859375 71.214844 100.238281 L 71.355469 100.203125 C 71.386719 100.214844 71.421875 100.238281 71.457031 100.242188 C 74.445312 100.371094 77.4375 100.496094 80.429688 100.628906 C 80.828125 100.644531 81.230469 100.714844 81.628906 100.757812 C 81.894531 104.609375 82.160156 108.414062 82.410156 112.21875 C 82.429688 112.519531 82.53125 112.714844 82.730469 112.914062 C 87.363281 117.460938 91.984375 122.023438 96.625 126.554688 C 97.3125 127.230469 97.867188 127.921875 98.019531 128.953125 C 98.101562 129.492188 98.40625 129.875 98.890625 130.042969 C 98.949219 130.257812 99.003906 130.472656 99.0625 130.6875 C 99.03125 130.867188 99.035156 131.074219 98.960938 131.222656 C 98.554688 132.027344 98.480469 132.96875 98.246094 133.84375 C 98.226562 133.921875 98.25 134.019531 98.257812 134.105469 C 98.273438 134.304688 98.28125 134.507812 98.304688 134.703125 C 98.320312 134.820312 98.339844 134.953125 98.398438 135.042969 C 98.46875 135.152344 98.589844 135.21875 98.6875 135.308594 C 99.167969 135.75 99.15625 136.214844 98.640625 136.492188 C 98.421875 136.613281 98.28125 136.765625 98.335938 137.074219 C 98.21875 137.101562 98.105469 137.132812 97.992188 137.164062 C 97.335938 137.253906 96.675781 137.332031 96.023438 137.433594 C 94.847656 137.617188 93.675781 137.816406 92.5 138.003906 C 92.191406 138.054688 91.878906 138.089844 91.535156 138.140625 C 91.640625 137.644531 91.363281 137.425781 91.125 137.171875 C 90.746094 136.769531 90.679688 136.492188 90.855469 136.089844 C 91.035156 135.679688 90.863281 135.152344 90.496094 134.894531 C 90.183594 134.671875 89.886719 134.421875 89.585938 134.175781 C 89.332031 133.964844 89.074219 133.722656 88.761719 133.890625 C 88.578125 133.984375 88.394531 134.082031 88.261719 133.851562 C 88.160156 133.675781 88.078125 133.410156 88.117188 133.230469 C 88.191406 132.898438 88.070312 132.773438 87.828125 132.761719 C 87.289062 132.734375 86.742188 132.832031 86.234375 132.414062 C 86.003906 132.226562 85.726562 132.109375 85.496094 131.917969 C 85.1875 131.664062 84.902344 131.363281 84.601562 131.089844 C 84.546875 131.042969 84.464844 131.03125 84.394531 131.019531 C 83.8125 130.914062 83.230469 130.824219 82.648438 130.710938 C 81.671875 130.519531 81.34375 130.136719 81.1875 129.039062 C 81.175781 128.96875 81.179688 128.898438 81.167969 128.832031 C 81.058594 128.285156 80.957031 127.738281 80.445312 127.4375 C 80.390625 127.40625 80.324219 127.320312 80.320312 127.261719 C 80.277344 126.558594 79.835938 126.164062 79.394531 125.757812 C 78.984375 125.378906 78.609375 124.972656 78.492188 124.351562 C 78.464844 124.226562 78.339844 124.101562 78.242188 124.007812 C 77.753906 123.53125 77.324219 123.007812 77.140625 122.292969 C 77 121.75 77.144531 121.523438 77.636719 121.496094 C 77.519531 120.910156 77.484375 120.9375 77 120.761719 C 76.710938 120.65625 76.371094 120.417969 76.222656 120.132812 C 75.917969 119.5625 75.6875 118.929688 75.503906 118.300781 C 75.398438 117.945312 75.363281 117.484375 75.683594 117.261719 C 75.839844 117.15625 76.113281 117.25 76.359375 117.257812 C 76.355469 117.214844 76.355469 117.089844 76.347656 116.898438 C 76.179688 116.917969 76.015625 116.890625 75.910156 116.964844 C 75.523438 117.238281 75.25 117.226562 74.855469 116.902344 C 74.722656 116.792969 74.566406 116.710938 74.410156 116.660156 C 74.019531 116.527344 73.839844 116.125 74.105469 115.820312 C 74.398438 115.476562 74.199219 115.28125 73.988281 115.050781 C 73.855469 114.902344 73.707031 114.769531 73.570312 114.621094 C 73.257812 114.289062 72.992188 113.925781 72.964844 113.414062 C 72.960938 113.332031 72.871094 113.226562 72.800781 113.164062 C 72.398438 112.8125 72.207031 112.363281 72.144531 111.808594 C 72.070312 111.09375 72.15625 110.351562 71.765625 109.679688 C 71.734375 109.625 71.734375 109.507812 71.765625 109.453125 C 71.964844 109.113281 71.773438 108.90625 71.546875 108.695312 C 71.28125 108.445312 71.023438 108.183594 70.765625 107.925781 Z"/>
+      </g>
+      <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+      <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+      <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+      <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+      <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND HEIGHTS</text>
+    </svg>
+  </a>
+  <a class="nav-back" href="https://californiaathleticacademy.com">← Home</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <div class="hero">
+    <div class="hero-eyebrow">California Athletic Academy</div>
+    <div class="hero-title">Your Participant Card</div>
+    <div class="hero-sub">Enter your name, pick your level, and save your card to share on social media.</div>
+  </div>
+
+  <!-- FORM -->
+  <div class="controls">
+    <label>Your Name
+      <input id="nameInput" type="text" placeholder="FIRST LAST" maxlength="24" autocomplete="name">
+    </label>
+    <label>Event
+      <input id="eventInput" type="text" placeholder="EVENT NAME" maxlength="32" value="GIRLS BASKETBALL CLINIC">
+    </label>
+    <label>Date
+      <input id="dateInput" type="text" placeholder="DATE" maxlength="20" value="NOV 1, 2026">
+    </label>
+    <label>Skill Level
+      <select id="skillSelect">
+        <option value="beginner">Beginner</option>
+        <option value="intermediate" selected>Intermediate</option>
+        <option value="advanced">Advanced</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- CARD -->
+  <div class="card" id="card">
+
+    <!-- CA watermark -->
+    <svg class="ca-watermark" xmlns="http://www.w3.org/2000/svg" viewBox="46 78 68 76" fill="white">
+      <path d="M 70.765625 107.925781 C 70.691406 107.660156 70.621094 107.390625 70.550781 107.125 C 70.664062 106.757812 70.796875 106.394531 70.894531 106.019531 C 70.96875 105.722656 71 105.410156 71.054688 105.105469 C 71.066406 105.03125 71.0625 104.925781 71.105469 104.890625 C 71.316406 104.703125 71.242188 104.441406 71.246094 104.1875 C 71.25 103.9375 71.261719 103.679688 71.328125 103.449219 C 71.460938 103.007812 71.484375 102.574219 71.355469 102.097656 C 71.1875 101.484375 71.101562 100.859375 71.214844 100.238281 L 71.355469 100.203125 C 71.386719 100.214844 71.421875 100.238281 71.457031 100.242188 C 74.445312 100.371094 77.4375 100.496094 80.429688 100.628906 C 80.828125 100.644531 81.230469 100.714844 81.628906 100.757812 C 81.894531 104.609375 82.160156 108.414062 82.410156 112.21875 C 82.429688 112.519531 82.53125 112.714844 82.730469 112.914062 C 87.363281 117.460938 91.984375 122.023438 96.625 126.554688 C 97.3125 127.230469 97.867188 127.921875 98.019531 128.953125 C 98.101562 129.492188 98.40625 129.875 98.890625 130.042969 C 98.949219 130.257812 99.003906 130.472656 99.0625 130.6875 C 99.03125 130.867188 99.035156 131.074219 98.960938 131.222656 C 98.554688 132.027344 98.480469 132.96875 98.246094 133.84375 C 98.226562 133.921875 98.25 134.019531 98.257812 134.105469 C 98.273438 134.304688 98.28125 134.507812 98.304688 134.703125 C 98.320312 134.820312 98.339844 134.953125 98.398438 135.042969 C 98.46875 135.152344 98.589844 135.21875 98.6875 135.308594 C 99.167969 135.75 99.15625 136.214844 98.640625 136.492188 C 98.421875 136.613281 98.28125 136.765625 98.335938 137.074219 C 98.21875 137.101562 98.105469 137.132812 97.992188 137.164062 C 97.335938 137.253906 96.675781 137.332031 96.023438 137.433594 C 94.847656 137.617188 93.675781 137.816406 92.5 138.003906 C 92.191406 138.054688 91.878906 138.089844 91.535156 138.140625 C 91.640625 137.644531 91.363281 137.425781 91.125 137.171875 C 90.746094 136.769531 90.679688 136.492188 90.855469 136.089844 C 91.035156 135.679688 90.863281 135.152344 90.496094 134.894531 C 90.183594 134.671875 89.886719 134.421875 89.585938 134.175781 C 89.332031 133.964844 89.074219 133.722656 88.761719 133.890625 C 88.578125 133.984375 88.394531 134.082031 88.261719 133.851562 C 88.160156 133.675781 88.078125 133.410156 88.117188 133.230469 C 88.191406 132.898438 88.070312 132.773438 87.828125 132.761719 C 87.289062 132.734375 86.742188 132.832031 86.234375 132.414062 C 86.003906 132.226562 85.726562 132.109375 85.496094 131.917969 C 85.1875 131.664062 84.902344 131.363281 84.601562 131.089844 C 84.546875 131.042969 84.464844 131.03125 84.394531 131.019531 C 83.8125 130.914062 83.230469 130.824219 82.648438 130.710938 C 81.671875 130.519531 81.34375 130.136719 81.1875 129.039062 C 81.175781 128.96875 81.179688 128.898438 81.167969 128.832031 C 81.058594 128.285156 80.957031 127.738281 80.445312 127.4375 C 80.390625 127.40625 80.324219 127.320312 80.320312 127.261719 C 80.277344 126.558594 79.835938 126.164062 79.394531 125.757812 C 78.984375 125.378906 78.609375 124.972656 78.492188 124.351562 C 78.464844 124.226562 78.339844 124.101562 78.242188 124.007812 C 77.753906 123.53125 77.324219 123.007812 77.140625 122.292969 C 77 121.75 77.144531 121.523438 77.636719 121.496094 C 77.519531 120.910156 77.484375 120.9375 77 120.761719 C 76.710938 120.65625 76.371094 120.417969 76.222656 120.132812 C 75.917969 119.5625 75.6875 118.929688 75.503906 118.300781 C 75.398438 117.945312 75.363281 117.484375 75.683594 117.261719 C 75.839844 117.15625 76.113281 117.25 76.359375 117.257812 C 76.355469 117.214844 76.355469 117.089844 76.347656 116.898438 C 76.179688 116.917969 76.015625 116.890625 75.910156 116.964844 C 75.523438 117.238281 75.25 117.226562 74.855469 116.902344 C 74.722656 116.792969 74.566406 116.710938 74.410156 116.660156 C 74.019531 116.527344 73.839844 116.125 74.105469 115.820312 C 74.398438 115.476562 74.199219 115.28125 73.988281 115.050781 C 73.855469 114.902344 73.707031 114.769531 73.570312 114.621094 C 73.257812 114.289062 72.992188 113.925781 72.964844 113.414062 C 72.960938 113.332031 72.871094 113.226562 72.800781 113.164062 C 72.398438 112.8125 72.207031 112.363281 72.144531 111.808594 C 72.070312 111.09375 72.15625 110.351562 71.765625 109.679688 C 71.734375 109.625 71.734375 109.507812 71.765625 109.453125 C 71.964844 109.113281 71.773438 108.90625 71.546875 108.695312 C 71.28125 108.445312 71.023438 108.183594 70.765625 107.925781 Z"/>
+    </svg>
+
+    <!-- HEADER -->
+    <div class="card-header">
+      <div class="header-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="75 35 470 255" role="img" aria-label="California Athletic Academy">
+          <defs><clipPath id="cardClip"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+          <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+          <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#cardClip)"/>
+          <g transform="translate(-182.14,-306.44) scale(3.914)">
+            <path fill="#FFFFFF" d="M 70.765625 107.925781 C 70.691406 107.660156 70.621094 107.390625 70.550781 107.125 C 70.664062 106.757812 70.796875 106.394531 70.894531 106.019531 C 70.96875 105.722656 71 105.410156 71.054688 105.105469 C 71.066406 105.03125 71.0625 104.925781 71.105469 104.890625 C 71.316406 104.703125 71.242188 104.441406 71.246094 104.1875 C 71.25 103.9375 71.261719 103.679688 71.328125 103.449219 C 71.460938 103.007812 71.484375 102.574219 71.355469 102.097656 C 71.1875 101.484375 71.101562 100.859375 71.214844 100.238281 L 71.355469 100.203125 C 71.386719 100.214844 71.421875 100.238281 71.457031 100.242188 C 74.445312 100.371094 77.4375 100.496094 80.429688 100.628906 C 80.828125 100.644531 81.230469 100.714844 81.628906 100.757812 C 81.894531 104.609375 82.160156 108.414062 82.410156 112.21875 C 82.429688 112.519531 82.53125 112.714844 82.730469 112.914062 C 87.363281 117.460938 91.984375 122.023438 96.625 126.554688 C 97.3125 127.230469 97.867188 127.921875 98.019531 128.953125 C 98.101562 129.492188 98.40625 129.875 98.890625 130.042969 C 98.949219 130.257812 99.003906 130.472656 99.0625 130.6875 C 99.03125 130.867188 99.035156 131.074219 98.960938 131.222656 C 98.554688 132.027344 98.480469 132.96875 98.246094 133.84375 C 98.226562 133.921875 98.25 134.019531 98.257812 134.105469 C 98.273438 134.304688 98.28125 134.507812 98.304688 134.703125 C 98.320312 134.820312 98.339844 134.953125 98.398438 135.042969 C 98.46875 135.152344 98.589844 135.21875 98.6875 135.308594 C 99.167969 135.75 99.15625 136.214844 98.640625 136.492188 C 98.421875 136.613281 98.28125 136.765625 98.335938 137.074219 C 98.21875 137.101562 98.105469 137.132812 97.992188 137.164062 C 97.335938 137.253906 96.675781 137.332031 96.023438 137.433594 C 94.847656 137.617188 93.675781 137.816406 92.5 138.003906 C 92.191406 138.054688 91.878906 138.089844 91.535156 138.140625 C 91.640625 137.644531 91.363281 137.425781 91.125 137.171875 C 90.746094 136.769531 90.679688 136.492188 90.855469 136.089844 C 91.035156 135.679688 90.863281 135.152344 90.496094 134.894531 C 90.183594 134.671875 89.886719 134.421875 89.585938 134.175781 C 89.332031 133.964844 89.074219 133.722656 88.761719 133.890625 C 88.578125 133.984375 88.394531 134.082031 88.261719 133.851562 C 88.160156 133.675781 88.078125 133.410156 88.117188 133.230469 C 88.191406 132.898438 88.070312 132.773438 87.828125 132.761719 C 87.289062 132.734375 86.742188 132.832031 86.234375 132.414062 C 86.003906 132.226562 85.726562 132.109375 85.496094 131.917969 C 85.1875 131.664062 84.902344 131.363281 84.601562 131.089844 C 84.546875 131.042969 84.464844 131.03125 84.394531 131.019531 C 83.8125 130.914062 83.230469 130.824219 82.648438 130.710938 C 81.671875 130.519531 81.34375 130.136719 81.1875 129.039062 C 81.175781 128.96875 81.179688 128.898438 81.167969 128.832031 C 81.058594 128.285156 80.957031 127.738281 80.445312 127.4375 C 80.390625 127.40625 80.324219 127.320312 80.320312 127.261719 C 80.277344 126.558594 79.835938 126.164062 79.394531 125.757812 C 78.984375 125.378906 78.609375 124.972656 78.492188 124.351562 C 78.464844 124.226562 78.339844 124.101562 78.242188 124.007812 C 77.753906 123.53125 77.324219 123.007812 77.140625 122.292969 C 77 121.75 77.144531 121.523438 77.636719 121.496094 C 77.519531 120.910156 77.484375 120.9375 77 120.761719 C 76.710938 120.65625 76.371094 120.417969 76.222656 120.132812 C 75.917969 119.5625 75.6875 118.929688 75.503906 118.300781 C 75.398438 117.945312 75.363281 117.484375 75.683594 117.261719 C 75.839844 117.15625 76.113281 117.25 76.359375 117.257812 C 76.355469 117.214844 76.355469 117.089844 76.347656 116.898438 C 76.179688 116.917969 76.015625 116.890625 75.910156 116.964844 C 75.523438 117.238281 75.25 117.226562 74.855469 116.902344 C 74.722656 116.792969 74.566406 116.710938 74.410156 116.660156 C 74.019531 116.527344 73.839844 116.125 74.105469 115.820312 C 74.398438 115.476562 74.199219 115.28125 73.988281 115.050781 C 73.855469 114.902344 73.707031 114.769531 73.570312 114.621094 C 73.257812 114.289062 72.992188 113.925781 72.964844 113.414062 C 72.960938 113.332031 72.871094 113.226562 72.800781 113.164062 C 72.398438 112.8125 72.207031 112.363281 72.144531 111.808594 C 72.070312 111.09375 72.15625 110.351562 71.765625 109.679688 C 71.734375 109.625 71.734375 109.507812 71.765625 109.453125 C 71.964844 109.113281 71.773438 108.90625 71.546875 108.695312 C 71.28125 108.445312 71.023438 108.183594 70.765625 107.925781 Z"/>
+          </g>
+          <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+          <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+          <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+          <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+          <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND HEIGHTS</text>
+        </svg>
+      </div>
+      <span class="free-badge">Free Event</span>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+      <div class="card-type-row">
+        <div class="card-type-line"></div>
+        <div class="card-type-label">Participant</div>
+      </div>
+      <div class="player-name" id="displayName">YOUR NAME</div>
+      <div class="event-name" id="displayEvent">GIRLS BASKETBALL CLINIC</div>
+      <div class="gold-rule"></div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="detail-label">Date</div>
+          <div class="detail-value" id="displayDate">NOV 1, 2026</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Rowland Heights</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Hosted by</div>
+          <div class="detail-value">California Athletic Academy</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Status</div>
+          <div class="detail-value" style="color:#B8860B;">Registered ✓</div>
+        </div>
+      </div>
+      <div class="skill-badge-row">
+        <div class="skill-badge intermediate" id="skillBadge">
+          <div class="skill-dot"></div>
+          <span id="skillText">Intermediate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="card-footer">
+      <a class="footer-left" href="https://instagram.com/californiaathleticacademy" target="_blank" rel="noopener">@californiaathleticacademy</a>
+      <a class="footer-right" href="https://californiaathleticacademy.com" target="_blank" rel="noopener">californiaathleticacademy.com</a>
+    </div>
+
+  </div>
+
+  <!-- SAVE -->
+  <div class="btn-wrap">
+    <button class="btn-save" id="dlBtn" onclick="downloadCard()">⬇ Save My Card</button>
+    <div id="saveMsg">Card saved — post it and tag @californiaathleticacademy. Enjoy the free event!</div>
+    <div class="hint">Enter your name above · pick your level · save and post</div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="https://californiaathleticacademy.com">californiaathleticacademy.com</a>
+</footer>
+
+<script>
+const nameEl     = document.getElementById('displayName');
+const eventEl    = document.getElementById('displayEvent');
+const dateEl     = document.getElementById('displayDate');
+const skillBadge = document.getElementById('skillBadge');
+const skillText  = document.getElementById('skillText');
+
+document.getElementById('nameInput').addEventListener('input', e => {
+  nameEl.textContent = e.target.value.trim().toUpperCase() || 'YOUR NAME';
+});
+document.getElementById('eventInput').addEventListener('input', e => {
+  eventEl.textContent = e.target.value.toUpperCase() || 'EVENT NAME';
+});
+document.getElementById('dateInput').addEventListener('input', e => {
+  dateEl.textContent = e.target.value.toUpperCase() || 'DATE';
+});
+document.getElementById('skillSelect').addEventListener('change', e => {
+  const val = e.target.value;
+  skillBadge.className = 'skill-badge ' + val;
+  skillText.textContent = { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' }[val];
+});
+
+async function downloadCard() {
+  const btn = document.getElementById('dlBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  try {
+    const card = document.getElementById('card');
+    const canvas = await html2canvas(card, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: '#0C2340',
+      width: card.offsetWidth,
+      height: card.offsetHeight
+    });
+    const name = (document.getElementById('nameInput').value || 'athlete').replace(/\s+/g, '-').toLowerCase();
+    const filename = 'caa-participant-' + name + '.png';
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    const msg = document.getElementById('saveMsg');
+    msg.style.display = 'block';
+    setTimeout(() => { msg.style.display = 'none'; }, 6000);
+  } catch(e) {
+    btn.textContent = 'Screenshot to save';
+    setTimeout(() => { btn.textContent = '⬇ Save My Card'; btn.disabled = false; }, 3000);
+    return;
+  }
+  btn.disabled = false;
+  btn.textContent = '⬇ Save My Card';
+}
+</script>
+</body>
+</html>
