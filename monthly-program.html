@@ -486,7 +486,10 @@
           </select>
         </div>
       </div>
-      <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">Register &amp; Pay $199/month →</button>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+        <button class="submit-btn" id="submit-btn-full" onclick="submitRegistration('full')">Pay in Full · $199/month →</button>
+        <button class="submit-btn" id="submit-btn-rsvp" onclick="submitRegistration('rsvp')" style="background:#fff;color:#0C2340;border:2px solid #0C2340;">RSVP — Hold My Spot · $39.80 deposit</button>
+      </div>
     </div>
 
     <div class="success-state" id="success-state">
@@ -587,7 +590,7 @@
     document.getElementById('session-error').style.display = 'none';
   }
 
-  async function submitRegistration() {
+  async function submitRegistration(type) {
     const firstName = document.getElementById('first-name').value.trim();
     const lastName  = document.getElementById('last-name').value.trim();
     const email     = document.getElementById('email').value.trim();
@@ -605,13 +608,12 @@
       return;
     }
 
-    const sessionLabel = selectedSession === 's1'
-      ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
-      : 'Session 2: High School Division (12:00 PM – 1:30 PM)';
-
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = true;
-    btn.textContent = 'Redirecting to payment…';
+    const isRsvp = type === 'rsvp';
+    const btnFull = document.getElementById('submit-btn-full');
+    const btnRsvp = document.getElementById('submit-btn-rsvp');
+    btnFull.disabled = true;
+    btnRsvp.disabled = true;
+    (isRsvp ? btnRsvp : btnFull).textContent = 'Redirecting to payment…';
 
     try {
       // Send registration notification email
@@ -625,8 +627,9 @@
         })
       });
 
-      // Create Stripe checkout session ($199/month)
-      const checkoutRes = await fetch('/api/monthly-checkout', {
+      // Create Stripe checkout session
+      const endpoint = isRsvp ? '/api/monthly-rsvp' : '/api/monthly-checkout';
+      const checkoutRes = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, email, session: selectedSession, grade, skillLevel })
@@ -635,31 +638,40 @@
       const checkoutData = await checkoutRes.json();
       if (!checkoutRes.ok || !checkoutData.url) throw new Error(checkoutData.error || 'Checkout error');
 
-      // Redirect to Stripe Checkout
       window.location.href = checkoutData.url;
 
     } catch {
-      btn.disabled = false;
-      btn.textContent = 'Register & Pay $199/month →';
+      btnFull.disabled = false;
+      btnRsvp.disabled = false;
+      btnFull.textContent = 'Pay in Full · $199/month →';
+      btnRsvp.textContent = 'RSVP — Hold My Spot · $39.80 deposit';
       alert('Something went wrong. Please try again or contact us directly.');
     }
   }
 
   let _shareFirst = '', _shareLast = '', _shareSession = '';
 
-  // Auto-show committed card when returning from Stripe after payment
+  // Auto-show card when returning from Stripe after payment
   (function() {
     const p = new URLSearchParams(window.location.search);
-    if (p.get('paid') === '1') {
+    const isPaid = p.get('paid') === '1';
+    const isRsvp = p.get('rsvp') === '1';
+    if (isPaid || isRsvp) {
       const first = p.get('first') || '';
       const last  = p.get('last')  || '';
       const sess  = p.get('session') || 's1';
       document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('form-wrap').style.display = 'none';
         document.getElementById('success-state').style.display = 'block';
-        document.getElementById('success-msg').textContent =
-          `${first}, you're registered! Your first Sunday is November 8th — see you on the court.`;
-        setTimeout(() => showCommittedCard(first, last, sess), 800);
+        if (isPaid) {
+          document.getElementById('success-msg').textContent =
+            `${first}, you're registered! Your first Sunday is November 8th — see you on the court.`;
+          setTimeout(() => showCommittedCard(first, last, sess), 800);
+        } else {
+          document.getElementById('success-msg').textContent =
+            `${first}, your spot is held! Deposit received — balance of $159.20 due at your first session on November 8th.`;
+          setTimeout(() => showRsvpCardDirect(first, last, sess), 800);
+        }
       });
     }
   })();
@@ -676,6 +688,18 @@
     setTimeout(() => {
       document.getElementById('share-prompt').style.display = 'block';
     }, 800);
+  }
+
+  function showRsvpCardDirect(first, last, session) {
+    _shareFirst = first; _shareLast = last; _shareSession = session;
+    const name  = (first + ' ' + last).toUpperCase();
+    const level = session === 's1' ? 'Grades 4–8' : 'High School';
+    document.getElementById('rsvp-name').textContent  = name;
+    document.getElementById('rsvp-level').textContent = level;
+    const card = document.getElementById('rsvp-card');
+    card.style.display = 'block';
+    document.getElementById('copy-link-btn').style.display = 'block';
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   function showRsvpCard() {
