@@ -46,6 +46,7 @@ export default async function handler(req, res) {
         skill_level: skillLevel || '',
         session: sessionLabel,
         event: 'monthly-program-nov-2026',
+        event_date: '2026-11-08',  // YYYY-MM-DD — reminder fires 48 hrs before this date
         type: 'rsvp_deposit',
         balance_due: '15920',
       },
