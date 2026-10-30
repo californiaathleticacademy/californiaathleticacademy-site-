@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
   const sessionLabel = session === 's1'
     ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
-    : 'Session 2: High School Division (12:00 PM – 1:30 PM)';
+    : 'Session 2: High School Division (12:00 PM – 2:00 PM)';
 
   const sessionParams = {
     mode: 'payment',

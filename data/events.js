@@ -36,7 +36,7 @@ export const events = [
         id:    "s2",
         label: "Session 2",
         grade: "High School Division",
-        time:  "12:00 PM – 1:30 PM",
+        time:  "12:00 PM – 2:00 PM",
       },
     ],
 
