@@ -44,8 +44,9 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'California Athletic Academy <onboarding@resend.dev>',
+        from: 'California Athletic Academy <noreply@californiaathleticacademy.com>',
         to: 'qcarr@rowlandschools.org',
+        reply_to: email,
         subject: `New Registration — ${firstName} ${lastName} · ${eventLabel}`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;">
