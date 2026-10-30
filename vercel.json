@@ -8,5 +8,11 @@
     { "source": "/event",   "destination": "/event.html"   },
     { "source": "/support", "destination": "/support.html" },
     { "source": "/my-card", "destination": "/my-card.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/send-rsvp-reminders",
+      "schedule": "0 18 * * 5"
+    }
   ]
 }
