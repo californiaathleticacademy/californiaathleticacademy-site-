@@ -478,7 +478,7 @@
         </div>
         <div class="form-group">
           <label for="skill-level">Skill Level</label>
-          <select id="skill-level">
+          <select id="skill-level" required>
             <option value="" disabled selected>Select skill level</option>
             <option>Beginner</option>
             <option>Intermediate</option>
@@ -607,6 +607,11 @@
     }
     if (!firstName || !lastName || !email) {
       alert('Please fill in your name and email.');
+      return;
+    }
+    if (!skillLevel) {
+      alert('Please select your skill level (Beginner, Intermediate, or Advanced).');
+      document.getElementById('skill-level').focus();
       return;
     }
 
