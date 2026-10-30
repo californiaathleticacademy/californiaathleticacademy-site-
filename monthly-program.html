@@ -486,9 +486,7 @@
           </select>
         </div>
       </div>
-      <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">
-        Register for Monthly Program →
-      </button>
+      <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">Register &amp; Pay $199/month →</button>
     </div>
 
     <div class="success-state" id="success-state">
@@ -613,36 +611,36 @@
 
     const btn = document.getElementById('submit-btn');
     btn.disabled = true;
-    btn.textContent = 'Registering…';
+    btn.textContent = 'Redirecting to payment…';
 
     try {
-      const res = await fetch('/api/register', {
+      // Send registration notification email
+      await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phone,
-          grade,
-          skillLevel,
+          firstName, lastName, email, phone, grade, skillLevel,
           session: selectedSession,
           event: 'Monthly Program — Every Sunday',
         })
       });
 
-      if (res.ok) {
-        document.getElementById('form-wrap').style.display = 'none';
-        document.getElementById('success-state').style.display = 'block';
-        document.getElementById('success-msg').textContent =
-          `${firstName}, you're registered for the ${sessionLabel}. A coach from California Athletic Academy will be in touch with your session details. See you Sunday!`;
-        setTimeout(() => showCommittedCard(firstName, lastName, selectedSession), 1600);
-      } else {
-        throw new Error('Server error');
-      }
+      // Create Stripe checkout session ($199/month)
+      const checkoutRes = await fetch('/api/monthly-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, session: selectedSession, grade, skillLevel })
+      });
+
+      const checkoutData = await checkoutRes.json();
+      if (!checkoutRes.ok || !checkoutData.url) throw new Error(checkoutData.error || 'Checkout error');
+
+      // Redirect to Stripe Checkout
+      window.location.href = checkoutData.url;
+
     } catch {
       btn.disabled = false;
-      btn.textContent = 'Register for Monthly Program →';
+      btn.textContent = 'Register & Pay $199/month →';
       alert('Something went wrong. Please try again or contact us directly.');
     }
   }
