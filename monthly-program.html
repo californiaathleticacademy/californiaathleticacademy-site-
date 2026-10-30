@@ -647,6 +647,23 @@
 
   let _shareFirst = '', _shareLast = '', _shareSession = '';
 
+  // Auto-show committed card when returning from Stripe after payment
+  (function() {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get('paid') === '1') {
+      const first = p.get('first') || '';
+      const last  = p.get('last')  || '';
+      const sess  = p.get('session') || 's1';
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('form-wrap').style.display = 'none';
+        document.getElementById('success-state').style.display = 'block';
+        document.getElementById('success-msg').textContent =
+          `${first}, you're registered! Your first Sunday is November 8th — see you on the court.`;
+        setTimeout(() => showCommittedCard(first, last, sess), 800);
+      });
+    }
+  })();
+
   function showCommittedCard(first, last, session) {
     _shareFirst = first; _shareLast = last; _shareSession = session;
     const name = (first + ' ' + last).toUpperCase();

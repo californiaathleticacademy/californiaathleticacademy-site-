@@ -51,7 +51,7 @@ export default async function handler(req, res) {
         event: 'monthly-program-nov-2026',
       },
     },
-    success_url: `https://californiaathleticacademy.com/my-card?registered=monthly`,
+    success_url: `https://californiaathleticacademy.com/monthly-program?paid=1&first=${encodeURIComponent(firstName)}&last=${encodeURIComponent(lastName)}&session=${encodeURIComponent(session || 's1')}`,
     cancel_url: `https://californiaathleticacademy.com/monthly-program?cancelled=1`,
   };
 
