@@ -6,6 +6,7 @@
     { "source": "/camp",   "destination": "/event.html"  },
     { "source": "/tryout", "destination": "/event.html"  },
     { "source": "/event",   "destination": "/event.html"   },
-    { "source": "/support", "destination": "/support.html" }
+    { "source": "/support", "destination": "/support.html" },
+    { "source": "/my-card", "destination": "/my-card.html" }
   ]
 }
