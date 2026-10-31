@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const { firstName, lastName, email, session, grade, skillLevel, promoCode } = req.body || {};
 
   // Promo codes — add new codes here as the program grows
-  const PROMOS = { 'RUSD': 0.25 };
+  const PROMOS = { 'RUSD': 0.50 };
   const discount = PROMOS[(promoCode || '').toUpperCase()] || 0;
   const fullAmount = Math.round(19900 * (1 - discount)); // cents after discount
 
