@@ -599,7 +599,7 @@
   let appliedPromo = null; // { code, discount } when a valid promo is applied
 
   function applyPromo() {
-    const PROMOS = { 'RUSD': 0.50 }; // code → fraction off
+    const PROMOS = { 'RUSD': 0.50, '626': 0.50 }; // code → fraction off
     const code = document.getElementById('promo-input').value.trim().toUpperCase();
     const msg  = document.getElementById('promo-msg');
     const btnFull = document.getElementById('submit-btn-full');
