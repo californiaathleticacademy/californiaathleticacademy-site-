@@ -14,9 +14,14 @@ export default async function handler(req, res) {
   const { firstName, lastName, email, session, grade, skillLevel, promoCode } = req.body || {};
 
   // Promo codes — keep in sync with monthly-checkout.js
-  const PROMOS = { 'RUSD': 0.50, '626': 0.50 };
-  const discount   = PROMOS[(promoCode || '').toUpperCase()] || 0;
-  const totalCents = Math.round(19900 * (1 - discount));      // e.g. 14925
+  const PROMOS = {
+    'RUSD': { discount: 0.50 },  // 50% off → $99.50/mo
+    '626':  { price: 10000 },    // flat $100/mo
+  };
+  const promo = PROMOS[(promoCode || '').toUpperCase()];
+  const totalCents = promo
+    ? (promo.price ?? Math.round(19900 * (1 - promo.discount)))
+    : 19900;
   const depositCents  = Math.round(totalCents * 0.20);        // 20% deposit
   const balanceCents  = totalCents - depositCents;            // remainder
 

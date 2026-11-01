@@ -599,7 +599,11 @@
   let appliedPromo = null; // { code, discount } when a valid promo is applied
 
   function applyPromo() {
-    const PROMOS = { 'RUSD': 0.50, '626': 0.50 }; // code → fraction off
+    // discount: fraction off | price: fixed monthly amount
+    const PROMOS = {
+      'RUSD': { discount: 0.50 },  // 50% off → $99.50/mo
+      '626':  { price: 100.00 },   // flat $100/mo
+    };
     const code = document.getElementById('promo-input').value.trim().toUpperCase();
     const msg  = document.getElementById('promo-msg');
     const btnFull = document.getElementById('submit-btn-full');
@@ -613,8 +617,8 @@
       return;
     }
 
-    const discount = PROMOS[code];
-    if (!discount) {
+    const promo = PROMOS[code];
+    if (!promo) {
       appliedPromo = null;
       msg.style.display = 'block';
       msg.style.color = '#c0392b';
@@ -624,12 +628,14 @@
       return;
     }
 
-    appliedPromo = { code, discount };
-    const fullPrice  = (199 * (1 - discount)).toFixed(2);
-    const rsvpPrice  = (39.80 * (1 - discount)).toFixed(2);
+    const fullPrice = promo.price != null ? promo.price.toFixed(2) : (199 * (1 - promo.discount)).toFixed(2);
+    const rsvpPrice = (fullPrice * 0.20).toFixed(2);
+    const label = promo.price != null ? `$${fullPrice}/month` : `${Math.round(promo.discount * 100)}% off — $${fullPrice}/month`;
+
+    appliedPromo = { code };
     msg.style.display = 'block';
     msg.style.color = '#1a7a3f';
-    msg.textContent = `✓ ${Math.round(discount * 100)}% discount applied!`;
+    msg.textContent = `✓ Code applied — ${label}`;
     btnFull.textContent = `Pay in Full · $${fullPrice}/month →`;
     btnRsvp.textContent = `RSVP — Hold My Spot · $${rsvpPrice} deposit`;
   }

@@ -13,10 +13,15 @@ export default async function handler(req, res) {
 
   const { firstName, lastName, email, session, grade, skillLevel, promoCode } = req.body || {};
 
-  // Promo codes — add new codes here as the program grows
-  const PROMOS = { 'RUSD': 0.50, '626': 0.50 };
-  const discount = PROMOS[(promoCode || '').toUpperCase()] || 0;
-  const fullAmount = Math.round(19900 * (1 - discount)); // cents after discount
+  // Promo codes — { discount: fraction } or { price: fixed cents }
+  const PROMOS = {
+    'RUSD': { discount: 0.50 },  // 50% off → $99.50/mo
+    '626':  { price: 10000 },    // flat $100/mo
+  };
+  const promo = PROMOS[(promoCode || '').toUpperCase()];
+  const fullAmount = promo
+    ? (promo.price ?? Math.round(19900 * (1 - promo.discount)))
+    : 19900; // cents after discount
 
   if (!firstName || !lastName || !email) {
     return res.status(400).json({ error: 'firstName, lastName, and email are required.' });
