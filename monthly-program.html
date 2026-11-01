@@ -602,7 +602,7 @@
     // discount: fraction off | price: fixed monthly amount
     const PROMOS = {
       'RUSD': { discount: 0.50 },  // 50% off → $99.50/mo
-      '626':  { price: 100.00 },   // flat $100/mo
+      '626':  { discount: 0.50 },  // 50% off → $99.50/mo
     };
     const code = document.getElementById('promo-input').value.trim().toUpperCase();
     const msg  = document.getElementById('promo-msg');
