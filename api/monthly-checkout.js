@@ -15,8 +15,9 @@ export default async function handler(req, res) {
 
   // Promo codes — { discount: fraction } or { price: fixed cents }
   const PROMOS = {
-    'RUSD': { discount: 0.50 },  // 50% off → $99.50/mo
-    '626':  { discount: 0.50 },  // 50% off → $99.50/mo
+    'RUSD':    { discount: 0.50 },  // 50% off → $99.50/mo
+    '626':     { discount: 0.50 },  // 50% off → $99.50/mo
+    'ROWLAND': { discount: 0.50 },  // 50% off → $99.50/mo
   };
   const promo = PROMOS[(promoCode || '').toUpperCase()];
   const fullAmount = promo
