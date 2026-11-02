@@ -82,10 +82,46 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: data.error?.message || 'Stripe error' });
     }
 
+    // Send email notification to admin
+    await sendDonationEmail({ playerName: safePlayer, amountCents, recurring, eventLabel: safeEvent });
+
     return res.status(200).json({ url: data.url });
   } catch (err) {
     console.error('create-contribution-session error:', err);
     return res.status(500).json({ error: 'Failed to create checkout session.' });
+  }
+}
+
+async function sendDonationEmail({ playerName, amountCents, recurring, eventLabel }) {
+  const resendKey = process.env.Resend_API_KEY || process.env.Resend_KEY;
+  if (!resendKey) return;
+  const dollars = (amountCents / 100).toFixed(2);
+  const type = recurring ? 'Monthly Recurring' : 'One-Time';
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'California Athletic Academy <no-reply@californiaathleticacademy.com>',
+        to: 'qcarr@rowlandschools.org',
+        subject: `New Donation — $${dollars} for ${playerName}`,
+        html: `
+          <div style="font-family:Arial,sans-serif;max-width:520px;margin:0 auto;padding:24px;">
+            <h2 style="color:#0C2340;margin-bottom:16px;">New Donation Initiated</h2>
+            <table style="width:100%;border-collapse:collapse;">
+              <tr><td style="padding:8px 0;color:#666;font-size:13px;width:140px;">Athlete</td><td style="padding:8px 0;font-weight:600;color:#111;font-size:14px;">${playerName}</td></tr>
+              <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Amount</td><td style="padding:8px 0;font-weight:600;color:#0C2340;font-size:14px;">$${dollars}</td></tr>
+              <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Type</td><td style="padding:8px 0;color:#333;font-size:14px;">${type}</td></tr>
+              <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;font-size:13px;">Event</td><td style="padding:8px 0;color:#333;font-size:14px;">${eventLabel}</td></tr>
+            </table>
+          </div>`,
+      }),
+    });
+  } catch (e) {
+    console.error('donation email error:', e);
   }
 }
 
