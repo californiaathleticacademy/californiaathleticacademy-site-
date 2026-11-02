@@ -60,7 +60,7 @@ async function sendConfirmationEmail({ to, firstName, sessionLabel }) {
 
         <p style="color:#666;font-size:13px;">Questions? Reply to this email or visit <a href="https://californiaathleticacademy.com" style="color:#0C2340;">californiaathleticacademy.com</a></p>
 
-        <p style="margin-bottom:0;">See you on the court!<br><strong>Quentin Carr</strong><br>California Athletic Academy</p>
+        <p style="margin-bottom:0;">See you on the court!<br><strong>Coach Carr</strong><br>California Athletic Academy</p>
       </div>
     </div>
   `;
