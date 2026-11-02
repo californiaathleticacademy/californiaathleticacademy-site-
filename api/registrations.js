@@ -40,13 +40,13 @@ export default async function handler(req, res) {
       return res.status(200).json({ registrations: [], total: 0 });
     }
 
-    // Fetch all records in parallel
-    const records = await Promise.all(allKeys.map(key => kv.get(key)));
+    // Fetch all records in parallel (stored as hashes via hset)
+    const records = await Promise.all(allKeys.map(key => kv.hgetall(key)));
 
-    // Filter nulls, sort by registeredAt descending (newest first)
+    // Filter nulls, sort by ts descending (newest first)
     const registrations = records
       .filter(Boolean)
-      .sort((a, b) => new Date(b.registeredAt) - new Date(a.registeredAt));
+      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
 
     return res.status(200).json({ registrations, total: registrations.length });
 

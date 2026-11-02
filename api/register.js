@@ -1,8 +1,10 @@
 // POST /api/register
-// Sends registration details to Coach via Resend email.
+// Sends registration details to Coach via Resend email and stores in KV.
 // Requires RESEND_API_KEY environment variable in Vercel.
 //
 // Body: { firstName, lastName, email, phone, grade, session }
+
+import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -124,6 +126,23 @@ export default async function handler(req, res) {
         `,
       }),
     });
+
+    // Store registration in KV for admin roster
+    try {
+      const ts = Date.now();
+      await kv.hset(`registrations:${session}:${ts}`, {
+        firstName, lastName, email,
+        phone: phone || '',
+        grade: grade || '',
+        skillLevel: skillLevel || '',
+        school: school || '',
+        session,
+        event: event || '',
+        ts,
+      });
+    } catch (kvErr) {
+      console.error('KV store error (non-fatal):', kvErr);
+    }
 
     return res.status(200).json({ success: true });
 

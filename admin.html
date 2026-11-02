@@ -88,6 +88,30 @@ input:checked + .slider:before { transform:translateX(20px); }
 .player-total { font-family:'Oswald',sans-serif; font-size:16px; font-weight:700; color:var(--gold); flex-shrink:0; }
 .contrib-fetched { font-size:10px; color:rgba(255,255,255,0.2); text-align:right; margin-top:14px; font-style:italic; }
 
+/* REGISTRANTS PANE */
+.reg-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
+.reg-title { font-family:'Oswald',sans-serif; font-size:18px; font-weight:700; letter-spacing:1px; color:#fff; }
+.reg-actions { display:flex; gap:8px; }
+.copy-btn { background:var(--gold); color:var(--navy); border:none; border-radius:4px; padding:8px 16px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background .15s; }
+.copy-btn:hover { background:#D4A017; }
+.copy-btn:disabled { opacity:.4; cursor:not-allowed; }
+.reg-filter { display:flex; gap:6px; margin-bottom:14px; }
+.filter-btn { flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:7px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.4); cursor:pointer; transition:all .15s; }
+.filter-btn.active { background:rgba(184,134,11,0.15); border-color:var(--gold); color:var(--gold); }
+.reg-count { font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:14px; }
+.reg-table { width:100%; border-collapse:collapse; font-size:13px; }
+.reg-table th { text-align:left; font-family:'Oswald',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3); padding:0 8px 8px 0; border-bottom:1px solid rgba(255,255,255,0.1); }
+.reg-table td { padding:9px 8px 9px 0; border-bottom:1px solid rgba(255,255,255,0.06); color:rgba(255,255,255,0.8); vertical-align:top; }
+.reg-table tr:last-child td { border-bottom:none; }
+.reg-email { color:var(--gold); font-size:12px; }
+.reg-session-tag { display:inline-block; font-family:'Oswald',sans-serif; font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
+.tag-s1 { background:rgba(26,107,58,0.25); color:#4caf50; border:1px solid rgba(76,175,80,0.2); }
+.tag-s2 { background:rgba(184,134,11,0.2); color:var(--gold); border:1px solid rgba(184,134,11,0.3); }
+.reg-loading { text-align:center; padding:40px 0; color:rgba(255,255,255,0.3); font-size:13px; }
+.reg-empty { text-align:center; padding:40px 0; color:rgba(255,255,255,0.3); font-size:13px; font-style:italic; }
+.email-dump { margin-top:14px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:12px 14px; font-size:12px; color:rgba(255,255,255,0.5); line-height:1.6; word-break:break-all; display:none; }
+.email-dump.show { display:block; }
+
 /* Live meter preview */
 .preview-label { font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:6px; }
 .meter-wrap { background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; height:8px; margin-bottom:4px; }
@@ -120,6 +144,7 @@ input:checked + .slider:before { transform:translateX(20px); }
 
   <div class="tab-nav">
     <button class="tab-btn active" onclick="showTab('spots')">Spot Control</button>
+    <button class="tab-btn" onclick="showTab('registrants')">Registrants</button>
     <button class="tab-btn" onclick="showTab('contributions')">Contributions</button>
   </div>
 
@@ -198,6 +223,27 @@ input:checked + .slider:before { transform:translateX(20px); }
   </div>
 
   </div><!-- /pane-spots -->
+
+  <!-- REGISTRANTS PANE -->
+  <div id="pane-registrants" class="tab-pane">
+    <div class="session-panel">
+      <div class="reg-header">
+        <div class="reg-title">Registrants</div>
+        <div class="reg-actions">
+          <button class="copy-btn" id="copy-emails-btn" onclick="copyEmails()" disabled>Copy All Emails</button>
+          <button class="refresh-btn" onclick="loadRegistrants()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="reg-filter">
+        <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">All</button>
+        <button class="filter-btn" id="filter-s1" onclick="setFilter('s1')">Session 1</button>
+        <button class="filter-btn" id="filter-s2" onclick="setFilter('s2')">Session 2</button>
+      </div>
+      <div class="reg-count" id="reg-count"></div>
+      <div id="reg-body"><div class="reg-loading">Loading…</div></div>
+      <div class="email-dump" id="email-dump"></div>
+    </div>
+  </div>
 
   <div id="pane-contributions" class="tab-pane">
     <div class="session-panel">
@@ -348,11 +394,101 @@ function showTab(name) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(`pane-${name}`).classList.add('active');
   document.querySelectorAll('.tab-btn').forEach(b => {
-    if (b.textContent.toLowerCase().includes(name === 'spots' ? 'spot' : name)) {
-      b.classList.add('active');
-    }
+    const map = { spots: 'spot', registrants: 'registrant', contributions: 'contribution' };
+    if (b.textContent.toLowerCase().includes(map[name] || name)) b.classList.add('active');
   });
   if (name === 'contributions') loadContributions();
+  if (name === 'registrants') loadRegistrants();
+}
+
+// ── Registrants ────────────────────────────────────────────────────────────
+let _allRegistrants = [];
+let _regFilter = 'all';
+
+function loadRegistrants() {
+  const body = document.getElementById('reg-body');
+  body.innerHTML = '<div class="reg-loading">Loading…</div>';
+  document.getElementById('copy-emails-btn').disabled = true;
+  document.getElementById('email-dump').classList.remove('show');
+
+  fetch(`/api/registrations?password=${encodeURIComponent(savedPassword)}&session=all`)
+    .then(r => r.json())
+    .then(data => {
+      _allRegistrants = data.registrations || [];
+      renderRegistrants();
+    })
+    .catch(() => {
+      body.innerHTML = '<div class="reg-empty">Failed to load registrants.</div>';
+    });
+}
+
+function setFilter(f) {
+  _regFilter = f;
+  ['all','s1','s2'].forEach(x => {
+    document.getElementById(`filter-${x}`).classList.toggle('active', x === f);
+  });
+  renderRegistrants();
+}
+
+function renderRegistrants() {
+  const list = _regFilter === 'all' ? _allRegistrants
+    : _allRegistrants.filter(r => r.session === _regFilter);
+
+  const count = document.getElementById('reg-count');
+  count.textContent = list.length
+    ? `${list.length} registrant${list.length !== 1 ? 's' : ''}${_regFilter !== 'all' ? ` in Session ${_regFilter === 's1' ? '1' : '2'}` : ''}`
+    : '';
+
+  if (!list.length) {
+    document.getElementById('reg-body').innerHTML = '<div class="reg-empty">No registrants yet.</div>';
+    document.getElementById('copy-emails-btn').disabled = true;
+    return;
+  }
+
+  // Sort newest first
+  const sorted = [...list].sort((a, b) => (b.ts || 0) - (a.ts || 0));
+
+  let html = `<table class="reg-table">
+    <thead><tr>
+      <th>Name</th><th>Email</th><th>School</th><th>Session</th><th>Date</th>
+    </tr></thead><tbody>`;
+
+  sorted.forEach(r => {
+    const tag = r.session === 's1'
+      ? '<span class="reg-session-tag tag-s1">S1</span>'
+      : '<span class="reg-session-tag tag-s2">S2</span>';
+    const date = r.ts ? new Date(r.ts).toLocaleDateString('en-US', {
+      timeZone: 'America/Los_Angeles', month:'short', day:'numeric'
+    }) : '—';
+    html += `<tr>
+      <td><strong>${r.firstName || ''} ${r.lastName || ''}</strong><br><span style="font-size:11px;color:rgba(255,255,255,0.35)">${r.grade || ''} ${r.skillLevel || ''}</span></td>
+      <td class="reg-email">${r.email || ''}</td>
+      <td style="font-size:12px">${r.school || '—'}</td>
+      <td>${tag}</td>
+      <td style="font-size:11px;color:rgba(255,255,255,0.35)">${date}</td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  document.getElementById('reg-body').innerHTML = html;
+  document.getElementById('copy-emails-btn').disabled = false;
+}
+
+function copyEmails() {
+  const list = _regFilter === 'all' ? _allRegistrants
+    : _allRegistrants.filter(r => r.session === _regFilter);
+  const emails = [...new Set(list.map(r => r.email).filter(Boolean))].join(', ');
+
+  // Show dump for manual copy fallback
+  const dump = document.getElementById('email-dump');
+  dump.textContent = emails;
+  dump.classList.add('show');
+
+  navigator.clipboard.writeText(emails).then(() => {
+    showToast(`${list.length} email${list.length !== 1 ? 's' : ''} copied ✓`);
+  }).catch(() => {
+    showToast('Select the text below to copy', true);
+  });
 }
 
 // ── Contributions ──────────────────────────────────────────────────────────
