@@ -489,6 +489,10 @@
           </select>
         </div>
       </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label for="school">School</label>
+        <input type="text" id="school" placeholder="School name">
+      </div>
       <!-- Promo code -->
       <div style="margin-top:16px;">
         <div style="display:flex;gap:8px;align-items:stretch;">
@@ -655,6 +659,7 @@
     const phone     = document.getElementById('phone').value.trim();
     const grade      = document.getElementById('grade').value;
     const skillLevel = document.getElementById('skill-level').value;
+    const school     = document.getElementById('school').value.trim();
 
     if (!selectedSession) {
       document.getElementById('session-error').style.display = 'block';
@@ -684,7 +689,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName, lastName, email, phone, grade, skillLevel,
+          firstName, lastName, email, phone, grade, skillLevel, school,
           session: selectedSession,
           event: 'Monthly Program — Every Sunday',
         })
@@ -695,7 +700,7 @@
       const checkoutRes = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, session: selectedSession, grade, skillLevel, promoCode: appliedPromo?.code || '' })
+        body: JSON.stringify({ firstName, lastName, email, session: selectedSession, grade, skillLevel, school, promoCode: appliedPromo?.code || '' })
       });
 
       const checkoutData = await checkoutRes.json();
