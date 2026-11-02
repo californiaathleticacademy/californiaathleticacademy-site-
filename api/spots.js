@@ -24,19 +24,27 @@ export default async function handler(req, res) {
       kv.hgetall('spots:s2'),
     ]);
 
+    // Initialize counters on first use
+    if (!s1) {
+      await kv.hset('spots:s1', DEFAULTS.s1);
+    }
+    if (!s2) {
+      await kv.hset('spots:s2', DEFAULTS.s2);
+    }
+
     const parse = (raw, def) => {
       if (!raw) return def;
       return {
         max:       parseInt(raw.max)       || def.max,
-        available: parseInt(raw.available) || 0,
+        available: parseInt(raw.available) ?? def.available,
         threshold: parseInt(raw.threshold) || def.threshold,
         open:      raw.open === 'true' || raw.open === true,
       };
     };
 
     return res.status(200).json({
-      s1: parse(s1, DEFAULTS.s1),
-      s2: parse(s2, DEFAULTS.s2),
+      s1: parse(s1 || DEFAULTS.s1, DEFAULTS.s1),
+      s2: parse(s2 || DEFAULTS.s2, DEFAULTS.s2),
     });
   } catch (err) {
     // KV not connected yet — return defaults so page still renders
