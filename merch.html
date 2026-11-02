@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merch — California Athletic Academy</title>
+<meta name="description" content="Official California Athletic Academy gear. Custom reversible basketball jerseys, shorts, hoodies, and more. Represent your academy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C2340;--navy-2:#0a1b33;--gold:#B8860B;--gold-bright:#D4A017;--gold-pale:#e8d9b5;--paper:#f7f5f0;--ink:#15171b;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Anton',sans-serif;letter-spacing:-.01em;}
+.eyebrow{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.07em;text-transform:uppercase;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:3px solid var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 20px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo-link{flex-shrink:0;text-decoration:none;}
+.logo-wordmark{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--navy);text-transform:uppercase;line-height:1.3;}
+.logo-sub{font-size:9px;letter-spacing:2px;color:var(--gold);display:block;}
+nav a{color:rgba(12,35,64,.65);text-decoration:none;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.03em;transition:color .15s;}
+nav a:hover,nav a.active{color:var(--gold);}
+.nav-links{display:none;gap:24px;}
+@media(min-width:768px){.nav-links{display:flex;align-items:center;}}
+.back-btn{font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1.5px solid var(--gold);border-radius:4px;padding:7px 16px;transition:background .15s;}
+.back-btn:hover{background:rgba(184,134,11,.1);}
+
+/* HERO */
+.hero{background:var(--navy);padding:64px 20px 56px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(184,134,11,.12) 0%,transparent 65%);}
+.hero-eyebrow{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.hero h1{font-family:'Anton',sans-serif;font-size:clamp(2.4rem,7vw,4rem);color:#fff;text-transform:uppercase;line-height:1;margin-bottom:16px;}
+.hero-sub{font-size:15px;color:rgba(247,245,240,.55);max-width:480px;margin:0 auto 32px;line-height:1.6;}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;border-radius:4px;text-decoration:none;transition:background .15s;}
+.hero-cta:hover{background:var(--gold-bright);}
+.hero-cta svg{flex-shrink:0;}
+
+/* SECTION */
+.section{max-width:1100px;margin:0 auto;padding:64px 20px;}
+.section-label{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);color:var(--navy);text-transform:uppercase;margin-bottom:8px;}
+.section-desc{font-size:14px;color:rgba(12,35,64,.55);line-height:1.7;max-width:540px;margin-bottom:40px;}
+
+/* FEATURED — reversible jersey */
+.featured-card{background:var(--navy);border-radius:8px;overflow:hidden;display:grid;gap:0;}
+@media(min-width:700px){.featured-card{grid-template-columns:1fr 1fr;}}
+.featured-visual{background:linear-gradient(135deg,#0a1b33 0%,#1a3a6b 100%);display:flex;align-items:center;justify-content:center;min-height:280px;position:relative;overflow:hidden;}
+.jersey-graphic{position:relative;width:180px;height:220px;}
+.jersey-side{position:absolute;top:0;width:160px;height:200px;border-radius:4px 4px 16px 16px;}
+.jersey-front{background:linear-gradient(160deg,var(--gold) 0%,#8a6309 100%);left:0;z-index:2;box-shadow:4px 4px 20px rgba(0,0,0,.4);}
+.jersey-back{background:linear-gradient(160deg,#fff 0%,#d0d0d0 100%);left:20px;top:10px;z-index:1;opacity:.85;}
+.jersey-number{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Anton',sans-serif;font-size:52px;color:var(--navy);z-index:3;line-height:1;}
+.jersey-label{position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);white-space:nowrap;}
+.reversible-badge{position:absolute;top:16px;right:16px;background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+.featured-info{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;}
+.featured-tag{display:inline-block;font-family:'Oswald',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,134,11,.4);padding:3px 10px;border-radius:2px;margin-bottom:16px;}
+.featured-info h2{font-family:'Anton',sans-serif;font-size:1.8rem;color:#fff;text-transform:uppercase;line-height:1.1;margin-bottom:12px;}
+.featured-info p{font-size:13px;color:rgba(247,245,240,.55);line-height:1.7;margin-bottom:24px;}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
+.feature-list li{font-size:13px;color:rgba(247,245,240,.7);display:flex;align-items:center;gap:10px;}
+.feature-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.shop-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Oswald',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:13px 24px;border-radius:4px;text-decoration:none;transition:background .15s;align-self:flex-start;}
+.shop-btn:hover{background:var(--gold-bright);}
+
+/* GEAR GRID */
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+.gear-card{background:#fff;border-radius:6px;overflow:hidden;border:1px solid rgba(12,35,64,.08);transition:transform .15s,box-shadow .15s;}
+.gear-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(12,35,64,.1);}
+.gear-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.gear-img.navy-bg{background:var(--navy);}
+.gear-img.gold-bg{background:linear-gradient(135deg,#8a6309,var(--gold));}
+.gear-img.paper-bg{background:var(--paper);}
+.gear-body{padding:16px;}
+.gear-name{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;letter-spacing:.5px;color:var(--navy);margin-bottom:4px;}
+.gear-desc{font-size:12px;color:rgba(12,35,64,.5);line-height:1.5;margin-bottom:12px;}
+.gear-link{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1.5px solid rgba(184,134,11,.3);padding-bottom:1px;transition:border-color .15s;}
+.gear-link:hover{border-color:var(--gold);}
+
+/* COMING SOON BAND */
+.coming-soon{background:#fff;border-top:1px solid rgba(12,35,64,.07);border-bottom:1px solid rgba(12,35,64,.07);padding:48px 20px;text-align:center;}
+.coming-soon p{font-size:14px;color:rgba(12,35,64,.5);max-width:440px;margin:10px auto 0;line-height:1.6;}
+
+/* FOOTER */
+footer{background:var(--navy);padding:32px 20px;text-align:center;}
+footer p{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(247,245,240,.3);}
+footer a{color:var(--gold);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo-link">
+      <div class="logo-wordmark">California Athletic Academy<span class="logo-sub">Rowland Heights</span></div>
+    </a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/monthly-program.html">Monthly Program</a>
+      <a href="/merch.html" class="active">Merch</a>
+      <a href="/support.html">Support</a>
+    </nav>
+    <a href="/" class="back-btn">← Back to Site</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Official Gear</div>
+  <h1>Rep the Academy</h1>
+  <p class="hero-sub">Custom California Athletic Academy apparel. Built for the court, designed to last.</p>
+  <a href="https://wooter.com" target="_blank" rel="noopener" class="hero-cta">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3A1 1 0 006 17h12M9 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/></svg>
+    Shop Now
+  </a>
+</section>
+
+<!-- FEATURED: REVERSIBLE JERSEY -->
+<div style="background:#fff;padding:48px 20px;">
+<div style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Featured</div>
+  <div class="section-title" style="margin-bottom:24px;">Reversible Game Jersey</div>
+
+  <div class="featured-card">
+    <div class="featured-visual">
+      <div class="reversible-badge">Reversible</div>
+      <div class="jersey-graphic">
+        <div class="jersey-side jersey-back"></div>
+        <div class="jersey-side jersey-front">
+          <div class="jersey-number">0</div>
+        </div>
+        <div class="jersey-label">Gold ↔ White</div>
+      </div>
+    </div>
+    <div class="featured-info">
+      <div class="featured-tag">Signature Item</div>
+      <h2>CAA Game Jersey</h2>
+      <p>Two looks in one. Wear gold side out for home games, flip to white for away. Fully sublimated with your name and number.</p>
+      <ul class="feature-list">
+        <li>Reversible — gold &amp; white</li>
+        <li>Full sublimation, custom name &amp; number</li>
+        <li>Moisture-wicking performance fabric</li>
+        <li>Youth &amp; adult sizes</li>
+        <li>Official CAA navy &amp; gold colorway</li>
+      </ul>
+      <a href="https://wooter.com" target="_blank" rel="noopener" class="shop-btn">
+        Order Jersey
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MORE GEAR -->
+<section class="section">
+  <div class="section-label">All Gear</div>
+  <div class="section-title">Full Collection</div>
+  <p class="section-desc">Everything you need to represent California Athletic Academy on and off the court.</p>
+
+  <div class="gear-grid">
+    <div class="gear-card">
+      <div class="gear-img navy-bg">🏀</div>
+      <div class="gear-body">
+        <div class="gear-name">Practice Jersey</div>
+        <div class="gear-desc">Lightweight mesh, CAA logo. Perfect for daily workouts and open gyms.</div>
+        <a href="https://wooter.com" target="_blank" rel="noopener" class="gear-link">Shop →</a>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-img navy-bg" style="font-size:40px;flex-direction:column;gap:4px;">
+        <span>🩳</span>
+      </div>
+      <div class="gear-body">
+        <div class="gear-name">Game Shorts</div>
+        <div class="gear-desc">Matching shorts to pair with the reversible jersey. Navy with gold trim.</div>
+        <a href="https://wooter.com" target="_blank" rel="noopener" class="gear-link">Shop →</a>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-img gold-bg">🧢</div>
+      <div class="gear-body">
+        <div class="gear-name">Snapback Cap</div>
+        <div class="gear-desc">Structured snapback, embroidered CAA mark. One size fits all.</div>
+        <a href="https://wooter.com" target="_blank" rel="noopener" class="gear-link">Shop →</a>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-img paper-bg" style="background:#1a2a4a;">
+        <span style="font-size:40px;">🧥</span>
+      </div>
+      <div class="gear-body">
+        <div class="gear-name">Warm-Up Jacket</div>
+        <div class="gear-desc">Full-zip warm-up with CAA chest logo. Navy with gold details.</div>
+        <a href="https://wooter.com" target="_blank" rel="noopener" class="gear-link">Shop →</a>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-img navy-bg">👟</div>
+      <div class="gear-body">
+        <div class="gear-name">Crew Socks</div>
+        <div class="gear-desc">CAA-branded crew socks. Navy &amp; gold, cushioned sole, one size.</div>
+        <a href="https://wooter.com" target="_blank" rel="noopener" class="gear-link">Shop →</a>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-img gold-bg">👜</div>
+      <div class="gear-body">
+        <div class="gear-name">Drawstring Bag</div>
+        <div class="gear-desc">Lightweight cinch bag with CAA logo. Fits all your court essentials.</div>
+        <a href="https://wooter.com" target="_blank" rel="noopener" class="gear-link">Shop →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<div class="coming-soon">
+  <div class="eyebrow" style="font-size:10px;letter-spacing:4px;color:var(--gold);margin-bottom:8px;">Store Coming Soon</div>
+  <div style="font-family:'Anton',sans-serif;font-size:1.4rem;color:var(--navy);text-transform:uppercase;">Online Store Launching Shortly</div>
+  <p>We're setting up the official CAA store with custom reversible jerseys and full gear. In the meantime, <a href="https://wooter.com" target="_blank" rel="noopener" style="color:var(--gold);">visit Wooter Apparel</a> to place orders or <a href="mailto:qcarr@rowlandschools.org" style="color:var(--gold);">email the academy</a> directly for team orders.</p>
+</div>
+
+<footer>
+  <p>© 2024 California Athletic Academy · <a href="/">californiaathleticacademy.com</a></p>
+</footer>
+
+</body>
+</html>
