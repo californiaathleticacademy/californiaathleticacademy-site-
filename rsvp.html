@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free RSVP — California Athletic Academy Monthly Program</title>
+<meta name="description" content="Reserve your spot in the California Athletic Academy Monthly Basketball Program — free RSVP, no credit card required. Rowland Heights, CA. Every Sunday starting November 8th.">
+<link rel="canonical" href="https://californiaathleticacademy.com/rsvp">
+<meta property="og:title" content="Reserve Your Spot — California Athletic Academy">
+<meta property="og:description" content="Free RSVP for the Monthly Basketball Program. Every Sunday at Rowland High School Gymnasium. Grades 4–12.">
+<meta property="og:image" content="https://californiaathleticacademy.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0C2340;
+  --gold: #B8860B;
+  --gold-bright: #D4A017;
+  --paper: #F7F5F0;
+  --text: #1a1a2e;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+nav {
+  background: #fff;
+  border-bottom: 2px solid rgba(184,134,11,0.3);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-logo svg { width: 180px; height: 90px; }
+.nav-link {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.hero {
+  background: var(--navy);
+  padding: 40px 20px 32px;
+  text-align: center;
+}
+.hero-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: 10px;
+}
+.hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(28px, 6vw, 44px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.hero h1 span { color: var(--gold-bright); }
+.hero-sub {
+  color: rgba(255,255,255,0.75);
+  font-size: 15px;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 20px 20px 0;
+}
+.badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(212,160,23,0.4);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+.free-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 16px rgba(12,35,64,0.08);
+}
+
+.form-card h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.form-card .sub {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 420px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input,
+.form-group select {
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: #fff;
+  transition: border-color .15s;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+
+.session-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+@media (max-width: 420px) { .session-cards { grid-template-columns: 1fr; } }
+
+.session-card {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  position: relative;
+}
+.session-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.session-card.selected {
+  border-color: var(--navy);
+  background: rgba(12,35,64,0.04);
+}
+.session-card .s-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.session-card .s-grades {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.session-card .s-time {
+  font-size: 11px;
+  color: #666;
+}
+
+.submit-btn {
+  width: 100%;
+  background: var(--navy);
+  color: var(--gold-bright);
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity .15s;
+}
+.submit-btn:hover { opacity: 0.9; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.no-card-note {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  margin-top: 10px;
+}
+
+/* Success state */
+.success-state { display: none; text-align: center; }
+.success-state h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 28px;
+  color: var(--navy);
+  margin: 20px 0 8px;
+}
+.success-state p { color: #555; font-size: 15px; line-height: 1.6; }
+
+.share-box {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 28px 0 0;
+  text-align: left;
+}
+.share-box h3 {
+  font-family: 'Oswald', sans-serif;
+  color: var(--gold-bright);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.share-box p {
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  text-align: left;
+}
+.share-link-display {
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  color: #fff;
+  word-break: break-all;
+  margin-bottom: 14px;
+  font-family: 'Inter', sans-serif;
+}
+.copy-btn {
+  width: 100%;
+  background: var(--gold-bright);
+  color: var(--navy);
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: opacity .15s;
+}
+.copy-btn:hover { opacity: 0.9; }
+
+.pay-self-btn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  padding: 11px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: border-color .15s;
+}
+.pay-self-btn:hover { border-color: rgba(255,255,255,0.6); }
+
+.copy-confirm {
+  display: none;
+  color: #81c784;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.info-strip {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.info-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #444;
+}
+.info-row strong { color: var(--navy); min-width: 80px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="California Athletic Academy home">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+      <defs><clipPath id="pc"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#pc)"/>
+      <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+      <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+      <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+      <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+      <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND</text>
+    </svg>
+  </a>
+  <a href="/monthly-program" class="nav-link">Register &amp; Pay →</a>
+</nav>
+
+<div class="hero">
+  <p class="hero-label">Monthly Program · Starting November 8th</p>
+  <h1>Reserve Your <span>Spot</span><br>— No Cost to RSVP</h1>
+  <p class="hero-sub">Hold your place in the monthly basketball development program. Pay later yourself or let your community support you.</p>
+  <div class="badge-row">
+    <span class="badge">Grades 4–12</span>
+    <span class="badge">Every Sunday</span>
+    <span class="badge">Rowland Heights</span>
+    <span class="badge">CIF Coaching Staff</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- RSVP Form -->
+  <div id="form-wrap">
+    <div style="text-align:center;margin-bottom:24px;">
+      <span class="free-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+        Free — No Credit Card Required
+      </span>
+    </div>
+
+    <div class="form-card">
+      <h2>RSVP — Hold My Spot</h2>
+      <p class="sub">Submit your info and we'll send you a link you can share with family and friends who want to support your participation.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="First name" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Last name" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="email@example.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="grade">Grade</label>
+        <select id="grade">
+          <option value="" disabled selected>Select grade</option>
+          <option>4th Grade</option>
+          <option>5th Grade</option>
+          <option>6th Grade</option>
+          <option>7th Grade</option>
+          <option>8th Grade</option>
+          <option>9th Grade (Freshman)</option>
+          <option>10th Grade (Sophomore)</option>
+          <option>11th Grade (Junior)</option>
+          <option>12th Grade (Senior)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>Choose Your Session</label>
+      </div>
+      <div class="session-cards">
+        <label class="session-card selected" id="card-s1">
+          <input type="radio" name="session" value="s1" checked>
+          <div class="s-label">Session 1</div>
+          <div class="s-grades">Grades 4th – 8th</div>
+          <div class="s-time">10:00 AM – 12:00 PM</div>
+        </label>
+        <label class="session-card" id="card-s2">
+          <input type="radio" name="session" value="s2">
+          <div class="s-label">Session 2</div>
+          <div class="s-grades">High School</div>
+          <div class="s-time">12:00 PM – 2:00 PM</div>
+        </label>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="submitRsvp()">Reserve My Spot — Free →</button>
+      <p class="no-card-note">No credit card · No commitment · Spot held for 48 hours</p>
+    </div>
+
+    <div class="info-strip">
+      <div class="info-row"><strong>Location</strong><span>Rowland High School Gymnasium, 2000 Otterbein Ave, Rowland Heights CA 91748</span></div>
+      <div class="info-row"><strong>Starts</strong><span>November 8, 2026 — Every Sunday</span></div>
+      <div class="info-row"><strong>Cost</strong><span>$199/month — community support available</span></div>
+    </div>
+  </div>
+
+  <!-- Success state -->
+  <div class="success-state" id="success-state">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" style="width:200px;margin:0 auto 8px;display:block;">
+      <defs><clipPath id="sc"><rect x="85" y="45" width="65" height="230"/></clipPath></defs>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#0C2340"/>
+      <rect x="85" y="45" width="130" height="230" rx="65" fill="#B8860B" clip-path="url(#sc)"/>
+      <text x="250" y="130" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">CALIFORNIA</text>
+      <text x="250" y="170" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ATHLETIC</text>
+      <text x="250" y="210" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#0C2340">ACADEMY</text>
+      <line x1="250" y1="225" x2="496" y2="225" stroke="#B8860B" stroke-width="4"/>
+      <text x="250" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#B8860B">ROWLAND</text>
+    </svg>
+
+    <h2>You're on the List! 🏀</h2>
+    <p id="success-msg">Check your email — we sent your RSVP confirmation and your personal support link.</p>
+
+    <div class="share-box">
+      <h3>Share Your Support Link</h3>
+      <p>Send this link to anyone — a parent, grandparent, aunt, uncle, family friend, or community supporter — who wants to sponsor your spot in the program.</p>
+      <div class="share-link-display" id="share-link-display">Loading…</div>
+      <button class="copy-btn" onclick="copyShareLink()">🔗 Copy My Support Link</button>
+      <a class="pay-self-btn" id="pay-self-link" href="/monthly-program">Or Pay Myself — $199/month →</a>
+      <p class="copy-confirm" id="copy-confirm">✓ Link copied to clipboard!</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let _shareLink = '';
+
+  // Session card toggle
+  document.querySelectorAll('.session-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+
+  async function submitRsvp() {
+    const first = document.getElementById('first-name').value.trim();
+    const last  = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const grade = document.getElementById('grade').value;
+    const session = document.querySelector('input[name="session"]:checked')?.value || 's1';
+
+    if (!first || !last || !email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    try {
+      const res = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName: first, lastName: last, email, grade, session }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Server error');
+
+      _shareLink = data.shareLink;
+
+      // Show success
+      document.getElementById('form-wrap').style.display = 'none';
+      const successEl = document.getElementById('success-state');
+      successEl.style.display = 'block';
+      document.getElementById('success-msg').textContent =
+        `${first}, your spot is held! We sent a confirmation and your support link to ${email}.`;
+      document.getElementById('share-link-display').textContent = _shareLink;
+      document.getElementById('pay-self-link').href =
+        `/monthly-program?first=${encodeURIComponent(first)}&last=${encodeURIComponent(last)}&session=${encodeURIComponent(session)}`;
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Reserve My Spot — Free →';
+      alert('Something went wrong. Please try again or email us directly.');
+    }
+  }
+
+  function copyShareLink() {
+    if (!_shareLink) return;
+    navigator.clipboard.writeText(_shareLink).then(() => {
+      document.getElementById('copy-confirm').style.display = 'block';
+      document.querySelector('.copy-btn').textContent = '✓ Copied!';
+      setTimeout(() => {
+        document.getElementById('copy-confirm').style.display = 'none';
+        document.querySelector('.copy-btn').textContent = '🔗 Copy My Support Link';
+      }, 3000);
+    }).catch(() => {
+      prompt('Copy this link:', _shareLink);
+    });
+  }
+</script>
+</body>
+</html>

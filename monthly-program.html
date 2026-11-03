@@ -768,14 +768,17 @@
   let _shareFirst = '', _shareLast = '', _shareSession = '';
 
   // Auto-show card when returning from Stripe after payment
+  // Also handle sponsor pre-fill: ?sponsor=1&first=X&last=Y&session=s1
   (function() {
     const p = new URLSearchParams(window.location.search);
-    const isPaid = p.get('paid') === '1';
-    const isRsvp = p.get('rsvp') === '1';
+    const isPaid   = p.get('paid')    === '1';
+    const isRsvp   = p.get('rsvp')    === '1';
+    const isSponsor = p.get('sponsor') === '1';
+    const first = p.get('first') || '';
+    const last  = p.get('last')  || '';
+    const sess  = p.get('session') || 's1';
+
     if (isPaid || isRsvp) {
-      const first = p.get('first') || '';
-      const last  = p.get('last')  || '';
-      const sess  = p.get('session') || 's1';
       document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('form-wrap').style.display = 'none';
         document.getElementById('success-state').style.display = 'block';
@@ -788,6 +791,42 @@
             `${first}, your spot is held! Deposit received — balance of $159.20 due at your first session on November 8th.`;
           setTimeout(() => showRsvpCardDirect(first, last, sess), 800);
         }
+      });
+    }
+
+    if (isSponsor && first) {
+      // Community supporter landing — pre-fill athlete name and session, show banner
+      document.addEventListener('DOMContentLoaded', () => {
+        // Pre-fill name fields
+        const fnEl = document.getElementById('first-name');
+        const lnEl = document.getElementById('last-name');
+        if (fnEl) fnEl.value = first;
+        if (lnEl) lnEl.value = last;
+
+        // Select correct session radio
+        const s1Radio = document.querySelector('input[name="session"][value="s1"]');
+        const s2Radio = document.querySelector('input[name="session"][value="s2"]');
+        if (sess === 's2' && s2Radio) {
+          s2Radio.checked = true;
+          document.getElementById('card-s2')?.classList.add('selected');
+          document.getElementById('card-s1')?.classList.remove('selected');
+        } else if (s1Radio) {
+          s1Radio.checked = true;
+          document.getElementById('card-s1')?.classList.add('selected');
+          document.getElementById('card-s2')?.classList.remove('selected');
+        }
+
+        // Insert sponsor banner above the form
+        const banner = document.createElement('div');
+        banner.style.cssText = 'background:#0C2340;color:#fff;border-radius:12px;padding:18px 20px;margin-bottom:20px;text-align:center;';
+        const sessName = sess === 's2' ? 'High School Session' : 'Grades 4–8 Session';
+        banner.innerHTML = `
+          <p style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;color:#D4A017;text-transform:uppercase;margin:0 0 6px;">Community Support</p>
+          <p style="font-size:16px;font-weight:600;margin:0 0 4px;">You're sponsoring <strong style="color:#D4A017;">${first} ${last}</strong></p>
+          <p style="font-size:13px;color:rgba(255,255,255,0.7);margin:0;">${sessName} · $199/month</p>
+        `;
+        const formWrap = document.getElementById('form-wrap');
+        if (formWrap) formWrap.insertBefore(banner, formWrap.firstChild);
       });
     }
   })();
