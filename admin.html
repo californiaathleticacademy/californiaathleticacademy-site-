@@ -499,7 +499,7 @@ function loadContributions() {
   body.innerHTML = '<div class="contrib-loading">Loading…</div>';
   _contribLoaded = false;
 
-  fetch(`/api/get-contributions?password=${encodeURIComponent(savedPassword)}`)
+  fetch(`/api/admin?action=get-contributions&password=${encodeURIComponent(savedPassword)}`)
     .then(r => r.json())
     .then(data => {
       if (!data.players || data.players.length === 0) {
