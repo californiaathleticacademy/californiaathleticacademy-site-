@@ -700,6 +700,36 @@
 </footer>
 
 <script>
+  // ── Event expiration ───────────────────────────────────────────────────────
+  // Set EVENT_DATE to midnight the day AFTER the event so it expires end-of-day.
+  // Format: new Date('YYYY-MM-DDT00:00:00') in local time via explicit parts.
+  (function checkExpired() {
+    const EVENT_END = new Date(2026, 10, 2, 0, 0, 0); // Nov 2 2026 00:00 local = after Nov 1
+    if (Date.now() < EVENT_END.getTime()) return; // still upcoming or same day — show normally
+
+    // Past event — replace main content with "event has passed" message
+    document.addEventListener('DOMContentLoaded', () => {
+      const main = document.querySelector('.main');
+      if (main) {
+        main.innerHTML = `
+          <div style="max-width:520px;margin:0 auto;text-align:center;padding:40px 20px 80px;">
+            <div style="font-size:48px;margin-bottom:16px;">🏀</div>
+            <h2 style="font-family:'Oswald',sans-serif;font-size:28px;color:#0C2340;margin-bottom:10px;letter-spacing:1px;">This Event Has Passed</h2>
+            <p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:28px;">
+              The November 1st Skills Clinic has already taken place. Thank you to everyone who joined us!
+            </p>
+            <a href="/monthly-program" style="display:inline-block;background:#0C2340;color:#D4A017;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;border-radius:10px;text-decoration:none;margin-bottom:12px;">Join the Monthly Program →</a>
+            <br>
+            <a href="/" style="font-size:13px;color:#888;text-decoration:none;">← Back to californiaathleticacademy.com</a>
+          </div>
+        `;
+      }
+      // Also update hero eyebrow
+      const eyebrow = document.querySelector('.eyebrow');
+      if (eyebrow) eyebrow.textContent = '// Event Concluded · November 1, 2026';
+    });
+  })();
+
   let selectedSession = null;
 
   // ── Live spot meter ────────────────────────────────────────────────────────
