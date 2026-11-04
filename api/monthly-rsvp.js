@@ -1,5 +1,5 @@
 // POST /api/monthly-rsvp
-// Creates a Stripe Checkout session for Monthly Program RSVP deposit ($39.80 one-time).
+// Creates a Stripe Checkout session for Monthly Program RSVP deposit ($9.99 one-time).
 // Body: { firstName, lastName, email, session, grade, skillLevel }
 // Requires: STRIPE_SECRET_KEY in Vercel env vars.
 
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   const totalCents = promo
     ? (promo.price ?? Math.round(19900 * (1 - promo.discount)))
     : 19900;
-  const depositCents  = Math.round(totalCents * 0.20);        // 20% deposit
+  const depositCents  = 999;                                   // flat $9.99 deposit
   const balanceCents  = totalCents - depositCents;            // remainder
 
   if (!firstName || !lastName || !email) {
@@ -45,9 +45,9 @@ export default async function handler(req, res) {
         currency: 'usd',
         product_data: {
           name: 'Monthly Program RSVP — California Athletic Academy',
-          description: `20% deposit · ${sessionLabel} · Balance of $${(balanceCents/100).toFixed(2)} due at first session`,
+          description: `$9.99 deposit · ${sessionLabel} · Balance of $${(balanceCents/100).toFixed(2)} due at first session`,
         },
-        unit_amount: depositCents, // 20% of discounted total
+        unit_amount: depositCents, // flat $9.99 deposit
       },
       quantity: 1,
     }],

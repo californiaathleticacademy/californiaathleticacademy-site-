@@ -552,7 +552,7 @@
 
       <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
         <button class="submit-btn" id="submit-btn-full" onclick="submitRegistration('full')">Pay in Full · $199/month →</button>
-        <button class="submit-btn" id="submit-btn-rsvp" onclick="submitRegistration('rsvp')" style="background:#fff;color:#0C2340;border:2px solid #0C2340;">RSVP — Hold My Spot · $39.80 deposit</button>
+        <button class="submit-btn" id="submit-btn-rsvp" onclick="submitRegistration('rsvp')" style="background:#fff;color:#0C2340;border:2px solid #0C2340;">RSVP — Hold My Spot · $9.99 deposit</button>
         <p style="font-size:11px;color:#888;text-align:center;margin:4px 0 0;line-height:1.5;">By submitting an RSVP, you agree that your spot and any contributions raised on your behalf will be forfeited if the remaining balance is not paid in full 24 hours before your first session.</p>
       </div>
     </div>
@@ -666,7 +666,7 @@
       appliedPromo = null;
       msg.style.display = 'none';
       btnFull.textContent = 'Pay in Full · $199/month →';
-      btnRsvp.textContent = 'RSVP — Hold My Spot · $39.80 deposit';
+      btnRsvp.textContent = 'RSVP — Hold My Spot · $9.99 deposit';
       return;
     }
 
@@ -677,12 +677,12 @@
       msg.style.color = '#c0392b';
       msg.textContent = 'Invalid promo code.';
       btnFull.textContent = 'Pay in Full · $199/month →';
-      btnRsvp.textContent = 'RSVP — Hold My Spot · $39.80 deposit';
+      btnRsvp.textContent = 'RSVP — Hold My Spot · $9.99 deposit';
       return;
     }
 
     const fullPrice = promo.price != null ? promo.price.toFixed(2) : (199 * (1 - promo.discount)).toFixed(2);
-    const rsvpPrice = (fullPrice * 0.20).toFixed(2);
+    const rsvpPrice = '9.99';
     const label = promo.price != null ? `$${fullPrice}/month` : `${Math.round(promo.discount * 100)}% off — $${fullPrice}/month`;
 
     appliedPromo = { code };
@@ -760,7 +760,7 @@
       btnFull.disabled = false;
       btnRsvp.disabled = false;
       btnFull.textContent = 'Pay in Full · $199/month →';
-      btnRsvp.textContent = 'RSVP — Hold My Spot · $39.80 deposit';
+      btnRsvp.textContent = 'RSVP — Hold My Spot · $9.99 deposit';
       alert('Something went wrong. Please try again or contact us directly.');
     }
   }
