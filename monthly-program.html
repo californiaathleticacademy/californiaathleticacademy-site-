@@ -477,12 +477,14 @@
       <div class="session-title">Grades 4th – 8th</div>
       <div class="session-time">10:00 AM – 12:00 PM</div>
       <p style="font-size:12px;color:rgba(12,35,64,.45);margin-top:8px">Youth development · Half-court skill training</p>
+      <span id="spots-s1" style="display:none;font-size:11px;font-weight:600;color:#B8860B;margin-top:6px;display:none;"></span>
     </div>
     <div class="session-card" id="card-s2" onclick="selectSession('s2', this)">
       <div class="session-num">Session 2</div>
       <div class="session-title">High School Division</div>
       <div class="session-time">12:00 PM – 2:00 PM</div>
       <p style="font-size:12px;color:rgba(12,35,64,.45);margin-top:8px">Advanced development · Varsity &amp; JV level</p>
+      <span id="spots-s2" style="display:none;font-size:11px;font-weight:600;color:#B8860B;margin-top:6px;display:none;"></span>
     </div>
   </div>
 
@@ -649,6 +651,27 @@
 <script>
   let selectedSession = null;
   let appliedPromo = null; // { code, discount } when a valid promo is applied
+
+  // Show spot count only when ≤ threshold (default 20) spots remain
+  async function fetchSpots() {
+    try {
+      const res = await fetch('/api/spots');
+      if (!res.ok) return;
+      const data = await res.json();
+      ['s1', 's2'].forEach(key => {
+        const info = data[key];
+        const el = document.getElementById('spots-' + key);
+        if (!el || !info) return;
+        if (info.available <= info.threshold) {
+          el.textContent = info.available <= 0
+            ? '⚠ Session full'
+            : `⚡ Only ${info.available} spot${info.available === 1 ? '' : 's'} left`;
+          el.style.display = 'block';
+        }
+      });
+    } catch (e) { /* silent fail — spots badge is cosmetic */ }
+  }
+  fetchSpots();
 
   function applyPromo() {
     // discount: fraction off | price: fixed monthly amount
