@@ -85,27 +85,10 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: data.error?.message || 'Stripe error' });
     }
 
-    // Decrement spot counter for the registered session
-    await decrementSpot(session || 's1');
-
     return res.status(200).json({ url: data.url });
   } catch (err) {
     console.error('monthly-rsvp error:', err);
     return res.status(500).json({ error: 'Failed to create checkout session.' });
-  }
-}
-
-async function decrementSpot(sessionKey) {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
-  if (!url || !token) return;
-  try {
-    await fetch(`${url}/hincrby/spots:${sessionKey}/available/-1`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  } catch (e) {
-    console.error('spot decrement error:', e);
   }
 }
 
