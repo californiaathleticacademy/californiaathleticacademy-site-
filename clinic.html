@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Girls Basketball Clinic Rowland Heights | California Athletic Academy SGV</title>
-<meta name="description" content="Free girls basketball clinic at Rowland High School Gymnasium, Rowland Heights CA. Open to grades 4–12 across the San Gabriel Valley — Hacienda Heights, Walnut, Diamond Bar, West Covina. CIF Southern Section coaching staff.">
+<title>Free Ball Handling & Shooting Clinic Nov 8 | California Athletic Academy Rowland Heights</title>
+<meta name="description" content="Free Ball Handling & Shooting Clinic at Rowland Heights, CA on Saturday November 8, 2026 from 8:30–10:00 AM. Open to grades 4–12. California Athletic Academy — CIF Southern Section coaching staff.">
 <meta name="keywords" content="free basketball clinic Rowland Heights, girls basketball clinic SGV, free youth basketball San Gabriel Valley, basketball clinic Hacienda Heights, girls basketball clinic Walnut CA">
 <meta name="geo.region" content="US-CA">
 <meta name="geo.placename" content="Rowland Heights, California">
@@ -18,8 +18,10 @@
 {
   "@context": "https://schema.org",
   "@type": "SportsEvent",
-  "name": "California Athletic Academy Free Girls Basketball Clinic",
-  "description": "Free girls basketball clinic in Rowland Heights, CA. Open to grades 4–12 from the San Gabriel Valley.",
+  "name": "California Athletic Academy Free Ball Handling & Shooting Clinic",
+  "description": "Free Ball Handling & Shooting Clinic in Rowland Heights, CA on Saturday November 8, 2026 from 8:30–10:00 AM. Open to grades 4–12.",
+  "startDate": "2026-11-08T08:30:00-08:00",
+  "endDate": "2026-11-08T10:00:00-08:00",
   "url": "https://californiaathleticacademy.com/clinic",
   "sport": "Basketball",
   "isAccessibleForFree": true,
@@ -522,14 +524,14 @@
 </nav>
 
 <div class="hero">
-  <p class="eyebrow">// Free Event · November 1, 2026</p>
-  <h1>Girls Basketball<br><span>Skills Clinic</span></h1>
+  <p class="eyebrow">// Free Event · November 8, 2026</p>
+  <h1>Ball Handling<br><span>&amp; Shooting Clinic</span></h1>
   <div class="hero-meta">
-    <span class="hero-meta-item"><strong>Sunday, Nov 1</strong></span>
+    <span class="hero-meta-item"><strong>Saturday, Nov 8</strong></span>
     <span class="dot">·</span>
-    <span class="hero-meta-item">Rowland High School Gymnasium</span>
+    <span class="hero-meta-item">8:30 AM – 10:00 AM</span>
     <span class="dot">·</span>
-    <span class="hero-meta-item">Two Sessions Available</span>
+    <span class="hero-meta-item">Rowland Heights, CA</span>
   </div>
   <span class="free-pill">100% Free — No Cost to Attend</span>
 </div>
@@ -539,25 +541,15 @@
   <!-- Session Selection -->
   <p style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:12px">// Step 1 — Choose Your Session</p>
 
-  <div class="sessions-grid" id="sessions-grid">
-    <div class="session-card" id="card-s1" onclick="selectSession('s1', this)">
+  <div class="sessions-grid" id="sessions-grid" style="grid-template-columns:1fr;max-width:420px;">
+    <div class="session-card selected" id="card-s1" onclick="selectSession('s1', this)">
       <div class="full-overlay">Session Full</div>
-      <div class="session-num">Session 1</div>
-      <div class="session-title">Grades 4th – 8th</div>
-      <div class="session-time">10:00 AM – 12:00 PM</div>
+      <div class="session-num">Open Session</div>
+      <div class="session-title">All Grades Welcome</div>
+      <div class="session-time">8:30 AM – 10:00 AM · Saturday, Nov 8</div>
       <div class="spot-meter-wrap" id="meter-s1">
         <div class="spot-bar-bg"><div class="spot-bar-fill" id="bar-s1" style="width:100%"></div></div>
-        <div class="spot-label" id="label-s1">Limited to 64 athletes</div>
-      </div>
-    </div>
-    <div class="session-card" id="card-s2" onclick="selectSession('s2', this)">
-      <div class="full-overlay">Session Full</div>
-      <div class="session-num">Session 2</div>
-      <div class="session-title">High School Division</div>
-      <div class="session-time">12:00 PM – 2:00 PM</div>
-      <div class="spot-meter-wrap" id="meter-s2">
-        <div class="spot-bar-bg"><div class="spot-bar-fill" id="bar-s2" style="width:100%"></div></div>
-        <div class="spot-label" id="label-s2">Limited to 64 athletes</div>
+        <div class="spot-label" id="label-s1">Limited spots — register to reserve yours</div>
       </div>
     </div>
   </div>
@@ -704,7 +696,7 @@
   // Set EVENT_DATE to midnight the day AFTER the event so it expires end-of-day.
   // Format: new Date('YYYY-MM-DDT00:00:00') in local time via explicit parts.
   (function checkExpired() {
-    const EVENT_END = new Date(2026, 10, 2, 0, 0, 0); // Nov 2 2026 00:00 local = after Nov 1
+    const EVENT_END = new Date(2026, 10, 9, 0, 0, 0); // Nov 9 2026 00:00 local = after Nov 8
     if (Date.now() < EVENT_END.getTime()) return; // still upcoming or same day — show normally
 
     // Past event — replace main content with "event has passed" message
@@ -716,7 +708,7 @@
             <div style="font-size:48px;margin-bottom:16px;">🏀</div>
             <h2 style="font-family:'Oswald',sans-serif;font-size:28px;color:#0C2340;margin-bottom:10px;letter-spacing:1px;">This Event Has Passed</h2>
             <p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:28px;">
-              The November 1st Skills Clinic has already taken place. Thank you to everyone who joined us!
+              The November 8th Ball Handling &amp; Shooting Clinic has already taken place. Thank you to everyone who joined us!
             </p>
             <a href="/monthly-program" style="display:inline-block;background:#0C2340;color:#D4A017;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;border-radius:10px;text-decoration:none;margin-bottom:12px;">Join the Monthly Program →</a>
             <br>
@@ -726,11 +718,11 @@
       }
       // Also update hero eyebrow
       const eyebrow = document.querySelector('.eyebrow');
-      if (eyebrow) eyebrow.textContent = '// Event Concluded · November 1, 2026';
+      if (eyebrow) eyebrow.textContent = '// Event Concluded · November 8, 2026';
     });
   })();
 
-  let selectedSession = null;
+  let selectedSession = 's1'; // Single session — pre-selected
 
   // ── Live spot meter ────────────────────────────────────────────────────────
   (async function loadSpots() {
@@ -738,7 +730,7 @@
       const res = await fetch('/api/spots', { cache: 'no-store' });
       if (!res.ok) return;
       const data = await res.json();
-      ['s1', 's2'].forEach(s => {
+      ['s1'].forEach(s => {
         const d = data[s];
         if (!d) return;
         const card   = document.getElementById('card-' + s);
@@ -796,9 +788,7 @@
       return;
     }
 
-    const sessionLabel = selectedSession === 's1'
-      ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
-      : 'Session 2: High School Division (12:00 PM – 2:00 PM)';
+    const sessionLabel = 'Ball Handling & Shooting Clinic (8:30 AM – 10:00 AM)';
 
     const btn = document.getElementById('submit-btn');
     btn.disabled = true;
@@ -822,7 +812,7 @@
         document.getElementById('form-wrap').style.display = 'none';
         document.getElementById('success-state').style.display = 'block';
         document.getElementById('success-msg').textContent =
-          `${firstName}, your spot in ${sessionLabel} is confirmed. See you November 1st at Rowland High School Gymnasium!`;
+          `${firstName}, your spot in ${sessionLabel} is confirmed. See you November 8th at Rowland High School Gymnasium!`;
         // Slide in committed card after a beat
         setTimeout(() => showCommittedCard(firstName, lastName, selectedSession), 1600);
       } else {
@@ -840,7 +830,7 @@
   function showCommittedCard(first, last, session) {
     _shareFirst = first; _shareLast = last; _shareSession = session;
     const name  = (first + ' ' + last).toUpperCase();
-    const level = session === 's1' ? 'Grades 4–8' : 'High School';
+    const level = 'Nov 8 Clinic';
     document.getElementById('cc-name').textContent  = name;
     document.getElementById('cc-level').textContent = level;
     const card = document.getElementById('committed-card');
@@ -854,7 +844,7 @@
 
   function showRsvpCard() {
     const name  = (_shareFirst + ' ' + _shareLast).toUpperCase();
-    const level = _shareSession === 's1' ? 'Grades 4–8' : 'High School';
+    const level = 'Nov 8 Clinic';
     document.getElementById('rsvp-name').textContent  = name;
     document.getElementById('rsvp-level').textContent = level;
     document.getElementById('share-prompt').style.display = 'none';
