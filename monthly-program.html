@@ -601,43 +601,6 @@
         </div>
       </div>
 
-      <!-- Share prompt — appears after committed card -->
-      <div class="share-prompt" id="share-prompt">
-        <button class="share-trigger-btn" onclick="showRsvpCard()">📲 Get Your Shareable Card</button>
-        <p class="share-hint-text">Send to friends &amp; family to help cover your spot</p>
-      </div>
-
-      <!-- RSVP Card (shareable) -->
-      <div class="rsvp-card-wrap" id="rsvp-card">
-        <div class="cc-body">
-          <div class="cc-header">
-            <div>
-              <p class="cc-org">California Athletic Academy</p>
-              <p class="cc-loc">Rowland Heights, CA</p>
-            </div>
-            <span class="cc-official">Official</span>
-          </div>
-          <div class="cc-stars">
-            <span class="cc-star">★</span><span class="cc-star">★</span><span class="cc-star">★</span><span class="cc-star">★</span><span class="cc-star">★</span>
-          </div>
-          <p class="cc-player-name" id="rsvp-name">PLAYER NAME</p>
-          <p class="cc-sport">Girls Basketball Development Monthly Program</p>
-          <div class="cc-level-wrap"><span class="cc-level" id="rsvp-level">Monthly Program</span></div>
-          <div class="cc-committed-wrap">
-            <p class="rsvp-text">RSVP</p>
-            <p class="cc-season">2026 – 2027 Season</p>
-          </div>
-          <p class="rsvp-tagline">Help me get on the court — any amount makes a difference.</p>
-          <p style="font-size:9px;color:rgba(255,255,255,0.45);text-align:center;margin:8px 0 0;line-height:1.5;padding:0 8px;">Balance of $159.20 due 24 hrs before session · Spot forfeited if unpaid</p>
-          <p class="cc-url">californiaathleticacademy.com · @californiaathleticacademy</p>
-        </div>
-        <div class="cc-footer">
-          <span>California Athletic Academy</span>
-          <span>Pure Development.</span>
-        </div>
-      </div>
-      <button class="copy-link-btn" id="copy-link-btn" style="display:none" onclick="copyLink()">🔗 Copy My Support Link</button>
-      <p class="copy-confirm" id="copy-confirm">✓ Link copied! Share it with friends &amp; family.</p>
 
     </div>
   </div>
@@ -812,7 +775,7 @@
         } else {
           document.getElementById('success-msg').textContent =
             `${first}, your spot is held! Deposit received — balance of $159.20 due at your first session on November 8th.`;
-          setTimeout(() => showRsvpCardDirect(first, last, sess), 800);
+          // no shareable card for free registrations
         }
       });
     }
@@ -863,46 +826,6 @@
     const card = document.getElementById('committed-card');
     card.style.display = 'block';
     card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    setTimeout(() => {
-      document.getElementById('share-prompt').style.display = 'block';
-    }, 800);
-  }
-
-  function showRsvpCardDirect(first, last, session) {
-    _shareFirst = first; _shareLast = last; _shareSession = session;
-    const name  = (first + ' ' + last).toUpperCase();
-    const level = session === 's1' ? 'Grades 4–8' : 'High School';
-    document.getElementById('rsvp-name').textContent  = name;
-    document.getElementById('rsvp-level').textContent = level;
-    const card = document.getElementById('rsvp-card');
-    card.style.display = 'block';
-    document.getElementById('copy-link-btn').style.display = 'block';
-    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  function showRsvpCard() {
-    const name  = (_shareFirst + ' ' + _shareLast).toUpperCase();
-    const level = _shareSession === 's1' ? 'Grades 4–8' : 'High School';
-    document.getElementById('rsvp-name').textContent  = name;
-    document.getElementById('rsvp-level').textContent = level;
-    document.getElementById('share-prompt').style.display = 'none';
-    const rsvp = document.getElementById('rsvp-card');
-    rsvp.style.display = 'block';
-    document.getElementById('copy-link-btn').style.display = 'block';
-    rsvp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  function copyLink() {
-    const player = encodeURIComponent(_shareFirst + ' ' + _shareLast);
-    const url = `https://californiaathleticacademy.com/support?player=${player}&event=monthly-program`;
-    navigator.clipboard.writeText(url).then(() => {
-      document.getElementById('copy-confirm').style.display = 'block';
-      document.getElementById('copy-link-btn').textContent = '✓ Link Copied!';
-      setTimeout(() => {
-        document.getElementById('copy-link-btn').textContent = '🔗 Copy My Support Link';
-        document.getElementById('copy-confirm').style.display = 'none';
-      }, 3000);
-    }).catch(() => { prompt('Copy this link:', url); });
   }
 </script>
 </body>
