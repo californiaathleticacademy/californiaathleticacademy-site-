@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${process.env.Resend_API_KEY || process.env.Resend_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -83,7 +83,7 @@ export default async function handler(req, res) {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${process.env.Resend_API_KEY || process.env.Resend_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

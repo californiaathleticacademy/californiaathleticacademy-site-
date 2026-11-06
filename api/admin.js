@@ -101,7 +101,7 @@ export default async function handler(req, res) {
     // ── send-rsvp-reminders ──────────────────────────────────────────────────
     if (action === 'send-rsvp-reminders') {
       const stripeKey = process.env.STRIPE_SECRET_KEY;
-      const resendKey = process.env.RESEND_API_KEY;
+      const resendKey = process.env.Resend_API_KEY || process.env.Resend_KEY;
       if (!stripeKey || !resendKey) return res.status(500).json({ error: 'Missing env vars.' });
 
       const nowPT = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));

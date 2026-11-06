@@ -99,7 +99,7 @@ export default async function handler(req, res) {
     </div>
   `;
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.Resend_API_KEY || process.env.Resend_KEY;
   if (!apiKey) return res.status(500).json({ error: 'Email not configured.' });
 
   try {
