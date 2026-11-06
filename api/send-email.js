@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'California Athletic Academy <noreply@californiaathleticacademy.com>',
-        to: to || 'Quentincarr@gmail.com',
+        to: to || 'qcarr@rowlandschools.org',
         subject,
         html
       })

@@ -121,7 +121,7 @@ export default async function handler(req, res) {
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: 'California Athletic Academy <noreply@californiaathleticacademy.com>',
-        to: 'Quentincarr@gmail.com',
+        to: 'qcarr@rowlandschools.org',
         subject: `New RSVP — ${firstName} ${lastName} (${sessionLabel.split(':')[0]})`,
         html: adminHtml,
       }),
