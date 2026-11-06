@@ -640,12 +640,13 @@ document.getElementById('workout-form').addEventListener('submit', async functio
       document.getElementById('form-wrap').style.display = 'none';
       document.getElementById('success-state').style.display = 'block';
     } else {
-      throw new Error('Send failed');
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error || 'Send failed');
     }
-  } catch {
+  } catch (err) {
     btn.disabled = false;
     btn.textContent = 'Secure My Free Workout';
-    alert('Something went wrong — please try again or contact us directly.');
+    alert('Something went wrong: ' + (err.message || 'Unknown error') + '\n\nPlease try again or contact us directly.');
   }
 });
 </script>
