@@ -28,9 +28,7 @@ export default async function handler(req, res) {
     ? 'Monthly Program — Every Sunday · Starting November 8th'
     : 'Girls Basketball Skills Clinic';
 
-  const sessionLabel = session === 's1'
-    ? 'Session 1: Grades 4th–8th (10:00 AM – 12:00 PM)'
-    : 'Session 2: High School Division (12:00 PM – 2:00 PM)';
+  const sessionLabel = 'Ball Handling & Shooting Clinic — Grades 4th–12th (8:30 AM – 10:00 AM)';
 
   const timestamp = new Date().toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles',
