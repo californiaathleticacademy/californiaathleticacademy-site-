@@ -596,6 +596,10 @@
           </select>
         </div>
       </div>
+      <div class="form-group">
+        <label for="school">School <span style="color:var(--gold)">*</span></label>
+        <input type="text" id="school" placeholder="Enter athlete's school name" required>
+      </div>
       <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">
         Secure My Spot →
       </button>
@@ -777,6 +781,7 @@
     const email     = document.getElementById('email').value.trim();
     const phone     = document.getElementById('phone').value.trim();
     const grade     = document.getElementById('grade').value;
+    const school    = document.getElementById('school').value.trim();
 
     if (!selectedSession) {
       document.getElementById('session-error').style.display = 'block';
@@ -785,6 +790,10 @@
     }
     if (!firstName || !lastName || !email) {
       alert('Please fill in your name and email.');
+      return;
+    }
+    if (!school) {
+      alert('Please enter the athlete\'s school name.');
       return;
     }
 
@@ -804,6 +813,7 @@
           email,
           phone,
           grade,
+          school,
           session: selectedSession,
         })
       });
