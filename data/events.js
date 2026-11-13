@@ -75,10 +75,10 @@ export const events = [
 
   {
     id: "coed-nov-15", slug: "coed-nov-15",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, November 15th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-11-15", displayDate: "Saturday, November 15, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, November 15th",
+    badge: "$50 / Session",
+    date: "2026-11-15", displayDate: "Sunday, November 15, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -92,10 +92,10 @@ export const events = [
 
   {
     id: "coed-nov-22", slug: "coed-nov-22",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, November 22nd",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-11-22", displayDate: "Saturday, November 22, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, November 22nd",
+    badge: "$50 / Session",
+    date: "2026-11-22", displayDate: "Sunday, November 22, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -109,10 +109,10 @@ export const events = [
 
   {
     id: "coed-nov-29", slug: "coed-nov-29",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, November 29th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-11-29", displayDate: "Saturday, November 29, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, November 29th",
+    badge: "$50 / Session",
+    date: "2026-11-29", displayDate: "Sunday, November 29, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -126,10 +126,10 @@ export const events = [
 
   {
     id: "coed-dec-6", slug: "coed-dec-6",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, December 6th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-12-06", displayDate: "Saturday, December 6, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, December 6th",
+    badge: "$50 / Session",
+    date: "2026-12-06", displayDate: "Sunday, December 6, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -143,10 +143,10 @@ export const events = [
 
   {
     id: "coed-dec-13", slug: "coed-dec-13",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, December 13th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-12-13", displayDate: "Saturday, December 13, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, December 13th",
+    badge: "$50 / Session",
+    date: "2026-12-13", displayDate: "Sunday, December 13, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -160,10 +160,10 @@ export const events = [
 
   {
     id: "coed-dec-20", slug: "coed-dec-20",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, December 20th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-12-20", displayDate: "Saturday, December 20, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, December 20th",
+    badge: "$50 / Session",
+    date: "2026-12-20", displayDate: "Sunday, December 20, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -177,10 +177,10 @@ export const events = [
 
   {
     id: "coed-dec-27", slug: "coed-dec-27",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, December 27th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2026-12-27", displayDate: "Saturday, December 27, 2026",
+    name: "1-Day Pass",
+    subtitle: "Sunday, December 27th",
+    badge: "$50 / Session",
+    date: "2026-12-27", displayDate: "Sunday, December 27, 2026",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -194,10 +194,10 @@ export const events = [
 
   {
     id: "coed-jan-3", slug: "coed-jan-3",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, January 3rd",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2027-01-03", displayDate: "Saturday, January 3, 2027",
+    name: "1-Day Pass",
+    subtitle: "Sunday, January 3rd",
+    badge: "$50 / Session",
+    date: "2027-01-03", displayDate: "Sunday, January 3, 2027",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -211,10 +211,10 @@ export const events = [
 
   {
     id: "coed-jan-10", slug: "coed-jan-10",
-    name: "Co-Ed Training — 1-Day Pass",
-    subtitle: "Saturday, January 10th",
-    badge: "$50 / Session · Use Code RUSD for 50% Off",
-    date: "2027-01-10", displayDate: "Saturday, January 10, 2027",
+    name: "1-Day Pass",
+    subtitle: "Sunday, January 10th",
+    badge: "$50 / Session",
+    date: "2027-01-10", displayDate: "Sunday, January 10, 2027",
     location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
     allowRSVP: true, allowFundraising: false, allowMerch: false,
     sessions: [
@@ -234,7 +234,7 @@ export const events = [
   //   subtitle: "Competitive Skills Development",
   //   badge:    "Limited Enrollment",
   //   date:     "2027-03-15",
-  //   displayDate: "Saturday, March 15, 2027",
+  //   displayDate: "Sunday, March 15, 2027",
   //   location: "Rowland High School Gymnasium",
   //   locationDetail: "Rowland Heights, CA",
   //   allowRSVP:        true,
