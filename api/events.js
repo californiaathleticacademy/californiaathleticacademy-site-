@@ -37,6 +37,7 @@ export default async function handler(req, res) {
     allowRSVP:        e.allowRSVP,
     allowFundraising: e.allowFundraising,
     allowMerch:       e.allowMerch,
+    fees:             e.fees,
   }));
 
   return res.status(200).json(upcoming);
