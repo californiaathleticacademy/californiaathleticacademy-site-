@@ -834,9 +834,12 @@ async function submitRegistration() {
       if (EVENT.fees && EVENT.fees.registration > 0 && EVENT.fees.stripeLink) {
         btn.textContent = 'Redirecting to payment…';
         // Pre-fill the athlete's email on the Stripe checkout page
+        // client_reference_id format: {slug}|{sessionId}|{firstName} {lastName}
+        // The webhook parses this to know which KV counter to decrement.
+        const refId = EVENT.slug + '|' + selectedSession + '|' + firstName + ' ' + lastName;
         const stripeUrl = EVENT.fees.stripeLink +
           '?prefilled_email=' + encodeURIComponent(email) +
-          '&client_reference_id=' + encodeURIComponent(EVENT.slug + '-' + firstName + '-' + lastName);
+          '&client_reference_id=' + encodeURIComponent(refId);
         window.location.href = stripeUrl;
         return;
       }
