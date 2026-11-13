@@ -824,6 +824,17 @@ async function submitRegistration() {
     });
 
     if (res.ok) {
+      // Paid events: redirect to Stripe after notification email is sent
+      if (EVENT.fees && EVENT.fees.registration > 0 && EVENT.fees.stripeLink) {
+        btn.textContent = 'Redirecting to payment…';
+        // Pre-fill the athlete's email on the Stripe checkout page
+        const stripeUrl = EVENT.fees.stripeLink +
+          '?prefilled_email=' + encodeURIComponent(email) +
+          '&client_reference_id=' + encodeURIComponent(EVENT.slug + '-' + firstName + '-' + lastName);
+        window.location.href = stripeUrl;
+        return;
+      }
+
       document.getElementById('form-wrap').style.display = 'none';
       document.getElementById('success-state').style.display = 'block';
       document.getElementById('success-msg').textContent =
