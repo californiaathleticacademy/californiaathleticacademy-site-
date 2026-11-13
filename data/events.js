@@ -71,6 +71,161 @@ export const events = [
     emailTo: "Quentincarr@gmail.com",
   },
 
+  // ── CO-ED TRAINING — 1-DAY PASS ─────────────────────────────────────────────
+
+  {
+    id: "coed-nov-15", slug: "coed-nov-15",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, November 15th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-11-15", displayDate: "Saturday, November 15, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-nov-22", slug: "coed-nov-22",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, November 22nd",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-11-22", displayDate: "Saturday, November 22, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-nov-29", slug: "coed-nov-29",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, November 29th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-11-29", displayDate: "Saturday, November 29, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-dec-6", slug: "coed-dec-6",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, December 6th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-12-06", displayDate: "Saturday, December 6, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-dec-13", slug: "coed-dec-13",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, December 13th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-12-13", displayDate: "Saturday, December 13, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-dec-20", slug: "coed-dec-20",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, December 20th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-12-20", displayDate: "Saturday, December 20, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-dec-27", slug: "coed-dec-27",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, December 27th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2026-12-27", displayDate: "Saturday, December 27, 2026",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-jan-3", slug: "coed-jan-3",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, January 3rd",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2027-01-03", displayDate: "Saturday, January 3, 2027",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
+  {
+    id: "coed-jan-10", slug: "coed-jan-10",
+    name: "Co-Ed Training — 1-Day Pass",
+    subtitle: "Saturday, January 10th",
+    badge: "$50 / Session · Use Code RUSD for 50% Off",
+    date: "2027-01-10", displayDate: "Saturday, January 10, 2027",
+    location: "Rowland High School Gymnasium", locationDetail: "Rowland Heights, CA",
+    allowRSVP: true, allowFundraising: false, allowMerch: false,
+    sessions: [
+      { id: "s1", label: "Session 1", grade: "Grades 4th – 12th", time: "10:00 AM – 12:00 PM" },
+      { id: "s2", label: "Session 2", grade: "Grades 4th – 12th", time: "12:00 PM – 2:00 PM" },
+    ],
+    fees: { registration: 50, earlyBird: null, earlyBirdDeadline: null, stripeLink: null },
+    fundraising: null, merch: { items: [] },
+    emailTo: "qcarr@rowlandschools.org",
+  },
+
   // ── ADD FUTURE EVENTS BELOW ─────────────────────────────────────────────────
   // {
   //   id:       "camp-spring-2027",
