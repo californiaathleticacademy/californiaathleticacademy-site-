@@ -468,6 +468,10 @@ footer a { color:var(--gold); text-decoration:none; }
             <option>12th Grade (Senior)</option>
           </select>
         </div>
+        <div class="form-group">
+          <label for="school">School Attending <span style="color:var(--gold)">*</span></label>
+          <input type="text" id="school" placeholder="Athlete's current school" autocomplete="organization" required>
+        </div>
         <button class="submit-btn" id="submit-btn" onclick="submitRegistration()">Secure My Spot →</button>
       </div>
 
@@ -784,6 +788,7 @@ async function submitRegistration() {
   const email     = document.getElementById('email').value.trim();
   const phone     = document.getElementById('phone').value.trim();
   const grade     = document.getElementById('grade').value;
+  const school    = document.getElementById('school').value.trim();
 
   if (!selectedSession) {
     document.getElementById('session-error').style.display = 'block';
@@ -817,6 +822,7 @@ async function submitRegistration() {
           <p style="font-family:Arial,sans-serif"><strong>Athlete:</strong> ${firstName} ${lastName}</p>
           <p style="font-family:Arial,sans-serif"><strong>Session:</strong> ${sessionLabel}</p>
           <p style="font-family:Arial,sans-serif"><strong>Grade:</strong> ${grade || 'Not specified'}</p>
+          <p style="font-family:Arial,sans-serif"><strong>School:</strong> ${school || 'Not provided'}</p>
           <p style="font-family:Arial,sans-serif"><strong>Parent Email:</strong> ${email}</p>
           <p style="font-family:Arial,sans-serif"><strong>Parent Phone:</strong> ${phone || 'Not provided'}</p>
         `
