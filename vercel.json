@@ -8,5 +8,6 @@
     { "source": "/event",   "destination": "/event.html"   },
     { "source": "/support", "destination": "/support.html" },
     { "source": "/my-card", "destination": "/my-card.html" },
-    { "source": "/free-workout", "destination": "/free-workout.html" }
+    { "source": "/free-workout", "destination": "/free-workout.html" },
+    { "source": "/coed-:date",  "destination": "/event.html" }
   ]}
